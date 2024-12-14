@@ -31,7 +31,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	renderingEngine.Init();
 	g_renderingEngine = &renderingEngine;
 
-	
+	g_renderingEngine->DisableCenterBlur();
+
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	Game* m_game = NewGO<Game>(0, "game");
 	//
