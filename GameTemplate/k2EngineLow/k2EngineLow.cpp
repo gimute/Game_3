@@ -9,6 +9,7 @@ namespace nsK2EngineLow {
 	//í«â¡ÇµÇΩÉRÅ[Éh
 	SceneLight* g_sceneLight = nullptr;
 	RenderingEngine* g_renderingEngine = nullptr;
+	CollisionObjectManager* g_collisionObjectManager = nullptr;
 	//
 
 	K2EngineLow::~K2EngineLow()

@@ -1,6 +1,9 @@
 #pragma once
 //プレイヤークラス
 
+#include "EnPlayerState.h"
+#include "PlayerStateManager.h"
+
 class Player : public IGameObject
 {
 public:
@@ -9,15 +12,21 @@ public:
 	bool Start();
 	void Update();
 
+	Vector3 GetPosition()
+	{
+		return m_position;
+	}
+
+	ModelRender* GetModel()
+	{
+		return &m_playerModel;
+	}
+
 	/// <summary>
 	/// アニメーションの初期化
 	/// </summary>
 	void InitAnimation();
 
-	void PlayerModelUpdate();
-	void Move();
-	void Rotation();
-	void PlayAnimation();
 
 	void Render(RenderContext& rc);
 
@@ -25,15 +34,13 @@ public:
 	enum EnAnimationClip {
 		enAnimationClip_Idle,	//待機アニメーション
 		enAnimationClip_Walk,	//歩行アニメーション
-		enAnimationClip_Backflip,
+		enAnimationClip_Slash,	//斬撃モーション
+		enAnimationClip_Guard,	//ガードモーション
+		enAnimationClip_Backflip,	//バク転?のモーション
 		enAnimationClip_Num	//アニメーションの数
 	};
 
-	enum EnPlayerState {
-		enIdle,		//待機
-		enWalk,		//歩き
-		enBackDodge		//後ろ回避
-	};
+	
 
 private:
 	ModelRender m_playerModel;		//プレイヤーのモデル
@@ -46,5 +53,6 @@ private:
 	Vector3 m_moveVec = Vector3::Zero;	//プレイヤーの移動ベクトル
 	Quaternion m_rotation;	//プレイヤーの回転
 
+	PlayerStateManager m_playerStateManager;
 };
 

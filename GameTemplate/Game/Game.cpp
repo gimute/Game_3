@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "BackGround.h"
+#include "GameCamera.h"
 
 Game::Game()
 {
@@ -20,7 +21,9 @@ bool Game::Start()
 
 	m_background = NewGO<BackGround>(0, "background");
 
-	
+	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
+
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	return true;
 }

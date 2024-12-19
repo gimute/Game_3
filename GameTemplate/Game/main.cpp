@@ -31,6 +31,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	renderingEngine.Init();
 	g_renderingEngine = &renderingEngine;
 
+	CollisionObjectManager m_collisionObjectManager;
+	g_collisionObjectManager = &m_collisionObjectManager;
+
 	g_renderingEngine->DisableCenterBlur();
 
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();

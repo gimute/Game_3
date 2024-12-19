@@ -92,8 +92,6 @@ static const int MAX_BONE = 512;	// ボーンの最大数。
 #include "RenderingEngine.h"
 #include "PointLight.h"
 #include "SpotLight.h"
-
-//後でポイント、スポットライトの奴に置き換える
 #include "VolumePointLight.h"
 #include "VolumeSpotLight.h"
 
@@ -116,6 +114,10 @@ static const int MAX_BONE = 512;	// ボーンの最大数。
 
 #include "gameObject/GameObjectManager.h"
 #include "gameObject/IGameObject.h"
+
+//追加した奴
+#include "CollisionObject.h"
+//
 
 #include <windows.h>
 #include <xaudio2.h>

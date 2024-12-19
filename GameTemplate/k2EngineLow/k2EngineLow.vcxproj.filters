@@ -267,7 +267,10 @@
     <ClCompile Include="VolumeSpotLight.cpp">
       <Filter>graphics\light</Filter>
     </ClCompile>
-    <ClCompile Include="CenterBlur.cpp" />
+    <ClCompile Include="CenterBlur.cpp">
+      <Filter>graphics\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="k2EngineLowPreCompile.h" />
@@ -590,7 +593,10 @@
     <ClInclude Include="VolumeSpotLight.h">
       <Filter>graphics\light</Filter>
     </ClInclude>
-    <ClInclude Include="CenterBlur.h" />
+    <ClInclude Include="CenterBlur.h">
+      <Filter>graphics\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="graphics">
