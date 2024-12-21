@@ -11,12 +11,13 @@ class PlayerStateAttack : public IPlayerState
 {
 public:
 
+	void Start(Player* player)override;
 	void AnimationPlay(ModelRender& model) override;
 	EnPlayerState StateTransition() override;
 	void Collision(const Vector3& pos, ModelRender& model) override;
 
 
 private:
-	bool animationFlag = false;
+	bool m_animationPlay = true;
 };
 

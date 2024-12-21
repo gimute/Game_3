@@ -13,7 +13,7 @@ void PlayerStateGuard::Start(Player* player)
 	m_guardCollision = NewGO<CollisionObject>(0);
 
 	Vector3 collisionPos = player->GetPosition();
-	collisionPos += m_playerForward * 30.0f;
+	collisionPos += (m_playerForward * 30.0f) + (Vector3::Up * 50.0f);
 
 	m_guardCollision->CreateBox(collisionPos, Quaternion::Identity, Vector3(70.0f, 150.0f, 30.0f));
 	m_guardCollision->SetIsEnableAutoDelete(false);
@@ -72,9 +72,19 @@ void PlayerStateGuard::AnimationPlay(ModelRender& model)
 
 EnPlayerState PlayerStateGuard::StateTransition()
 {
-	if (g_pad[0]->IsTrigger(enButtonX))
+	/*if (g_pad[0]->IsTrigger(enButtonX))
 	{
 		return enBackflip;
+	}
+
+	if (g_pad[0]->IsTrigger(enButtonY))
+	{
+		return enSideDodge;
+	}*/
+
+	if (g_pad[0]->IsTrigger(enButtonB))
+	{
+		return enDodge;
 	}
 
 	if (g_pad[0]->IsTrigger(enButtonA))

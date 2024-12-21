@@ -4,6 +4,11 @@
 
 
 
+void PlayerStateAttack::Start(Player* player)
+{
+	m_animationPlay = true;
+}
+
 void PlayerStateAttack::AnimationPlay(ModelRender& model)
 {
 	if (model.IsPlayingAnimation())
@@ -15,20 +20,21 @@ void PlayerStateAttack::AnimationPlay(ModelRender& model)
 	}
 	else
 	{
-		animationFlag = true;
+		m_animationPlay = false;
 	}
 }
 
 EnPlayerState PlayerStateAttack::StateTransition()
 {
-	if (animationFlag)
+	if (m_animationPlay)
 	{
-		animationFlag = false;
-		return enIdle;
-		
+		return enAttack;	
 	}
-
-	return enAttack;
+	else
+	{
+		return enIdle;
+	}
+	
 }
 
 void PlayerStateAttack::Collision(const Vector3& pos, ModelRender& model)

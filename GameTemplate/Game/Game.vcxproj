@@ -230,7 +230,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
-    <ClCompile Include="PlayerStateBackflip.cpp" />
+    <ClCompile Include="PlayerStateDodge.cpp" />
     <ClCompile Include="PlayerStateGuard.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
     <ClCompile Include="PlayerStateManager.cpp" />
@@ -250,7 +250,7 @@
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStateAttack.h" />
-    <ClInclude Include="PlayerStateBackflip.h" />
+    <ClInclude Include="PlayerStateDodge.h" />
     <ClInclude Include="PlayerStateGuard.h" />
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateManager.h" />

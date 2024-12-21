@@ -41,7 +41,7 @@
     <ClCompile Include="PlayerStateAttack.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStateBackflip.cpp">
+    <ClCompile Include="PlayerStateDodge.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,7 +75,7 @@
     <ClInclude Include="PlayerStateAttack.h">
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStateBackflip.h">
+    <ClInclude Include="PlayerStateDodge.h">
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>

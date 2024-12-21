@@ -14,8 +14,10 @@ Player::~Player()
 
 bool Player::Start()
 {
+	//ステートマネージャー初期化
 	m_playerStateManager.Init(this);
 
+	//アニメーションの初期化
 	InitAnimation();
 
 	//プレイヤーモデルの初期化
@@ -47,6 +49,12 @@ void Player::InitAnimation()
 	//バク転アニメーション
 	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/test_player/backflip.tka");
 	m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);
+	//左回避アニメーション
+	m_animationClips[enAnimationClip_DodgeLeft].Load("Assets/animData/test_player/DodgeLeft.tka");
+	m_animationClips[enAnimationClip_DodgeLeft].SetLoopFlag(false);
+	//右回避アニメーション
+	m_animationClips[enAnimationClip_DodgeRight].Load("Assets/animData/test_player/DodgeRight.tka");
+	m_animationClips[enAnimationClip_DodgeRight].SetLoopFlag(false);
 
 }
 
@@ -66,15 +74,6 @@ void Player::Update()
 	m_playerStateManager.Collision(m_position, m_playerModel);
 
 	m_playerStateManager.SetState(m_playerStateManager.StateTransition());
-
-	/*if (fabsf(g_pad[0]->GetLStickXF()) > 0.001f || fabsf(g_pad[0]->GetLStickYF()) > 0.001f)
-	{
-		m_state = &m_stateWalk;
-	}
-	else
-	{
-		m_state = &m_stateIdle;
-	}*/
 }
 
 

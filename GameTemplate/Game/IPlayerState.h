@@ -17,7 +17,7 @@ class Player;
 class IPlayerState
 {
 public:
-	//ステートに遷移するときに行う処理
+	//そのステートに遷移するときに行う処理
 	virtual void Start(Player* player) {};
 	//他のステートに遷移するときに行う処理
 	virtual void End(Player* player) {};

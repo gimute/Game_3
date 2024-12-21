@@ -6,8 +6,7 @@
 #include "PlayerStateWalk.h"
 #include "PlayerStateAttack.h"
 #include "PlayerStateGuard.h"
-#include "PlayerStateBackflip.h"
-
+#include "PlayerStateDodge.h"
 
 class Player;
 
@@ -55,7 +54,7 @@ private:
 	PlayerStateWalk m_stateWalk;
 	PlayerStateAttack m_stateAttack;
 	PlayerStateGuard m_stateGuard;
-	PlayerStateBackflip m_stateBackflip;
+	PlayerStateDodge m_stateDodge;
 
 	EnPlayerState m_nowState;
 

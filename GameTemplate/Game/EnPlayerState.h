@@ -7,5 +7,5 @@ enum EnPlayerState {
 	enWalk,		//•à‚«
 	enAttack,	//UŒ‚
 	enGuard,	//ƒK[ƒh
-	enBackflip		//Œã‚ë‰ñ”ğ
+	enDodge		//‰ñ”ğ
 };

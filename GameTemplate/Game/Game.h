@@ -14,8 +14,15 @@ public:
 	void Render(RenderContext& rc);
 
 private:
-	Player* m_player;
-	BackGround* m_background;
-	GameCamera* m_gameCamera;
+	/// <summary>
+	/// ゲームオブジェクトの生成
+	/// </summary>
+	void CreateGameObject();
+
+
+private:
+	Player* m_player;			//プレイヤー
+	BackGround* m_background;	//バックグラウンド
+	GameCamera* m_gameCamera;	//ゲームカメラ
 };
 

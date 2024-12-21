@@ -12,11 +12,19 @@ public:
 	bool Start();
 	void Update();
 
-	Vector3 GetPosition()
+	/// <summary>
+	/// プレイヤーのポジションを取得
+	/// </summary>
+	/// <returns></returns>
+	const Vector3& GetPosition()
 	{
 		return m_position;
 	}
 
+	/// <summary>
+	/// プレイヤーのモデルレンダーを取得
+	/// </summary>
+	/// <returns></returns>
 	ModelRender* GetModel()
 	{
 		return &m_playerModel;
@@ -27,7 +35,10 @@ public:
 	/// </summary>
 	void InitAnimation();
 
-
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	/// <param name="rc"></param>
 	void Render(RenderContext& rc);
 
 	//アニメーションクリップのアニメーション指定用のenum
@@ -36,7 +47,9 @@ public:
 		enAnimationClip_Walk,	//歩行アニメーション
 		enAnimationClip_Slash,	//斬撃モーション
 		enAnimationClip_Guard,	//ガードモーション
-		enAnimationClip_Backflip,	//バク転?のモーション
+		enAnimationClip_Backflip,	//バク転のモーション
+		enAnimationClip_DodgeLeft,	//左回避
+		enAnimationClip_DodgeRight,	//右回避
 		enAnimationClip_Num	//アニメーションの数
 	};
 
@@ -53,6 +66,6 @@ private:
 	Vector3 m_moveVec = Vector3::Zero;	//プレイヤーの移動ベクトル
 	Quaternion m_rotation;	//プレイヤーの回転
 
-	PlayerStateManager m_playerStateManager;
+	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
 };
 

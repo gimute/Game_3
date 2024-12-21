@@ -41,13 +41,13 @@ void PlayerStateManager::SetState(EnPlayerState state)
 			m_state->Start(m_player);
 			break;
 
-		case enBackflip:
-			m_state = &m_stateBackflip;
+		case enGuard:
+			m_state = &m_stateGuard;
 			m_state->Start(m_player);
 			break;
 
-		case enGuard:
-			m_state = &m_stateGuard;
+		case enDodge:
+			m_state = &m_stateDodge;
 			m_state->Start(m_player);
 			break;
 
