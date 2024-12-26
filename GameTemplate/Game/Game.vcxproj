@@ -224,8 +224,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyStateIdle.cpp" />
+    <ClCompile Include="EnemyStateManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="IEnemyState.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -244,9 +248,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyStateIdle.h" />
+    <ClInclude Include="EnemyStateManager.h" />
+    <ClInclude Include="EnEnemyState.h" />
     <ClInclude Include="EnPlayerState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStateAttack.h" />
@@ -255,6 +264,7 @@
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateManager.h" />
     <ClInclude Include="PlayerStateWalk.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
   </ItemGroup>

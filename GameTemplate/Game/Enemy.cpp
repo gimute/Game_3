@@ -1,37 +1,65 @@
 #include "stdafx.h"
-#include "Player.h"
-//プレイヤー
+#include "Enemy.h"
 
-Player::Player()
+//エネミー
+
+Enemy::Enemy()
 {
 
 }
 
-Player::~Player()
+Enemy::~Enemy()
 {
 
 }
 
-bool Player::Start()
+bool Enemy::Start()
 {
-	//ステートマネージャー初期化
-	m_playerStateManager.Init(this);
-
 	//アニメーションの初期化
 	InitAnimation();
 
-	//プレイヤーモデルの初期化
-	m_playerModel.Init("Assets/modelData/TestModels/bot.tkm", m_animationClips, enAnimationClip_Num);
-	m_playerModel.SetScale(Vector3::One * 2.0f);
-	m_playerModel.Update();
+	//モデルの初期化
+	InitModel();
 
-	//キャラクターコントローラーの初期化
 	m_charaCon.Init(30.0f, 80.0f, m_position);
+
+	//ステートマネージャー初期化
+	m_enemyStateManager.Init(this);
 
 	return true;
 }
 
-void Player::InitAnimation()
+
+
+void Enemy::Update()
+{
+	m_enemyStateManager.Move(m_position, m_charaCon);
+
+	m_enemyStateManager.Rotation(m_rotation);
+
+	m_enemyStateManager.PlayAnimation(m_enemyModel);
+
+	m_enemyModel.SetPosition(m_position);
+	m_enemyModel.SetRotation(m_rotation);
+	m_enemyModel.Update();
+
+	m_charaCon.SetPosition(m_position);
+
+
+	m_enemyStateManager.Collision(m_position, m_enemyModel);
+
+
+	EnEnemyState ts = m_enemyStateManager.StateTransition();
+
+	m_enemyStateManager.SetState(ts);
+}
+
+void Enemy::Render(RenderContext& rc)
+{
+	m_enemyModel.Draw(rc);
+}
+
+void Enemy::InitAnimation()
 {
 	//アニメーションのロード、ループフラグの設定
 	//待機アニメーション
@@ -58,31 +86,10 @@ void Player::InitAnimation()
 
 }
 
-void Player::Update()
+void Enemy::InitModel()
 {
-	m_playerStateManager.Move(m_position, m_charaCon);
-
-	m_playerStateManager.Rotation(m_rotation);
-
-	m_playerStateManager.PlayAnimation(m_playerModel);
-
-	m_playerModel.SetPosition(m_position);
-	m_playerModel.SetRotation(m_rotation);
-	m_playerModel.Update();
-	m_charaCon.SetPosition(m_position);;
-
-	m_playerStateManager.Collision(m_position, m_playerModel);
-
-	//ステート遷移処理
-	//どのステートに遷移するか受け取る
-	EnPlayerState m_state = m_playerStateManager.StateTransition();
-	//受け取ったステートにセット
-	m_playerStateManager.SetState(m_state);
+	m_enemyModel.Init("Assets/modelData/TestModels/bot.tkm", m_animationClips, enAnimationClip_Num);
+	m_enemyModel.SetScale(Vector3::One * 2.0f);
+	m_enemyModel.Update();
 }
 
-
-void Player::Render(RenderContext& rc)
-{
-	m_playerModel.Draw(rc);
-
-}

@@ -1,6 +1,6 @@
 #pragma once
 
-//ステート
+//プレイヤーステート
 
 enum EnPlayerState {
 	enIdle,		//待機

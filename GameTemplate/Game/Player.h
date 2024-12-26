@@ -16,7 +16,7 @@ public:
 	/// プレイヤーのポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	const Vector3& GetPosition()
+	const Vector3& GetPosition() const
 	{
 		return m_position;
 	}

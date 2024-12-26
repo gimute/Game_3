@@ -43,7 +43,7 @@ void PlayerStateWalk::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(m_moveVec.x, m_moveVec.z));
 }
 
-void PlayerStateWalk::AnimationPlay(ModelRender& model) 
+void PlayerStateWalk::PlayAnimation(ModelRender& model) 
 {
 	model.SetAnimationSpeed(1.0f);
 

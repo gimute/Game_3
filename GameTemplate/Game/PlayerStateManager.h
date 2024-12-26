@@ -30,9 +30,9 @@ public:
 	}
 
 	//アニメーションの再生
-	void AnimationPlay(ModelRender& model)
+	void PlayAnimation(ModelRender& model)
 	{
-		m_state->AnimationPlay(model);
+		m_state->PlayAnimation(model);
 	}
 
 	void Collision(Vector3 pos, ModelRender& model)

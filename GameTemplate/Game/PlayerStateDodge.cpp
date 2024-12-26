@@ -75,28 +75,8 @@ void PlayerStateDodge::InitDodge(const Vector3& playerFront)
 
 	}
 
-	//var cross = (int)((dir.X * other.Y) - (dir.Y * other.X)) / 4;
 }
-//m_moveVec = Vector3::Zero;	//移動ベクトル
-//
-////左スティックの入力を取得
-//Vector3 stickL = Vector3::Zero;
-//stickL.x = g_pad[0]->GetLStickXF();
-//stickL.y = g_pad[0]->GetLStickYF();
-//
-//Vector3 forward = g_camera3D->GetForward();
-//Vector3 right = g_camera3D->GetRight();
-//
-//forward.y = 0.0f;
-//forward.Normalize();
-//right.y = 0.0f;
-//right.Normalize();
-//
-//right *= stickL.x * WalkSpeed;
-//forward *= stickL.y * WalkSpeed;
-//
-////スティックの入力を移動ベクトルに変換
-//m_moveVec += right + forward;
+
 
 
 
@@ -111,7 +91,7 @@ void PlayerStateDodge::Move(Vector3& position, CharacterController& charaCon)
 	position = charaCon.Execute(m_dodgeVec, g_gameTime->GetFrameDeltaTime());
 }
 
-void PlayerStateDodge::AnimationPlay(ModelRender& model)
+void PlayerStateDodge::PlayAnimation(ModelRender& model)
 {
 	if (model.IsPlayingAnimation())
 	{

@@ -9,7 +9,7 @@ void PlayerStateAttack::Start(Player* player)
 	m_animationPlay = true;
 }
 
-void PlayerStateAttack::AnimationPlay(ModelRender& model)
+void PlayerStateAttack::PlayAnimation(ModelRender& model)
 {
 	if (model.IsPlayingAnimation())
 	{

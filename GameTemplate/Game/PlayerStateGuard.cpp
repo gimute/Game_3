@@ -65,22 +65,13 @@ void PlayerStateGuard::Rotation(Quaternion& rotation)
 	m_guardCollision->SetRotation(rotation);
 }
 
-void PlayerStateGuard::AnimationPlay(ModelRender& model)
+void PlayerStateGuard::PlayAnimation(ModelRender& model)
 {
 	model.PlayAnimation(Player::enAnimationClip_Guard, 0.1f);
 }
 
 EnPlayerState PlayerStateGuard::StateTransition()
 {
-	/*if (g_pad[0]->IsTrigger(enButtonX))
-	{
-		return enBackflip;
-	}
-
-	if (g_pad[0]->IsTrigger(enButtonY))
-	{
-		return enSideDodge;
-	}*/
 
 	if (g_pad[0]->IsTrigger(enButtonB))
 	{

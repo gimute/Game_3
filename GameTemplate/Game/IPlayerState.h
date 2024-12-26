@@ -27,7 +27,7 @@ public:
 	//回転処理
 	virtual void Rotation(Quaternion& rotation) {};
 	//アニメーションの再生
-	virtual void AnimationPlay(ModelRender& model) {};
+	virtual void PlayAnimation(ModelRender& model) {};
 	//ステート遷移
 	virtual EnPlayerState StateTransition() { return enIdle; };
 	//当たり判定処理

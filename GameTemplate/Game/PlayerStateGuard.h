@@ -15,7 +15,7 @@ public:
 
 	void Move(Vector3& position, CharacterController& charaCon) override;
 	void Rotation(Quaternion& rotation) override;
-	void AnimationPlay(ModelRender& model) override;
+	void PlayAnimation(ModelRender& model) override;
 	EnPlayerState StateTransition() override;
 	void Collision(const Vector3& pos, ModelRender& model) override;
 

@@ -10,6 +10,12 @@
     <Filter Include="Player\PlayerState">
       <UniqueIdentifier>{b2d79ccd-fc14-4e5a-9a1c-b0832d1330bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{986977ac-5954-4d38-80db-1bdab57236a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\EnemyState">
+      <UniqueIdentifier>{616a2812-1b39-4ca7-b4e3-8a65ce3762b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -44,6 +50,18 @@
     <ClCompile Include="PlayerStateDodge.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemyState.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateManager.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateIdle.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -65,7 +83,6 @@
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="EnPlayerState.h" />
     <ClInclude Include="PlayerStateManager.h">
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
@@ -77,6 +94,25 @@
     </ClInclude>
     <ClInclude Include="PlayerStateDodge.h">
       <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemyState.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnPlayerState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="EnEnemyState.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateManager.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateIdle.h">
+      <Filter>Enemy\EnemyState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

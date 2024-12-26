@@ -6,6 +6,7 @@
 void PlayerStateManager::Init(Player* player)
 {
 	m_state = &m_stateIdle;
+	m_nowState = enIdle;
 
 	m_player = player;
 }
