@@ -7,5 +7,6 @@ enum EnPlayerState {
 	enWalk,		//歩き
 	enAttack,	//攻撃
 	enGuard,	//ガード
-	enDodge		//回避
+	enDodge,		//回避
+	enReceiveDamage,	//被ダメージ
 };

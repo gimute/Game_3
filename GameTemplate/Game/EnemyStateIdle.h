@@ -5,7 +5,7 @@
 //待機ステート
 class EnemyStateIdle : public IEnemyState
 {
-	void PlayAnimation(ModelRender& model) override;
+	void Animation(ModelRender& model) override;
 	EnEnemyState StateTransition() override;
 
 };

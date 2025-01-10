@@ -7,6 +7,7 @@
 #include "PlayerStateAttack.h"
 #include "PlayerStateGuard.h"
 #include "PlayerStateDodge.h"
+#include "PlayerStateReceiveDamage.h"
 
 class Player;
 
@@ -35,9 +36,9 @@ public:
 		m_state->PlayAnimation(model);
 	}
 
-	void Collision(Vector3 pos, ModelRender& model)
+	void Collision(Vector3 pos, ModelRender& model, CharacterController& characon)
 	{
-		m_state->Collision(pos, model);
+		m_state->Collision(pos, model, characon);
 	}
 	
 	EnPlayerState StateTransition()
@@ -55,9 +56,13 @@ private:
 	PlayerStateAttack m_stateAttack;
 	PlayerStateGuard m_stateGuard;
 	PlayerStateDodge m_stateDodge;
+	PlayerStateReceiveDamage m_stateReceiveDamage;
 
 	EnPlayerState m_nowState;
 
 	Player* m_player;
+
+
+
 };
 

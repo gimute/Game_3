@@ -118,19 +118,35 @@ namespace nsK2EngineLow {
 			m_isEnableAutoDelete = isFlag;
 		}
 		/// <summary>
+		/// 当たり判定が有効かどうかを取得する。
+		/// </summary>
+		/// <returns>当たり判定が有効ならtrue。</returns>
+		const bool IsEnable() const
+		{
+			return m_isEnable;
+		}
+		/// <summary>
 		/// コリジョンオブジェクト同士の当たり判定。
 		/// </summary>
 		/// <param name="collisionObject">衝突判定したいコリジョンオブジェクト。</param>
 		/// <returns>衝突したらtrue。</returns>
 		const bool IsHit(CollisionObject* collisionObject) const
 		{
-			bool isCollision = false;
-			PhysicsWorld::GetInstance()->ContactTest(&collisionObject->GetbtCollisionObject(), [&](const btCollisionObject& contactObject) {
-				if (m_physicsGhostObject.IsSelf(contactObject) == true) {
-					isCollision = true;
-				}
-				});
-			return isCollision;
+			//当たり判定が有効でなければ判定しない
+			if (IsEnable())
+			{
+				bool isCollision = false;
+				PhysicsWorld::GetInstance()->ContactTest(&collisionObject->GetbtCollisionObject(), [&](const btCollisionObject& contactObject) {
+					if (m_physicsGhostObject.IsSelf(contactObject) == true) {
+						isCollision = true;
+					}
+					});
+				return isCollision;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		/// <summary>
 		/// コリジョンオブジェクトとキャラコンの当たり判定。
@@ -139,13 +155,21 @@ namespace nsK2EngineLow {
 		/// <returns>衝突したらtrue。</returns>
 		const bool IsHit(CharacterController& characterController) const
 		{
-			bool isCollision = false;
-			PhysicsWorld::GetInstance()->ContactTest(characterController, [&](const btCollisionObject& contactObject) {
-				if (m_physicsGhostObject.IsSelf(contactObject) == true) {
-					isCollision = true;
-				}
-				});
-			return isCollision;
+			//当たり判定が有効でなければ判定しない
+			if (IsEnable())
+			{
+				bool isCollision = false;
+				PhysicsWorld::GetInstance()->ContactTest(characterController, [&](const btCollisionObject& contactObject) {
+					if (m_physicsGhostObject.IsSelf(contactObject) == true) {
+						isCollision = true;
+					}
+					});
+				return isCollision;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		/// <summary>
 		/// ゴーストオブジェクトを取得。
@@ -171,14 +195,7 @@ namespace nsK2EngineLow {
 		{
 			m_isEnable = isEnable;
 		}
-		/// <summary>
-		/// 当たり判定が有効かどうかを取得する。
-		/// </summary>
-		/// <returns>当たり判定が有効ならtrue。</returns>
-		const bool IsEnable() const
-		{
-			return m_isEnable;
-		}
+		
 
 	private:
 		PhysicsGhostObject			m_physicsGhostObject;				//ゴーストオブジェクト。

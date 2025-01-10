@@ -31,7 +31,6 @@ public:
 	//ステート遷移
 	virtual EnPlayerState StateTransition() { return enIdle; };
 	//当たり判定処理
-	virtual void Collision(const Vector3& position, ModelRender& model) {};
-
+	virtual void Collision(const Vector3& position, ModelRender& model, CharacterController& characon) {};
 };
 

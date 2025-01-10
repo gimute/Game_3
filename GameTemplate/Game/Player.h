@@ -48,8 +48,12 @@ public:
 		enAnimationClip_Slash,	//斬撃モーション
 		enAnimationClip_Guard,	//ガードモーション
 		enAnimationClip_Backflip,	//バク転のモーション
-		enAnimationClip_DodgeLeft,	//左回避
-		enAnimationClip_DodgeRight,	//右回避
+		enAnimationClip_LeftDodge,	//左回避
+		enAnimationClip_RightDodge,	//右回避
+		enAnimationClip_Damege,		//被ダメージ
+		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
+		enAnimationClip_LeftGuardStrafe,	//ガード左移動
+		enAnimationClip_RightGuardStrafe,	//ガード右移動
 		enAnimationClip_Num	//アニメーションの数
 	};
 
@@ -67,5 +71,6 @@ private:
 	Quaternion m_rotation;	//プレイヤーの回転
 
 	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
+
 };
 

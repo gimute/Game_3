@@ -56,6 +56,15 @@ namespace nsK2EngineLow {
 				return m_fixedFrameDeltaTime;
 			}
 			
+			return m_frameDeltaTime * m_mulValue;
+		}
+
+		/// <summary>
+		/// 弄られていない本当の1フレームの経過時間を取得(単位・秒)
+		/// </summary>
+		/// <returns></returns>
+		const float GetTrueFrameDeltaTime() const
+		{
 			return m_frameDeltaTime;
 		}
 
@@ -100,6 +109,19 @@ namespace nsK2EngineLow {
 			m_sw.Stop();
 			PushFrameDeltaTime(static_cast<float>(m_sw.GetElapsed()));
 		}
+
+		/// <summary>
+		/// 1フレームの経過時間に乗算する値を設定
+		/// </summary>
+		/// <param name="value"></param>
+		/// <remark>
+		/// GetFrameDeltaTime関数の戻り値に乗算される
+		/// </remark>
+		void SetTimeMulValue(const float& value)
+		{
+			m_mulValue = value;
+		}
+
 	private:
 		friend class K2EngineLow;
 		Stopwatch m_sw;
@@ -107,5 +129,7 @@ namespace nsK2EngineLow {
 		float		m_frameDeltaTime = 1.0f / 60.0f;	// 1フレームの経過時間。
 		bool		m_isFixedFrameDeltaTime = false;		// 1フレームの経過時間を固定化する。
 		float		m_fixedFrameDeltaTime = 1.0f / 60.0f;	// 固定経過時間。
+
+		float		m_mulValue = 1.0f;		//1フレームの経過時間に乗算する値
 	};
 }

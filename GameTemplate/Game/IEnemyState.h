@@ -4,6 +4,7 @@
 //エネミーステート基底クラス
 
 class Enemy;
+class Player;
 
 class IEnemyState
 {
@@ -15,18 +16,18 @@ public:
 	virtual void End(Enemy* enemy) {};
 
 	//移動処理
-	virtual void Move(Vector3& position, CharacterController& charaCon) {};
+	virtual void Move(Vector3& position, CharacterController& charaCon, Player* player) {};
 
 	//回転処理
 	virtual void Rotation(Quaternion& rotation) {};
 
-	//アニメーションの再生
-	virtual void PlayAnimation(ModelRender& model) {};
+	//アニメーションの管理
+	virtual void Animation(ModelRender& model) {};
 
 	//コリジョン
-	virtual void Collision(Vector3 pos, ModelRender& model) {};
+	virtual void Collision(const Vector3& pos, ModelRender& model) {};
 
 	//ステート遷移
-	virtual EnEnemyState StateTransition() { return enenemyIdle; };
+	virtual EnEnemyState StateTransition() { return enEnemyIdle; };
 };
 

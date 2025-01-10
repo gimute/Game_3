@@ -199,7 +199,8 @@ namespace nsK2EngineLow {
 		int FindBoneID(const wchar_t* boneName) const
 		{
 			for (int i = 0; i < (int)m_bones.size(); i++) {
-				if (wcscmp(m_bones[i]->GetName(), boneName) == 0) {
+				const wchar_t* ts = m_bones[i]->GetName();
+				if (wcscmp(ts, boneName) == 0) {
 					return i;
 				}
 			}

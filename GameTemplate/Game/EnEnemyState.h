@@ -4,6 +4,9 @@
 
 enum EnEnemyState
 {
-	enenemyIdle,	//待機
-	enenemyWalk,	//歩き
+	enEnemyIdle,	//待機
+	enEnemyWiteAndSee,	//様子見
+	enEnemyAttackPrepare, //攻撃準備
+	enEnemyJumpSlash,	//ジャンプ切り
+	enEnemySideSlash,	//横切り
 };

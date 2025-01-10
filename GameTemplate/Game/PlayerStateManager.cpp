@@ -52,6 +52,11 @@ void PlayerStateManager::SetState(EnPlayerState state)
 			m_state->Start(m_player);
 			break;
 
+		case enReceiveDamage:
+			m_state = &m_stateReceiveDamage;
+			m_state->Start(m_player);
+			break;
+
 		default:
 			break;
 		}

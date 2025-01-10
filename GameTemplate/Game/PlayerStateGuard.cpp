@@ -2,6 +2,8 @@
 #include "PlayerStateGuard.h"
 #include "Player.h"
 
+#include "EnemyParameter.h"
+
 //ステート
 
 void PlayerStateGuard::Start(Player* player)
@@ -19,8 +21,8 @@ void PlayerStateGuard::Start(Player* player)
 	m_guardCollision->SetIsEnableAutoDelete(false);
 	m_guardCollision->SetName("playerGuard");
 
-	
-
+	AttackGuardFlag = false;
+	hitFlag = false;
 }
 
 void PlayerStateGuard::End(Player* player)
@@ -67,11 +69,89 @@ void PlayerStateGuard::Rotation(Quaternion& rotation)
 
 void PlayerStateGuard::PlayAnimation(ModelRender& model)
 {
-	model.PlayAnimation(Player::enAnimationClip_Guard, 0.1f);
+	if (AttackGuardFlag)
+	{
+		model.PlayAnimation(Player::enAnimatinoClip_DamageGuard, 0.1f);
+
+		if (!model.IsPlayingAnimation())
+		{
+			AttackGuardFlag = false;
+		}
+	}
+	else
+	{
+		model.PlayAnimation(Player::enAnimationClip_Guard, 0.1f);
+	}
+}
+
+
+
+void PlayerStateGuard::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
+{
+	{
+
+		//敵の攻撃コリジョン取得
+		const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_SIDE_ATTACK_COLLISION_NAME);
+
+		
+
+		if (GuardCheck(AttackCollisions))
+		{
+			AttackGuardFlag = true;
+		}
+
+		for (CollisionObject* collision : AttackCollisions)
+		{
+			if (collision->IsHit(characon))
+			{
+				collision->SetIsEnable(false);
+
+				hitFlag = true;
+			}
+		}
+	}
+
+	{
+
+		//攻撃が当たったか確認
+		const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_VERTICAL_ATTACK_COLLISION_NAME);
+		if (GuardCheck(AttackCollisions))
+		{
+			AttackGuardFlag = true;
+		}
+
+		for (CollisionObject* collision : AttackCollisions)
+		{
+			if (collision->IsHit(characon))
+			{
+				collision->SetIsEnable(false);
+
+				hitFlag = true;
+			}
+		}
+	}
+}
+
+bool PlayerStateGuard::GuardCheck(const std::vector<CollisionObject*>& collisions)
+{
+	for (CollisionObject* collision : collisions)
+	{
+		if (collision->IsHit(m_guardCollision))
+		{
+			collision->SetIsEnable(false);
+			return true;
+		}
+	}
+
+	return false;
 }
 
 EnPlayerState PlayerStateGuard::StateTransition()
 {
+	if (hitFlag)
+	{
+		return enReceiveDamage;
+	}
 
 	if (g_pad[0]->IsTrigger(enButtonB))
 	{
@@ -91,9 +171,4 @@ EnPlayerState PlayerStateGuard::StateTransition()
 	{
 		return enIdle;
 	}
-}
-
-void PlayerStateGuard::Collision(const Vector3& pos, ModelRender& model)
-{
-
 }

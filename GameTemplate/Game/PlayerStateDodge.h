@@ -17,10 +17,10 @@ public:
 	void Move(Vector3& position, CharacterController& charaCon) override;
 	void PlayAnimation(ModelRender& model) override;
 	EnPlayerState StateTransition() override;
-	void Collision(const Vector3& pos, ModelRender& model) override;
+	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 
 private:
-	//回避方向のステートを決定する関数
+	//回避方向のベクトルとステートを決定する関数
 	void InitDodge(const Vector3& playerFront);
 
 	EnDodgeState m_dodgeState;		//回避方向ステート
@@ -28,5 +28,6 @@ private:
 	CollisionObject* m_dodgeCollision;	//回避判定用コリジョン
 	Vector3 m_dodgeVec;	//回避ベクトル
 
+	bool m_justDodge = false;	//ジャスト回避
 };
 

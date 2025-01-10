@@ -37,7 +37,7 @@ void Enemy::Update()
 
 	m_enemyStateManager.Rotation(m_rotation);
 
-	m_enemyStateManager.PlayAnimation(m_enemyModel);
+	m_enemyStateManager.Animation(m_enemyModel);
 
 	m_enemyModel.SetPosition(m_position);
 	m_enemyModel.SetRotation(m_rotation);
@@ -48,10 +48,7 @@ void Enemy::Update()
 
 	m_enemyStateManager.Collision(m_position, m_enemyModel);
 
-
-	EnEnemyState ts = m_enemyStateManager.StateTransition();
-
-	m_enemyStateManager.SetState(ts);
+	m_enemyStateManager.StateTransition();
 }
 
 void Enemy::Render(RenderContext& rc)
@@ -71,6 +68,9 @@ void Enemy::InitAnimation()
 	//斬撃アニメーション
 	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/test_player/slash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);
+	//ジャンプ切りアニメーション
+	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/test_player/jumpSlash.tka");
+	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
 	//ガードアニメーション
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/test_player/guard.tka");
 	m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
@@ -81,8 +81,14 @@ void Enemy::InitAnimation()
 	m_animationClips[enAnimationClip_DodgeLeft].Load("Assets/animData/test_player/DodgeLeft.tka");
 	m_animationClips[enAnimationClip_DodgeLeft].SetLoopFlag(false);
 	//右回避アニメーション
-	m_animationClips[enAnimationClip_DodgeRight].Load("Assets/animData/test_player/DodgeRight.tka");
-	m_animationClips[enAnimationClip_DodgeRight].SetLoopFlag(false);
+	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/test_player/DodgeRight.tka");
+	m_animationClips[enAnimationClip_RightDodge].SetLoopFlag(false);
+	//左移動アニメーション
+	m_animationClips[enAnimationClip_LateralMovement_Left].Load("Assets/animData/test_player/LateralMovement_Left.tka");
+	m_animationClips[enAnimationClip_LateralMovement_Left].SetLoopFlag(true);
+	//右移動アニメーション
+	m_animationClips[enAnimationClip_LateralMovement_Right].Load("Assets/animData/test_player/LateralMovement_Right.tka");
+	m_animationClips[enAnimationClip_LateralMovement_Right].SetLoopFlag(true);
 
 }
 
