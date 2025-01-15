@@ -32,7 +32,7 @@ void EnemyStateSideSlash::End(Enemy* enemy)
 	DeleteGO(m_attackCollision);
 }
 
-void EnemyStateSideSlash::Animation(ModelRender& model)
+void EnemyStateSideSlash::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{

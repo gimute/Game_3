@@ -48,7 +48,7 @@ void EnemyStateJumpSlash::Move(Vector3& position, CharacterController& charaCon,
 	position = charaCon.Execute(m_moveVec, g_gameTime->GetFrameDeltaTime());
 }
 
-void EnemyStateJumpSlash::Animation(ModelRender& model)
+void EnemyStateJumpSlash::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{

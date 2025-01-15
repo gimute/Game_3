@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
-//プレイヤー
+
+#include  "Enemy.h"
 
 Player::Player()
 {
@@ -28,10 +29,18 @@ bool Player::Start()
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(30.0f, 80.0f, m_position);
 
+	//本来なら特定の敵を捕捉する処理がいるがとりあえずはこれで
+	m_enemy = FindGO<Enemy>("enemy");
+
 	//m_playerModel.Init("Assets/modelData/TestModels/bot.tkm", m_animationClips, enAnimationClip_Num);
 	//m_playerModel.SetScale(Vector3::One * 2.0f);
 	//m_playerModel.Update();
 	
+	//アニメーションイベント用の関数を設定する。
+	m_playerModel.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+		OnAnimationEvent(clipName, eventName);
+		});
+
 	return true;
 }
 
@@ -45,7 +54,7 @@ void Player::InitAnimation()
 	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/paladin/walk.tka");
 	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
 	//斬撃アニメーション
-	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/sideSlash.tka");
+	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/player/sideSlash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);
 	//ガードアニメーション
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
@@ -71,6 +80,9 @@ void Player::InitAnimation()
 	//ガード右移動モーション
 	m_animationClips[enAnimationClip_RightGuardStrafe].Load("Assets/animData/paladin/rightGuardStrafe.tka");
 	m_animationClips[enAnimationClip_RightGuardStrafe].SetLoopFlag(false);
+	//ジャンプ切り
+	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
+	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
 
 
 
@@ -105,7 +117,7 @@ void Player::Update()
 
 	m_playerStateManager.Rotation(m_rotation);
 
-	m_playerStateManager.PlayAnimation(m_playerModel);
+	m_playerStateManager.PlayAnimation(m_playerModel, m_enAnimationEvent);
 
 	m_playerModel.SetPosition(m_position);
 	m_playerModel.SetRotation(m_rotation);
@@ -122,6 +134,19 @@ void Player::Update()
 
 }
 
+
+void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
+{
+	if (wcscmp(eventName, L"attackEnd") == 0)
+	{
+		m_enAnimationEvent = enPlayerAnimationEvent_AttackEnd;
+	}
+
+	if (wcscmp(eventName, L"attackStart") == 0)
+	{
+		m_enAnimationEvent = enPlayerAnimationEvent_AttackStart;
+	}
+}
 
 void Player::Render(RenderContext& rc)
 {

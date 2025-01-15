@@ -55,7 +55,7 @@ void EnemyStateWaitAndSee::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(enemyToPlayer.x, enemyToPlayer.z));
 }
 
-void EnemyStateWaitAndSee::Animation(ModelRender& model)
+void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 {
 	model.PlayAnimation(Enemy::enAnimationClip_LateralMovement_Right, 0.1f);
 }

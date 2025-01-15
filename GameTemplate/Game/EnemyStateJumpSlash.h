@@ -19,7 +19,7 @@ public:
 	void Move(Vector3& position, CharacterController& charaCon, Player* player) override;
 
 	//アニメーションの再生
-	void Animation(ModelRender& model) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
 
 	//コリジョン
 	void Collision(const Vector3& pos, ModelRender& model) override;

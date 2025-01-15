@@ -14,7 +14,7 @@ void PlayerStateReceiveDamage::End(Player* player)
 {
 }
 
-void PlayerStateReceiveDamage::PlayAnimation(ModelRender& model)
+void PlayerStateReceiveDamage::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{

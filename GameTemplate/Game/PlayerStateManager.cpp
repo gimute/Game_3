@@ -57,6 +57,10 @@ void PlayerStateManager::SetState(EnPlayerState state)
 			m_state->Start(m_player);
 			break;
 
+		case enJustDodgeAttack:
+			m_state = &m_stateJustDodgeAttack;
+			m_state->Start(m_player);
+
 		default:
 			break;
 		}

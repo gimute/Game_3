@@ -6,7 +6,7 @@
 
 //待機ステート
 
-void EnemyStateIdle::Animation(ModelRender& model)
+void EnemyStateIdle::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 {
 	model.PlayAnimation(Enemy::enAnimationClip_Idle, 0.1f);
 }

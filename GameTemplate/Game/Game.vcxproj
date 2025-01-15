@@ -229,6 +229,7 @@
     <ClCompile Include="EnemyStateIdle.cpp" />
     <ClCompile Include="EnemyStateJumpSlash.cpp" />
     <ClCompile Include="EnemyStateManager.cpp" />
+    <ClCompile Include="EnemyStateReceiveDamage.cpp" />
     <ClCompile Include="EnemyStateSideSlash.cpp" />
     <ClCompile Include="EnemyStateWaitAndSee.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -241,7 +242,7 @@
     <ClCompile Include="PlayerStateDodge.cpp" />
     <ClCompile Include="PlayerStateGuard.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
-    <ClCompile Include="PlayerStateJastDodge.cpp" />
+    <ClCompile Include="PlayerStateJustDodgeAttack.cpp" />
     <ClCompile Include="PlayerStateManager.cpp" />
     <ClCompile Include="PlayerStateReceiveDamage.cpp" />
     <ClCompile Include="PlayerStateWalk.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="EnemyStateIdle.h" />
     <ClInclude Include="EnemyStateJumpSlash.h" />
     <ClInclude Include="EnemyStateManager.h" />
+    <ClInclude Include="EnemyStateReceiveDamage.h" />
     <ClInclude Include="EnemyStateSideSlash.h" />
     <ClInclude Include="EnemyStateWaitAndSee.h" />
     <ClInclude Include="EnEnemyState.h" />
@@ -269,11 +271,12 @@
     <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerParameter.h" />
     <ClInclude Include="PlayerStateAttack.h" />
     <ClInclude Include="PlayerStateDodge.h" />
     <ClInclude Include="PlayerStateGuard.h" />
     <ClInclude Include="PlayerStateIdle.h" />
-    <ClInclude Include="PlayerStateJastDodge.h" />
+    <ClInclude Include="PlayerStateJustDodgeAttack.h" />
     <ClInclude Include="PlayerStateManager.h" />
     <ClInclude Include="PlayerStateReceiveDamage.h" />
     <ClInclude Include="PlayerStateWalk.h" />

@@ -8,7 +8,7 @@ class PlayerStateIdle : public IPlayerState
 {
 public:
 
-	void PlayAnimation(ModelRender& model) override;
+	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
 	EnPlayerState StateTransition() override;
 
 

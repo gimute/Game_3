@@ -12,7 +12,7 @@ class PlayerStateWalk : public IPlayerState
 public:
 	void Move(Vector3& position, CharacterController& charaCon) override;
 	void Rotation(Quaternion& rotation) override;
-	void PlayAnimation(ModelRender& model) override;
+	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
 	EnPlayerState StateTransition() override;
 
 private:

@@ -53,7 +53,7 @@ void EnemyStateAttackPrepare::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(m_moveVec.x, m_moveVec.z));
 }
 
-void EnemyStateAttackPrepare::Animation(ModelRender& model)
+void EnemyStateAttackPrepare::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 {
 	model.PlayAnimation(Enemy::enAnimationClip_Walk, 0.1f);
 }

@@ -26,8 +26,8 @@ public:
 	virtual void Move(Vector3& position, CharacterController& charaCon) {};
 	//回転処理
 	virtual void Rotation(Quaternion& rotation) {};
-	//アニメーションの再生
-	virtual void PlayAnimation(ModelRender& model) {};
+	//アニメーション
+	virtual void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) {};
 	//ステート遷移
 	virtual EnPlayerState StateTransition() { return enIdle; };
 	//当たり判定処理

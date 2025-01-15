@@ -4,9 +4,30 @@
 #include "EnPlayerState.h"
 #include "PlayerStateManager.h"
 
+class Enemy;
+
 class Player : public IGameObject
 {
 public:
+	//アニメーションクリップのアニメーション指定用のenum
+	enum EnAnimationClip {
+		enAnimationClip_Idle,	//待機アニメーション
+		enAnimationClip_Walk,	//歩行アニメーション
+		enAnimationClip_Slash,	//斬撃モーション
+		enAnimationClip_Guard,	//ガードモーション
+		enAnimationClip_Backflip,	//バク転のモーション
+		enAnimationClip_LeftDodge,	//左回避
+		enAnimationClip_RightDodge,	//右回避
+		enAnimationClip_Damege,		//被ダメージ
+		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
+		enAnimationClip_LeftGuardStrafe,	//ガード左移動
+		enAnimationClip_RightGuardStrafe,	//ガード右移動
+		enAnimationClip_JumpSlash,	
+		enAnimationClip_Num	//アニメーションの数
+	};
+
+	
+
 	Player();
 	~Player();
 	bool Start();
@@ -41,23 +62,16 @@ public:
 	/// <param name="rc"></param>
 	void Render(RenderContext& rc);
 
-	//アニメーションクリップのアニメーション指定用のenum
-	enum EnAnimationClip {
-		enAnimationClip_Idle,	//待機アニメーション
-		enAnimationClip_Walk,	//歩行アニメーション
-		enAnimationClip_Slash,	//斬撃モーション
-		enAnimationClip_Guard,	//ガードモーション
-		enAnimationClip_Backflip,	//バク転のモーション
-		enAnimationClip_LeftDodge,	//左回避
-		enAnimationClip_RightDodge,	//右回避
-		enAnimationClip_Damege,		//被ダメージ
-		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
-		enAnimationClip_LeftGuardStrafe,	//ガード左移動
-		enAnimationClip_RightGuardStrafe,	//ガード右移動
-		enAnimationClip_Num	//アニメーションの数
-	};
+	/// <summary>
+	/// 捕捉しているエネミーを取得
+	/// </summary>
+	Enemy* GetCaptureEnemy()
+	{
+		return m_enemy;
+	}
 
-	
+	//アニメーションイベント用関数
+	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
 
 private:
 	ModelRender m_playerModel;		//プレイヤーのモデル
@@ -72,5 +86,8 @@ private:
 
 	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
 
+	Enemy* m_enemy;	//捕捉エネミー
+
+	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;
 };
 

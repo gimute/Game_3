@@ -77,7 +77,12 @@
     <ClCompile Include="PlayerStateReceiveDamage.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStateJastDodge.cpp" />
+    <ClCompile Include="PlayerStateJustDodgeAttack.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateReceiveDamage.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -148,6 +153,14 @@
     <ClInclude Include="PlayerStateReceiveDamage.h">
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStateJastDodge.h" />
+    <ClInclude Include="PlayerStateJustDodgeAttack.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerParameter.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateReceiveDamage.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

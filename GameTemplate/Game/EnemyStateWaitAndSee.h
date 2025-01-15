@@ -10,7 +10,7 @@ public:
 
 	void Rotation(Quaternion& rotation) override;
 
-	void Animation(ModelRender& model) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
 
 	EnEnemyState StateTransition() override;
 

@@ -8,6 +8,7 @@
 #include "PlayerStateGuard.h"
 #include "PlayerStateDodge.h"
 #include "PlayerStateReceiveDamage.h"
+#include "PlayerStateJustDodgeAttack.h"
 
 class Player;
 
@@ -31,9 +32,9 @@ public:
 	}
 
 	//アニメーションの再生
-	void PlayAnimation(ModelRender& model)
+	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 	{
-		m_state->PlayAnimation(model);
+		m_state->PlayAnimation(model, animeEvent);
 	}
 
 	void Collision(Vector3 pos, ModelRender& model, CharacterController& characon)
@@ -57,6 +58,7 @@ private:
 	PlayerStateGuard m_stateGuard;
 	PlayerStateDodge m_stateDodge;
 	PlayerStateReceiveDamage m_stateReceiveDamage;
+	PlayerStateJustDodgeAttack m_stateJustDodgeAttack;
 
 	EnPlayerState m_nowState;
 

@@ -27,9 +27,9 @@ public:
 		m_state->Rotation(rotation);
 	}
 
-	void Animation(ModelRender& model)
+	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
 	{
-		m_state->Animation(model);
+		m_state->Animation(model, animeEvent);
 	}
 
 	void Collision(Vector3 pos, ModelRender& model)

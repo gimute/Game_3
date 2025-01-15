@@ -16,6 +16,7 @@ BackGround::~BackGround()
 bool BackGround::Start()
 {
 	m_bgModel.Init("Assets/modelData/TestModels/background/testBackGround.tkm");
+	//m_bgModel.Init("Assets/modelData/bg/bg.tkm");
 
 	return true;
 }

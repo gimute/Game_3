@@ -3,11 +3,11 @@
 #include "Player.h"
 
 
-void PlayerStateIdle::PlayAnimation(ModelRender& model)
+void PlayerStateIdle::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	//ë“ã@ÉÇÅ[ÉVÉáÉìçƒê∂
 	model.SetAnimationSpeed(1.0f);
-	model.PlayAnimation(Player::enAnimationClip_Idle, 0.1f);
+	model.PlayAnimation(Player::enAnimationClip_Idle, 0.2f);
 }
 
 EnPlayerState PlayerStateIdle::StateTransition()

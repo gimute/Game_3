@@ -9,4 +9,12 @@ enum EnPlayerState {
 	enGuard,	//ガード
 	enDodge,		//回避
 	enReceiveDamage,	//被ダメージ
+	enJustDodgeAttack,
+};
+
+//アニメーションイベント
+enum EnPlayerAnimationEvent {
+	enPlayerAnimationEvent_AttackStart,
+	enPlayerAnimationEvent_AttackEnd,
+	enPlayerAnimationEvent_None
 };

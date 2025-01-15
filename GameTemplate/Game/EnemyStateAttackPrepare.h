@@ -28,7 +28,7 @@ public:
 	void Rotation(Quaternion& rotation) override;
 
 	//アニメーションの再生
-	void Animation(ModelRender& model) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
 
 	//ステート遷移
 	EnEnemyState StateTransition() override;

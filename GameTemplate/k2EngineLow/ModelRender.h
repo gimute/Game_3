@@ -140,6 +140,12 @@ namespace nsK2EngineLow {
 			return m_skeleton.GetBone(boneNo);
 		}
 
+		//アニメーションイベント
+		void AddAnimationEvent(AnimationEventListener eventListener)
+		{
+			m_animation.AddAnimationEventListener(eventListener);
+		}
+
 	private:
 		/// <summary>
 		/// スケルトンの初期化

@@ -10,3 +10,10 @@ enum EnEnemyState
 	enEnemyJumpSlash,	//ジャンプ切り
 	enEnemySideSlash,	//横切り
 };
+
+//アニメーションイベント
+enum EnEnemyAnimationEvent {
+	enEnemyAnimationEvent_AttackStart,
+	enEnemyAnimationEvent_AttackEnd,
+	enEnemyAnimationEvent_None
+};

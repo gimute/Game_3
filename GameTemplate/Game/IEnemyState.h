@@ -22,7 +22,7 @@ public:
 	virtual void Rotation(Quaternion& rotation) {};
 
 	//アニメーションの管理
-	virtual void Animation(ModelRender& model) {};
+	virtual void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) {};
 
 	//コリジョン
 	virtual void Collision(const Vector3& pos, ModelRender& model) {};

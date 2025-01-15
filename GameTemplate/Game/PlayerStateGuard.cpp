@@ -67,11 +67,11 @@ void PlayerStateGuard::Rotation(Quaternion& rotation)
 	m_guardCollision->SetRotation(rotation);
 }
 
-void PlayerStateGuard::PlayAnimation(ModelRender& model)
+void PlayerStateGuard::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (AttackGuardFlag)
 	{
-		model.PlayAnimation(Player::enAnimatinoClip_DamageGuard, 0.1f);
+		model.PlayAnimation(Player::enAnimatinoClip_DamageGuard, 0.2f);
 
 		if (!model.IsPlayingAnimation())
 		{

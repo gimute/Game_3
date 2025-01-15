@@ -37,7 +37,7 @@ void Enemy::Update()
 
 	m_enemyStateManager.Rotation(m_rotation);
 
-	m_enemyStateManager.Animation(m_enemyModel);
+	m_enemyStateManager.Animation(m_enemyModel, enEnemyAnimationEvent_None);
 
 	m_enemyModel.SetPosition(m_position);
 	m_enemyModel.SetRotation(m_rotation);

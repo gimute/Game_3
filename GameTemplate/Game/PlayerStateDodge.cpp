@@ -21,7 +21,7 @@ void PlayerStateDodge::Start(Player* player)
 
 	m_dodgeCollision->CreateBox(CollisionPos, Quaternion::Identity, Vector3(100.0f, 150.0f, 100.0f));
 	//m_dodgeCollision->SetIsEnableAutoDelete(false);
-	m_dodgeCollision->SetTimeLimit(0.3f);
+	m_dodgeCollision->SetTimeLimit(0.1f);
 
 	//コリジョンの名前を設定する
 	switch (m_dodgeState)
@@ -43,7 +43,7 @@ void PlayerStateDodge::Start(Player* player)
 	}
 
 	m_animationPlay = true;
-
+	m_justDodge = false;
 }
 
 void PlayerStateDodge::InitDodge(const Vector3& playerFront)
@@ -112,7 +112,7 @@ void PlayerStateDodge::Move(Vector3& position, CharacterController& charaCon)
 	position = charaCon.Execute(m_dodgeVec, g_gameTime->GetFrameDeltaTime());
 }
 
-void PlayerStateDodge::PlayAnimation(ModelRender& model)
+void PlayerStateDodge::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{
@@ -145,6 +145,11 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 		return;
 	}
 
+	if (m_justDodge == true)
+	{
+		return;
+	}
+
 	{
 		//敵の横攻撃コリジョン取得
 		const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_SIDE_ATTACK_COLLISION_NAME);
@@ -155,7 +160,8 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 			if (collision->IsHit(m_dodgeCollision))
 			{
 				g_gameTime->SetTimeMulValue(0.5f);
-				//m_justDodge = true;
+				g_renderingEngine->EnableCenterBlur();
+				m_justDodge = true;
 			}
 		}
 	}
@@ -170,8 +176,9 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 			if (collision->IsHit(m_dodgeCollision))
 			{
 				g_gameTime->SetTimeMulValue(0.5f);
+				g_renderingEngine->EnableCenterBlur();
 
-				//m_justDodge = true;
+				m_justDodge = true;
 			}
 		}
 	}
@@ -186,6 +193,10 @@ EnPlayerState PlayerStateDodge::StateTransition()
 	}
 	else
 	{
+		if (m_justDodge)
+		{
+			return enJustDodgeAttack;
+		}
 		return enIdle;
 	}
 
