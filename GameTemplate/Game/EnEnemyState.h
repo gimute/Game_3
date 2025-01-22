@@ -9,6 +9,8 @@ enum EnEnemyState
 	enEnemyAttackPrepare, //攻撃準備
 	enEnemyJumpSlash,	//ジャンプ切り
 	enEnemySideSlash,	//横切り
+	enEnemyReceiveDamage,	//被ダメージ
+	enEnemyDie,			//死亡
 };
 
 //アニメーションイベント

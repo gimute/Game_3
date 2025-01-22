@@ -88,6 +88,7 @@ static const int MAX_BONE = 512;	// ボーンの最大数。
 //追加したコード
 #include "IRenderer.h"
 #include "ModelRender.h"
+#include "SpriteRender.h"
 #include "SceneLight.h"
 #include "RenderingEngine.h"
 #include "PointLight.h"

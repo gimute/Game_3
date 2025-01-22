@@ -5,6 +5,8 @@
 #include "PlayerStateManager.h"
 
 class Enemy;
+class PlayerHpUI;
+
 
 class Player : public IGameObject
 {
@@ -18,7 +20,7 @@ public:
 		enAnimationClip_Backflip,	//バク転のモーション
 		enAnimationClip_LeftDodge,	//左回避
 		enAnimationClip_RightDodge,	//右回避
-		enAnimationClip_Damege,		//被ダメージ
+		enAnimationClip_ReceiveDamage,		//被ダメージ
 		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
 		enAnimationClip_LeftGuardStrafe,	//ガード左移動
 		enAnimationClip_RightGuardStrafe,	//ガード右移動
@@ -30,8 +32,8 @@ public:
 
 	Player();
 	~Player();
-	bool Start();
-	void Update();
+	bool Start() override;
+	void Update() override;
 
 	/// <summary>
 	/// プレイヤーのポジションを取得
@@ -60,15 +62,29 @@ public:
 	/// 描画処理
 	/// </summary>
 	/// <param name="rc"></param>
-	void Render(RenderContext& rc);
+	void Render(RenderContext& rc) override;
 
 	/// <summary>
 	/// 捕捉しているエネミーを取得
 	/// </summary>
-	Enemy* GetCaptureEnemy()
+	Enemy*& GetTargetEnemy()
 	{
 		return m_enemy;
 	}
+
+
+	/// <summary>
+	/// ダメージ処理
+	/// </summary>
+	void Damage(float damageAmount);
+
+	/// <summary>
+	/// 現在のHPを取得
+	/// </summary>
+	/// <returns></returns>
+	float GetNowHp();
+
+	void Init();
 
 	//アニメーションイベント用関数
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
@@ -86,7 +102,8 @@ private:
 
 	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
 
-	Enemy* m_enemy;	//捕捉エネミー
+	Enemy* m_enemy = nullptr;	//捕捉エネミー
+	PlayerHpUI* m_hpUI = nullptr;
 
 	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;
 };

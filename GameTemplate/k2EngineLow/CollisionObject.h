@@ -79,6 +79,23 @@ namespace nsK2EngineLow {
 			return m_name;
 		}
 		/// <summary>
+		/// 追加情報を設定
+		/// </summary>
+		/// <param name="information"></param>
+		void  SetAdditionalInformation(const char* information)
+		{
+			m_additionalInformation = information;
+		}
+		/// <summary>
+		/// 追加情報を取得
+		/// </summary>
+		/// <param name="information"></param>
+		/// <returns></returns>
+		const char* GetAdditionalInformation() const
+		{
+			return m_additionalInformation;
+		}
+		/// <summary>
 		/// 座標を設定。
 		/// </summary>
 		/// <param name="position"></param>
@@ -200,6 +217,7 @@ namespace nsK2EngineLow {
 	private:
 		PhysicsGhostObject			m_physicsGhostObject;				//ゴーストオブジェクト。
 		const char* m_name = nullptr;					//名前。
+		const char* m_additionalInformation = nullptr;	//コリジョンに付与する追加情報、攻撃に付いている属性とか
 		float						m_timer = 0.0f;						//タイマー。
 		float						m_timeLimit = 0.0f;					//削除されるまでの時間。
 		bool						m_isEnableAutoDelete = true;		//自動で削除されるならtrue。

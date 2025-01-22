@@ -15,8 +15,10 @@ public:
 
 private:
 	bool m_animationPlay = true;	//アニメーション再生中フラグ
-	int m_attackBoneID;		//攻撃判定コリジョンを生成するボーンのID
+	int m_attackBoneID;		//攻撃コリジョンを生成するボーンのID
 
-	CollisionObject* m_attackCollision;
+	CollisionObject* m_attackCollision;	//攻撃コリジョン
+
+	bool hitFlag = false;		//被ダメージフラグ
 };
 

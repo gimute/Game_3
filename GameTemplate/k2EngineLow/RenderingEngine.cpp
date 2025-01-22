@@ -44,6 +44,8 @@ namespace nsK2EngineLow {
 
         m_volumeLightRender.Init();
 
+        Init2DRenderTarget();
+
         //G-Buffer検証用/////////////////////////////////////////////////////////
         SpriteInitData spData;
         spData.m_width = g_graphicsEngine->GetFrameBufferWidth();;
@@ -74,7 +76,6 @@ namespace nsK2EngineLow {
     void RenderingEngine::InitGBuffer()
     {
         //G-Bufferを準備
-        //アルベドカラー書き込み用のレンダーターゲット作成
         m_albedRT.Create(
             g_graphicsEngine->GetFrameBufferWidth(), 
             g_graphicsEngine->GetFrameBufferHeight(),
@@ -172,6 +173,39 @@ namespace nsK2EngineLow {
         m_copyMainRtToFrameBufferSprite.Init(spriteInitData);
     }
 
+    void RenderingEngine::Init2DRenderTarget()
+    {
+        float clearColor[4] = { 0.0f,0.0f,0.0f,0.0f };
+
+        m_2DRenderTarget.Create(
+            m_mainRenderTarget.GetWidth(),
+            m_mainRenderTarget.GetHeight(),
+            1,
+            1,
+            DXGI_FORMAT_R8G8B8A8_UNORM,
+            DXGI_FORMAT_UNKNOWN,
+            clearColor
+        );
+
+        // 最終合成用のスプライトを初期化する
+        SpriteInitData spriteInitData;
+        //テクスチャは2Dレンダ―ターゲット。
+        spriteInitData.m_textures[0] = &m_2DRenderTarget.GetRenderTargetTexture();
+        // 解像度はmainRenderTargetの幅と高さ
+        spriteInitData.m_width = m_mainRenderTarget.GetWidth();
+        spriteInitData.m_height = m_mainRenderTarget.GetHeight();
+        // 2D用のシェーダーを使用する
+        spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+        spriteInitData.m_vsEntryPointFunc = "VSMain";
+        spriteInitData.m_psEntryPoinFunc = "PSMain";
+        //上書き。
+        spriteInitData.m_alphaBlendMode = AlphaBlendMode_Trans;
+        //レンダリングターゲットのフォーマット。
+        spriteInitData.m_colorBufferFormat[0] = m_mainRenderTarget.GetColorBufferFormat();
+
+        m_2DSprite.Init(spriteInitData);
+    }
+
 
     void RenderingEngine::Execute(RenderContext& rc)
     {
@@ -182,8 +216,6 @@ namespace nsK2EngineLow {
 
         //シャドウマップ作成
         m_shadowMapRender.Render(rc, g_sceneLight->GetSceneLight().directionalLight.direction, m_renderObjects);
-
-
 
         //G-Bufferへの描画
         RenderToGBuffer(rc);
@@ -200,10 +232,10 @@ namespace nsK2EngineLow {
         //ポストエフェクト
         m_postEffect.Render(rc, m_mainRenderTarget);
 
+        Render2D(rc);
+
         //レンダリング先をフレームバッファーに戻す
         g_graphicsEngine->ChangeRenderTargetToFrameBuffer(rc);
-
-        
 
         //最終的な画面を描画
         m_copyMainRtToFrameBufferSprite.Draw(rc);
@@ -296,4 +328,34 @@ namespace nsK2EngineLow {
         rc.WaitUntilFinishDrawingToRenderTarget(m_depthRT);
     }
 
+    void RenderingEngine::Render2D(RenderContext& rc)
+    {
+        //レンダリングターゲットとして利用できるまで待つ
+        rc.WaitUntilToPossibleSetRenderTarget(m_2DRenderTarget);
+
+        //レンダリングターゲットを設定
+        rc.SetRenderTargetAndViewport(m_2DRenderTarget);
+
+        //レンダリングターゲットをクリア
+        rc.ClearRenderTargetView(m_2DRenderTarget);
+
+        for (auto& renderObj : m_renderObjects) {
+            renderObj->OnRender2D(rc);
+        }
+
+        // 書き込み終了待ち
+        rc.WaitUntilFinishDrawingToRenderTarget(m_2DRenderTarget);
+        
+        //メインレンダリングターゲットにコピーする
+        //レンダリングターゲットとして利用できるまで待つ
+        rc.WaitUntilToPossibleSetRenderTarget(m_mainRenderTarget);
+        //レンダリングターゲットを設定
+        rc.SetRenderTargetAndViewport(m_mainRenderTarget);
+
+        m_2DSprite.Draw(rc);
+
+        //書き込み終了待ち
+        rc.WaitUntilFinishDrawingToRenderTarget(m_mainRenderTarget);
+
+    }
 }

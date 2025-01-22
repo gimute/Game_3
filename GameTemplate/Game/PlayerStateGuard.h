@@ -5,11 +5,12 @@ namespace {
 	const float GuardWalkSpeed = 100.0f;
 }
 
+class Enemy;
+
 //ガードステート
 class PlayerStateGuard : public IPlayerState
 {
 public:
-
 	void Start(Player* player) override;
 	void End(Player* player) override;
 

@@ -271,6 +271,9 @@
       <Filter>graphics\PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="CollisionObject.cpp" />
+    <ClCompile Include="SpriteRender.cpp">
+      <Filter>graphics\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="k2EngineLowPreCompile.h" />
@@ -597,6 +600,9 @@
       <Filter>graphics\PostEffect</Filter>
     </ClInclude>
     <ClInclude Include="CollisionObject.h" />
+    <ClInclude Include="SpriteRender.h">
+      <Filter>graphics\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="graphics">

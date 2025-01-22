@@ -146,6 +146,16 @@ namespace nsK2EngineLow {
 			m_animation.AddAnimationEventListener(eventListener);
 		}
 
+
+		/// <summary>
+		/// モデルを取得
+		/// </summary>
+		/// <returns></returns>
+		Model& GetModel()
+		{
+			return m_renderToGBufferModel;
+		}
+
 	private:
 		/// <summary>
 		/// スケルトンの初期化
@@ -162,7 +172,11 @@ namespace nsK2EngineLow {
 			EnModelUpAxis enModelUpAxis
 		);
 
-		
+		/// <summary>
+		/// シャドウマップ用モデルの初期化
+		/// </summary>
+		/// <param name="tkmfilepath"></param>
+		/// <param name="enModelUpAxis"></param>
 		void InitShadowModel(
 			const char* tkmfilepath,
 			EnModelUpAxis enModelUpAxis

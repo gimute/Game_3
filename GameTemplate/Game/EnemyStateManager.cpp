@@ -60,6 +60,16 @@ void EnemyStateManager::StateTransition()
 			m_state->Start(m_enemy);
 			break;
 
+		case enEnemyReceiveDamage:
+			m_state = &m_stateReceiveDamage;
+			m_state->Start(m_enemy);
+			break;
+
+		case enEnemyDie:
+			m_state = &m_stateDie;
+			m_state->Start(m_enemy);
+			break;
+
 		default:
 			break;
 		}

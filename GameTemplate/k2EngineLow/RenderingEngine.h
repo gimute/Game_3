@@ -72,22 +72,35 @@ namespace nsK2EngineLow {
 		{
 			return m_depthRT.GetRenderTargetTexture();
 		}
-
+		/// <summary>
+		/// GBufferのアルベドカラーテクスチャを取得
+		/// </summary>
+		/// <returns></returns>
 		Texture& GetGBufferAlbedoTexture()
 		{
 			return m_albedRT.GetRenderTargetTexture();
 		}
 
+		/// <summary>
+		/// 中央から外側に向かうブラーを有効にする
+		/// </summary>
+		void EnableCenterBlur()
+		{
+			m_postEffect.EnableCenterBlur();
+		}
+		/// <summary>
+		/// 中央から外側に向かうブラーを無効にする
+		/// </summary>
 		void DisableCenterBlur()
 		{
 			m_postEffect.DisableCenterBlur();
 		}
 
-		void EnableCenterBlur()
-		{
-			
-			m_postEffect.EnableCenterBlur();
-		}
+		/// <summary>
+		/// "2D描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void Render2D(RenderContext& rc);
 
 
 	private:
@@ -95,12 +108,10 @@ namespace nsK2EngineLow {
 		/// メインレンダーターゲットの初期化
 		/// </summary>
 		void InitMainRenderTarget();
-		
 		/// <summary>
 		/// G-Buffer用のレンダリングターゲットの初期化
 		/// </summary>
 		void InitGBuffer();
-
 		/// <summary>
 		/// ディファードライティングの初期化
 		/// </summary>
@@ -109,12 +120,14 @@ namespace nsK2EngineLow {
 		/// ディファードライティングで使用するスプライトの初期化
 		/// </summary>
 		void InitDiferrdLightingSprite();
-
 		/// <summary>
 		/// メインレンダリングターゲットをフレームバッファにコピーするためのスプライト初期化
 		/// </summary>
 		void InitCopyMainRenderTargetToFrameBufferSprite();
-
+		/// <summary>
+		/// 2D描画用のレンダーターゲットを初期化
+		/// </summary>
+		void Init2DRenderTarget();
 
 		//G-Bufferへの描画
 		void RenderToGBuffer(RenderContext& rc);
@@ -137,22 +150,25 @@ namespace nsK2EngineLow {
 			&m_depthRT
 		};
 		RenderTarget m_mainRenderTarget;			//メインレンダリングターゲット
-		
+
+		RenderTarget m_2DRenderTarget;				//2D描画用のレンダーターゲット
+		Sprite m_2DSprite;							//2D合成用のスプライト
+
 		ShadowMapRender m_shadowMapRender;			//シャドウマップレンダー
 		PostEffect m_postEffect;					//ポストエフェクト
+		LightCulling m_lightCulling;				//ライトカリング
+		RWStructuredBuffer m_pointLightNoListInTileUAV;		// タイルごとのポイントライトのリストのUAV
+		RWStructuredBuffer m_spotLightNoListInTileUAV;		// タイルごとのスポットライトのリストのUAV
 
 		Sprite m_copyMainRtToFrameBufferSprite;		//メインレンダリングターゲットをフレームバッファにコピーするためのスプライト
-		Sprite m_GBufferTest;						//G-Bufferの様子を見るためのテストスプライト
 
 		Sprite m_diferredLightingSprite;			//ディファードライティング用のスプライト
 		SDeferredLightingCB m_deferredLightingCB;	//ディファードライティング用の定数バッファ
 
-
-		LightCulling m_lightCulling;
-
-		RWStructuredBuffer m_pointLightNoListInTileUAV;		// タイルごとのポイントライトのリストのUAV
-		RWStructuredBuffer m_spotLightNoListInTileUAV;		// タイルごとのスポットライトのリストのUAV
-
 		VolumeLightRender m_volumeLightRender;		//ボリュームライトレンダー
+
+
+		Sprite m_GBufferTest;						//G-Bufferの様子を見るためのテストスプライト
+
 	};
 }

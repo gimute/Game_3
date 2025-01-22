@@ -7,8 +7,8 @@ class GameCamera : public IGameObject
 public:
 	GameCamera();
 	~GameCamera();
-	bool Start();
-	void Update();
+	bool Start() override;
+	void Update() override;
 
 private:
 	Player* m_player = nullptr;

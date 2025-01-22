@@ -20,8 +20,6 @@ bool Game::Start()
 {	
 	CreateGameObject();
 
-	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
-
 	return true;
 }
 

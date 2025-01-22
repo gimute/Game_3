@@ -10,9 +10,9 @@ class Game : public IGameObject
 public:
 	Game();
 	~Game();
-	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	bool Start() override;
+	void Update() override;
+	void Render(RenderContext& rc) override;
 
 private:
 	/// <summary>
@@ -26,5 +26,7 @@ private:
 	BackGround* m_background;	//バックグラウンド
 	GameCamera* m_gameCamera;	//ゲームカメラ
 	Enemy* m_enemy;				//エネミー
+
+	SpriteRender m_spRender;
 };
 

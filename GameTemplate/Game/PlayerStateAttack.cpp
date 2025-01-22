@@ -3,11 +3,14 @@
 #include "Player.h"
 
 #include "PlayerParameter.h"
+#include "EnemyParameter.h"
 
 void PlayerStateAttack::Start(Player* player)
 {
-	//アニメーション再生中フラグを初期化
+	//フラグのリセット
 	m_animationPlay = true;
+	hitFlag = false;
+
 
 	//攻撃判定コリジョンを生成するボーンのIDを取得
 	m_attackBoneID = player->GetModel()->FindBoneID(PLAYER_ATTACK_COLLISION_BONE_NAME);
@@ -19,8 +22,10 @@ void PlayerStateAttack::End(Player* player)
 {
 	
 	bool IsCollisionNull = m_attackCollision == nullptr;
+	IsCollisionNull = m_attackCollision->IsDead();
+
 	//攻撃コリジョンが死んでなかったら、破棄する
-	if (!IsCollisionNull || !m_attackCollision->IsDead())
+	if (!IsCollisionNull)
 	{
 		DeleteGO(m_attackCollision);
 	}
@@ -78,12 +83,26 @@ EnPlayerState PlayerStateAttack::StateTransition()
 
 void PlayerStateAttack::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
+	//敵の攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_ATTACK_COLLISION_NAME);
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->IsHit(characon))
+		{
+			collision->SetIsEnable(false);
+
+			hitFlag = true;
+		}
+	}
+
+	//攻撃コリジョンの座標設定
 	//攻撃コリジョンが生きてないなら処理を飛ばす
 	if (m_attackCollision == nullptr || m_attackCollision->IsDead())
 	{
 		return;
 	}
-	//攻撃コリジョンの座標設定
 	//攻撃コリジョンを出すボーンのワールド行列を受け取る
 	Matrix matrix = model.GetBone(m_attackBoneID)->GetWorldMatrix();
 	

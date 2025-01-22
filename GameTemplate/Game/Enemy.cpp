@@ -13,6 +13,11 @@ Enemy::~Enemy()
 
 }
 
+void Enemy::Delete()
+{
+	DeleteGO(this);
+}
+
 bool Enemy::Start()
 {
 	//アニメーションの初期化
@@ -46,7 +51,7 @@ void Enemy::Update()
 	m_charaCon.SetPosition(m_position);
 
 
-	m_enemyStateManager.Collision(m_position, m_enemyModel);
+	m_enemyStateManager.Collision(m_position, m_enemyModel, m_charaCon);
 
 	m_enemyStateManager.StateTransition();
 }
@@ -58,43 +63,57 @@ void Enemy::Render(RenderContext& rc)
 
 void Enemy::InitAnimation()
 {
-	//アニメーションのロード、ループフラグの設定
 	//待機アニメーション
-	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/test_player/idle.tka");
+	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/paladin/idle.tka");
 	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
 	//歩行アニメーション
-	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/test_player/walk.tka");
+	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/paladin/walk.tka");
 	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
 	//斬撃アニメーション
-	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/test_player/slash.tka");
+	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/sideSlash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);
 	//ジャンプ切りアニメーション
-	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/test_player/jumpSlash.tka");
+	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
 	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
 	//ガードアニメーション
-	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/test_player/guard.tka");
+	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
 	m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
 	//バク転アニメーション
-	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/test_player/backflip.tka");
+	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/backflip.tka");
 	m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);
 	//左回避アニメーション
-	m_animationClips[enAnimationClip_DodgeLeft].Load("Assets/animData/test_player/DodgeLeft.tka");
+	m_animationClips[enAnimationClip_DodgeLeft].Load("Assets/animData/paladin/leftDodge.tka");
 	m_animationClips[enAnimationClip_DodgeLeft].SetLoopFlag(false);
 	//右回避アニメーション
-	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/test_player/DodgeRight.tka");
+	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/paladin/rightDodge.tka");
 	m_animationClips[enAnimationClip_RightDodge].SetLoopFlag(false);
 	//左移動アニメーション
-	m_animationClips[enAnimationClip_LateralMovement_Left].Load("Assets/animData/test_player/LateralMovement_Left.tka");
+	m_animationClips[enAnimationClip_LateralMovement_Left].Load("Assets/animData/paladin/leftGuardStrafe.tka");
 	m_animationClips[enAnimationClip_LateralMovement_Left].SetLoopFlag(true);
 	//右移動アニメーション
-	m_animationClips[enAnimationClip_LateralMovement_Right].Load("Assets/animData/test_player/LateralMovement_Right.tka");
+	m_animationClips[enAnimationClip_LateralMovement_Right].Load("Assets/animData/paladin/rightGuardStrafe.tka");
 	m_animationClips[enAnimationClip_LateralMovement_Right].SetLoopFlag(true);
+	//被ダメージアニメーション
+	m_animationClips[enAnimationClip_ReceiveDamage].Load("Assets/animData/paladin/receiveDamage.tka");
+	m_animationClips[enAnimationClip_ReceiveDamage].SetLoopFlag(false);
+}
 
+void Enemy::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
+{
+	if (wcscmp(eventName, L"attackEnd") == 0)
+	{
+		m_enAnimationEvent = enEnemyAnimationEvent_AttackEnd;
+	}
+
+	if (wcscmp(eventName, L"attackStart") == 0)
+	{
+		m_enAnimationEvent = enEnemyAnimationEvent_AttackStart;
+	}
 }
 
 void Enemy::InitModel()
 {
-	m_enemyModel.Init("Assets/modelData/TestModels/bot.tkm", m_animationClips, enAnimationClip_Num);
+	m_enemyModel.Init("Assets/modelData/paladin/paladin.tkm", m_animationClips, enAnimationClip_Num);
 	m_enemyModel.SetScale(Vector3::One * 2.0f);
 	m_enemyModel.Update();
 }

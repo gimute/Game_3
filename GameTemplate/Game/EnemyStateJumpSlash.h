@@ -1,10 +1,6 @@
 #pragma once
 #include "IEnemyState.h"
 
-namespace {
-	const wchar_t* ENEMY_ATTACK_COLLISION_BONE_NAME = L"mixamorig:RightHandMiddle1"; //攻撃判定コリジョンを生成するボーンの名前
-}
-
 //ジャンプ切りステート
 class EnemyStateJumpSlash : public IEnemyState
 {
@@ -22,7 +18,7 @@ public:
 	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
 
 	//コリジョン
-	void Collision(const Vector3& pos, ModelRender& model) override;
+	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 
 	//ステート遷移
 	EnEnemyState StateTransition() override;
@@ -32,5 +28,8 @@ private:
 
 	int m_attackBoneID;		//攻撃判定コリジョンを生成するボーンのID
 	CollisionObject* m_attackCollision;	//攻撃用コリジョン
+
+	bool m_hitFlag = false;		//被ダメージフラグ
+
 };
 

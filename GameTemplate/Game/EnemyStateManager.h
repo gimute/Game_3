@@ -7,6 +7,8 @@
 #include "EnemyStateAttackPrepare.h"
 #include "EnemyStateJumpSlash.h"
 #include "EnemyStateSideSlash.h"
+#include "EnemyStateReceiveDamage.h"
+#include "EnemyStateDie.h"
 
 class Enemy;
 class Player;
@@ -32,9 +34,9 @@ public:
 		m_state->Animation(model, animeEvent);
 	}
 
-	void Collision(Vector3 pos, ModelRender& model)
+	void Collision(Vector3 pos, ModelRender& model, CharacterController& characon)
 	{
-		m_state->Collision(pos, model);
+		m_state->Collision(pos, model, characon);
 	}
 
 	//ステート遷移処理
@@ -48,6 +50,8 @@ private:
 	EnemyStateAttackPrepare m_stateAttackPrepare;
 	EnemyStateJumpSlash m_stateJumpSlash;
 	EnemyStateSideSlash m_stateSideSlash;
+	EnemyStateReceiveDamage m_stateReceiveDamage;
+	EnemyStateDie m_stateDie;
 
 	EnEnemyState m_nowState;
 

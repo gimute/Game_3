@@ -13,6 +13,8 @@ void EnemyStateAttackPrepare::Start(Enemy* enemy)
 	//乱数でどの攻撃をするか決定する
 	m_attackType = EnAttackType(std::rand() % enAttackTypeNum);
 
+
+
 	//ステートごとの処理
 	switch (m_attackType)
 	{
@@ -58,8 +60,30 @@ void EnemyStateAttackPrepare::Animation(ModelRender& model, EnEnemyAnimationEven
 	model.PlayAnimation(Enemy::enAnimationClip_Walk, 0.1f);
 }
 
+void EnemyStateAttackPrepare::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
+{
+	//プレイヤーの攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->IsHit(characon))
+		{
+			collision->SetIsEnable(false);
+
+			hitFlag = true;
+		}
+	}
+}
+
 EnEnemyState EnemyStateAttackPrepare::StateTransition()
 {
+	if (hitFlag)
+	{
+		return enEnemyReceiveDamage;
+	}
+
 	if (m_attackFlag)
 	{
 		switch (m_attackType)

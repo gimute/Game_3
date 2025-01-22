@@ -25,7 +25,7 @@ public:
 	virtual void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) {};
 
 	//コリジョン
-	virtual void Collision(const Vector3& pos, ModelRender& model) {};
+	virtual void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) {};
 
 	//ステート遷移
 	virtual EnEnemyState StateTransition() { return enEnemyIdle; };

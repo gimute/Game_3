@@ -18,13 +18,18 @@ void EnemyStateJumpSlash::Start(Enemy* enemy)
 	//コリジョンの準備
 	m_attackCollision = NewGO<CollisionObject>(0);
 	m_attackCollision->CreateBox(enemy->GetPosition(), Quaternion::Identity, Vector3(50.0f, 50.0f, 50.0f));
-	m_attackCollision->SetName(ENEMY_VERTICAL_ATTACK_COLLISION_NAME);
+	m_attackCollision->SetName(ENEMY_ATTACK_COLLISION_NAME);
+	//縦攻撃なので追加情報に縦攻撃を設定
+	m_attackCollision->SetAdditionalInformation(ENEMY_VERTICAL_ATTACK_NAME);
 	m_attackCollision->SetIsEnableAutoDelete(false);
 
 	//コリジョンを生成するボーンのIDを取得
 	m_attackBoneID = enemy->GetModel()->FindBoneID(ENEMY_ATTACK_COLLISION_BONE_NAME);
 	//コリジョンのワールド行列を、取得したボーンのワールド行列に設定
 	m_attackCollision->SetWorldMatrix(enemy->GetModel()->GetBone(m_attackBoneID)->GetWorldMatrix());
+
+	m_hitFlag = false;
+
 }
 
 void EnemyStateJumpSlash::End(Enemy* enemy)
@@ -61,14 +66,34 @@ void EnemyStateJumpSlash::Animation(ModelRender& model, EnEnemyAnimationEvent an
 	
 }
 
-void EnemyStateJumpSlash::Collision(const Vector3& pos, ModelRender& model)
+void EnemyStateJumpSlash::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
 	//コリジョンのワールド行列を更新
 	m_attackCollision->SetWorldMatrix(model.GetBone(m_attackBoneID)->GetWorldMatrix());
+
+
+	//プレイヤーの攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->IsHit(characon))
+		{
+			collision->SetIsEnable(false);
+
+			m_hitFlag = true;
+		}
+	}
 }
 
 EnEnemyState EnemyStateJumpSlash::StateTransition()
 {
+	if (m_hitFlag)
+	{
+		return enEnemyReceiveDamage;
+	}
+
 	if (m_isPlayAnimation)
 	{
 		return enEnemyJumpSlash;

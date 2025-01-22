@@ -23,11 +23,14 @@ private:
 	//回避方向のベクトルとステートを決定する関数
 	void InitDodge(const Vector3& playerFront);
 
+
+private:
 	EnDodgeState m_dodgeState;		//回避方向ステート
 	bool m_animationPlay = true;	//アニメーションが再生中か
 	CollisionObject* m_dodgeCollision;	//回避判定用コリジョン
 	Vector3 m_dodgeVec;	//回避ベクトル
 
-	bool m_justDodge = false;	//ジャスト回避
+	bool m_justDodge = false;	//ジャスト回避フラグ
+	bool hitFlag = false;		//被ダメージフラグ
 };
 

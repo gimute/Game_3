@@ -8,6 +8,13 @@
 void PlayerStateReceiveDamage::Start(Player* player)
 {
 	m_animationPlay = true;
+	player->Damage(5.0f);
+
+	m_isDeth = false;
+	if (player->GetNowHp() <= 0.0f)
+	{
+		m_isDeth = true;
+	}
 }
 
 void PlayerStateReceiveDamage::End(Player* player)
@@ -18,7 +25,7 @@ void PlayerStateReceiveDamage::PlayAnimation(ModelRender& model, EnPlayerAnimati
 {
 	if (model.IsPlayingAnimation())
 	{
-		model.PlayAnimation(Player::enAnimationClip_Damege, 0.1f);
+		model.PlayAnimation(Player::enAnimationClip_ReceiveDamage, 0.1f);
 	}
 	else
 	{
@@ -29,6 +36,11 @@ void PlayerStateReceiveDamage::PlayAnimation(ModelRender& model, EnPlayerAnimati
 
 EnPlayerState PlayerStateReceiveDamage::StateTransition()
 {
+	if (m_isDeth)
+	{
+		return enDie;
+	}
+
 	if (m_animationPlay)
 	{
 		return enReceiveDamage;

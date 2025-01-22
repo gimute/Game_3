@@ -2,6 +2,13 @@
 #include "PlayerStateWalk.h"
 #include "Player.h"
 
+#include "EnemyParameter.h"
+
+void PlayerStateWalk::Start(Player* player)
+{
+	//フラグのリセット
+	hitFlag = false;
+}
 
 void PlayerStateWalk::Move(Vector3& position, CharacterController& charaCon)
 {
@@ -50,8 +57,30 @@ void PlayerStateWalk::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& 
 	model.PlayAnimation(Player::enAnimationClip_Walk, 0.1f);
 }
 
+void PlayerStateWalk::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
+{
+	//敵の攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_ATTACK_COLLISION_NAME);
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->IsHit(characon))
+		{
+			collision->SetIsEnable(false);
+
+			hitFlag = true;
+		}
+	}
+}
+
 EnPlayerState PlayerStateWalk::StateTransition()
 {
+	if (hitFlag)
+	{
+		return enReceiveDamage;
+	}
+
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 		return enAttack;

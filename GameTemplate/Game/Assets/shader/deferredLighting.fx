@@ -147,7 +147,7 @@ float4 PSMain(PSInput In) : SV_Target0
     ////////////////////////////////////////////////////////////
     
     
-    // G-Bufferの内容をサンプリング?
+    // G-Bufferの内容をサンプリング
     float4 albedo = albedoTexture.Sample(Sampler, In.uv);
     float3 normal = normalTexture.Sample(Sampler, In.uv).xyz;
     float specPower = normalTexture.Sample(Sampler, In.uv).w;

@@ -9,9 +9,9 @@ class Enemy : public IGameObject
 public:
 	Enemy();
 	~Enemy();
-	bool Start();
-	void Update();
-	void Render(RenderContext& rc);
+	bool Start() override;
+	void Update() override;
+	void Render(RenderContext& rc) override;
 
 
 	//アニメーションクリップのアニメーション指定用のenum
@@ -26,6 +26,7 @@ public:
 		enAnimationClip_RightDodge,	//右回避
 		enAnimationClip_LateralMovement_Left,	//左移動アニメーション
 		enAnimationClip_LateralMovement_Right,	//右移動アニメーション
+		enAnimationClip_ReceiveDamage,	//被ダメージモーション
 		enAnimationClip_Num	//アニメーションの数
 	};
 
@@ -47,6 +48,30 @@ public:
 		return &m_enemyModel;
 	}
 
+	/// <summary>
+	/// アニメーションイベント用関数
+	/// </summary>
+	/// <param name="clipName"></param>
+	/// <param name="eventName"></param>
+	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
+
+	/// <summary>
+	/// ダメージ処理
+	/// </summary>
+	void DamageProcess()
+	{
+		--m_hp;
+	}
+
+	//現在のHPを取得
+	const int& GetNowHP()
+	{
+		return m_hp;
+	}
+
+	//消去処理
+	void Delete();
+
 private:
 	/// <summary>
 	/// アニメーションの初期化
@@ -58,6 +83,8 @@ private:
 	/// </summary>
 	void InitModel();
 
+	
+
 private:
 	ModelRender m_enemyModel;	//エネミーのモデル
 	Vector3 m_position = Vector3::Zero;			//モデルの座標
@@ -67,5 +94,9 @@ private:
 	AnimationClip m_animationClips[enAnimationClip_Num];	//アニメーションクリップ
 
 	EnemyStateManager m_enemyStateManager;		
+
+	EnEnemyAnimationEvent m_enAnimationEvent;
+
+	int m_hp = 10;
 };
 

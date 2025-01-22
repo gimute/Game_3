@@ -3,6 +3,7 @@
 #include "Player.h"
 
 #include "EnemyParameter.h"
+#include "Enemy.h"
 
 //ステート
 
@@ -88,46 +89,23 @@ void PlayerStateGuard::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent&
 
 void PlayerStateGuard::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
+	//敵の攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_ATTACK_COLLISION_NAME);
+
+	//ガード判定
+	if (GuardCheck(AttackCollisions))
 	{
-
-		//敵の攻撃コリジョン取得
-		const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_SIDE_ATTACK_COLLISION_NAME);
-
-		
-
-		if (GuardCheck(AttackCollisions))
-		{
-			AttackGuardFlag = true;
-		}
-
-		for (CollisionObject* collision : AttackCollisions)
-		{
-			if (collision->IsHit(characon))
-			{
-				collision->SetIsEnable(false);
-
-				hitFlag = true;
-			}
-		}
+		AttackGuardFlag = true;
 	}
 
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
 	{
-
-		//攻撃が当たったか確認
-		const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(ENEMY_VERTICAL_ATTACK_COLLISION_NAME);
-		if (GuardCheck(AttackCollisions))
+		if (collision->IsHit(characon))
 		{
-			AttackGuardFlag = true;
-		}
+			collision->SetIsEnable(false);
 
-		for (CollisionObject* collision : AttackCollisions)
-		{
-			if (collision->IsHit(characon))
-			{
-				collision->SetIsEnable(false);
-
-				hitFlag = true;
-			}
+			hitFlag = true;
 		}
 	}
 }

@@ -83,6 +83,15 @@
     <ClCompile Include="EnemyStateReceiveDamage.cpp">
       <Filter>Enemy\EnemyState</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyStateDie.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHpUI.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateDie.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -161,6 +170,15 @@
     </ClInclude>
     <ClInclude Include="EnemyStateReceiveDamage.h">
       <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateDie.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHpUI.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateDie.h">
+      <Filter>Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

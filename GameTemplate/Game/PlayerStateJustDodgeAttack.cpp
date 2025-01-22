@@ -26,7 +26,7 @@ void PlayerStateJustDodgeAttack::Start(Player* player)
 	m_attackCollision->SetName("player_attack");
 	m_attackCollision->SetIsEnableAutoDelete(false);
 
-	m_enemy = player->GetCaptureEnemy();
+	m_enemy = player->GetTargetEnemy();
 }
 
 void PlayerStateJustDodgeAttack::End(Player* player)
@@ -41,7 +41,15 @@ void PlayerStateJustDodgeAttack::End(Player* player)
 
 void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& charaCon)
 {
-	playerToEnemyVec = m_enemy->GetPosition() - position;
+	if (m_enemy->IsDead() || m_enemy == nullptr)
+	{
+		playerToEnemyVec = m_enemy->GetPosition() - position;
+	}
+	else
+	{
+		m_enemy = nullptr;
+		m_attackFlowState = enEnd;
+	}
 
 	if (!m_attackFlowState == enEnemyApproach)
 	{
@@ -55,7 +63,7 @@ void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& ch
 	}
 
 	playerToEnemyVec.Normalize();
-	playerToEnemyVec * 100.0f;
+	playerToEnemyVec *= 1000.0f;
 
 	position = charaCon.Execute(playerToEnemyVec, g_gameTime->GetTrueFrameDeltaTime());
 
@@ -83,17 +91,17 @@ void PlayerStateJustDodgeAttack::PlayAnimation(ModelRender& model, EnPlayerAnima
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack1:
-		model.SetAnimationSpeed(2.0f);
+		model.SetAnimationSpeed(3.0f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack2:
-		model.SetAnimationSpeed(2.0f);
+		model.SetAnimationSpeed(4.0f);
 		model.PlayAnimation(Player::enAnimationClip_JumpSlash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack3:
-		model.SetAnimationSpeed(2.0f);
+		model.SetAnimationSpeed(3.0f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 

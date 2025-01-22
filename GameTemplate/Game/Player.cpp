@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 
-#include  "Enemy.h"
+#include "PlayerHpUI.h"
+#include "Enemy.h"
 
 Player::Player()
 {
@@ -22,7 +23,7 @@ bool Player::Start()
 	InitAnimation();
 
 	//プレイヤーモデルの初期化
-	m_playerModel.Init("Assets/modelData/paladin/paladin_2.tkm", m_animationClips, enAnimationClip_Num);
+	m_playerModel.Init("Assets/modelData/paladin/paladin.tkm", m_animationClips, enAnimationClip_Num);
 	m_playerModel.SetScale(Vector3::One * 2.0f);
 	m_playerModel.Update(); 
 
@@ -31,15 +32,14 @@ bool Player::Start()
 
 	//本来なら特定の敵を捕捉する処理がいるがとりあえずはこれで
 	m_enemy = FindGO<Enemy>("enemy");
-
-	//m_playerModel.Init("Assets/modelData/TestModels/bot.tkm", m_animationClips, enAnimationClip_Num);
-	//m_playerModel.SetScale(Vector3::One * 2.0f);
-	//m_playerModel.Update();
 	
 	//アニメーションイベント用の関数を設定する。
 	m_playerModel.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
 		OnAnimationEvent(clipName, eventName);
 		});
+
+	m_hpUI = NewGO<PlayerHpUI>(0,"playerHpUI");
+	m_hpUI->Init(10.0f);
 
 	return true;
 }
@@ -60,7 +60,7 @@ void Player::InitAnimation()
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
 	m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
 	//バク転アニメーション
-	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/backflip.tka");
+	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/player/backflip.tka");
 	m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);
 	//左回避アニメーション
 	m_animationClips[enAnimationClip_LeftDodge].Load("Assets/animData/paladin/leftDodge.tka");
@@ -69,8 +69,8 @@ void Player::InitAnimation()
 	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/paladin/rightDodge.tka");
 	m_animationClips[enAnimationClip_RightDodge].SetLoopFlag(false);
 	//被ダメージアニメーション
-	m_animationClips[enAnimationClip_Damege].Load("Assets/animData/paladin/damage.tka");
-	m_animationClips[enAnimationClip_Damege].SetLoopFlag(false);
+	m_animationClips[enAnimationClip_ReceiveDamage].Load("Assets/animData/paladin/receiveDamage.tka");
+	m_animationClips[enAnimationClip_ReceiveDamage].SetLoopFlag(false);
 	//ダメージガードモーション
 	m_animationClips[enAnimatinoClip_DamageGuard].Load("Assets/animData/paladin/damageGuard.tka");
 	m_animationClips[enAnimatinoClip_DamageGuard].SetLoopFlag(false);
@@ -83,32 +83,6 @@ void Player::InitAnimation()
 	//ジャンプ切り
 	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
 	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
-
-
-
-	////アニメーションのロード、ループフラグの設定
-	////待機アニメーション
-	//m_animationClips[enAnimationClip_Idle].Load("Assets/animData/test_player/idle.tka");
-	//m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	////歩行アニメーション
-	//m_animationClips[enAnimationClip_Walk].Load("Assets/animData/test_player/walk.tka");
-	//m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
-	////斬撃アニメーション
-	//m_animationClips[enAnimationClip_Slash].Load("Assets/animData/test_player/slash.tka");
-	//m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);
-	////ガードアニメーション
-	//m_animationClips[enAnimationClip_Guard].Load("Assets/animData/test_player/guard.tka");
-	//m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
-	////バク転アニメーション
-	//m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/test_player/backflip.tka");
-	//m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);
-	////左回避アニメーション
-	//m_animationClips[enAnimationClip_DodgeLeft].Load("Assets/animData/test_player/DodgeLeft.tka");
-	//m_animationClips[enAnimationClip_DodgeLeft].SetLoopFlag(false);
-	////右回避アニメーション
-	//m_animationClips[enAnimationClip_DodgeRight].Load("Assets/animData/test_player/DodgeRight.tka");
-	//m_animationClips[enAnimationClip_DodgeRight].SetLoopFlag(false);
-
 }
 
 void Player::Update()
@@ -131,7 +105,6 @@ void Player::Update()
 	EnPlayerState m_state = m_playerStateManager.StateTransition();
 	//受け取ったステートにセット
 	m_playerStateManager.SetState(m_state);
-
 }
 
 
@@ -146,6 +119,21 @@ void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 	{
 		m_enAnimationEvent = enPlayerAnimationEvent_AttackStart;
 	}
+}
+
+void Player::Damage(float damageAmount)
+{
+	m_hpUI->Damage(damageAmount);
+}
+
+float Player::GetNowHp()
+{
+	return m_hpUI->GetNowHp();
+}
+
+void Player::Init()
+{
+	m_hpUI->Init(10.0f);
 }
 
 void Player::Render(RenderContext& rc)

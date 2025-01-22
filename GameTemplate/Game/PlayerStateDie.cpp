@@ -1,0 +1,41 @@
+#include "stdafx.h"
+#include "PlayerStateDie.h"
+
+#include "Player.h"
+
+//ステート
+
+void PlayerStateDie::Start(Player* player)
+{
+	m_isPlayAnimation = true;
+
+}
+
+void PlayerStateDie::End(Player* player)
+{
+	player->Init();
+}
+
+void PlayerStateDie::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+{
+	if (model.IsPlayingAnimation())
+	{
+		model.PlayAnimation(Player::enAnimationClip_Backflip, 0.1f);
+	}
+	else
+	{
+		m_isPlayAnimation = false;
+	}
+}
+
+EnPlayerState PlayerStateDie::StateTransition()
+{
+	if (m_isPlayAnimation)
+	{
+		return enDie;
+	}
+	else
+	{
+		return enIdle;
+	}
+}

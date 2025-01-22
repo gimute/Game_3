@@ -13,7 +13,7 @@ public:
 
 private:
 	bool m_animationPlay = true;	//アニメーション再生中フラグ
-
+	bool m_isDeth = false;	//しぼうステート
 
 };
 

@@ -20,8 +20,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
 
-	//g_camera3D->SetUp(0.0f,-1.0f,0.0f);
-
 	//’Ç‰ÁƒR[ƒh
 	SceneLight sceneLight;
 	sceneLight.Init();
@@ -36,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	g_renderingEngine->DisableCenterBlur();
 
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	Game* m_game = NewGO<Game>(0, "game");
 	//

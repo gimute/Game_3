@@ -22,7 +22,7 @@ public:
 	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
 
 	//コリジョン
-	void Collision(const Vector3& pos, ModelRender& model) override;
+	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 
 	//ステート遷移
 	EnEnemyState StateTransition() override;
@@ -32,5 +32,8 @@ private:
 
 	int m_attackBoneID;		//攻撃判定コリジョンを生成するボーンのID
 	CollisionObject* m_attackCollision;	//攻撃用コリジョン
+
+	bool m_hitFlag = false;		//被ダメージフラグ
+
 };
 

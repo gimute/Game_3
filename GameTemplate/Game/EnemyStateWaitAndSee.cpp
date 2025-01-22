@@ -8,6 +8,12 @@
 
 //様子見
 
+void EnemyStateWaitAndSee::Start(Enemy* enemy)
+{
+	testTimer = 3.0f;
+	m_hitFlag = false;
+}
+
 void EnemyStateWaitAndSee::Move(Vector3& position, CharacterController& charaCon, Player* player)
 {
 	//プレイヤーの周りを回る動きをさせたい
@@ -60,12 +66,34 @@ void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent a
 	model.PlayAnimation(Enemy::enAnimationClip_LateralMovement_Right, 0.1f);
 }
 
+void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
+{
+	//プレイヤーの攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->IsHit(characon))
+		{
+			collision->SetIsEnable(false);
+
+			m_hitFlag = true;
+		}
+	}
+}
+
 EnEnemyState EnemyStateWaitAndSee::StateTransition()
 {
+	if (m_hitFlag)
+	{
+		return enEnemyReceiveDamage;
+	}
+
 	testTimer -= 0.01f;
 	if (testTimer < 0.0f)
 	{
-		testTimer = 5.0f;
+		testTimer = 3.0f;
 		return enEnemyAttackPrepare;
 
 	}

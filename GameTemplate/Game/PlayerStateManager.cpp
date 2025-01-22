@@ -60,8 +60,15 @@ void PlayerStateManager::SetState(EnPlayerState state)
 		case enJustDodgeAttack:
 			m_state = &m_stateJustDodgeAttack;
 			m_state->Start(m_player);
+			break;
+
+		case enDie:
+			m_state = &m_stateDie;
+			m_state->Start(m_player);
+			break;
 
 		default:
+			MessageBox(nullptr, L"プレイヤーのステートが用意できていません", L"エラー", MB_OK);
 			break;
 		}
 	}

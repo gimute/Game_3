@@ -9,6 +9,7 @@
 #include "PlayerStateDodge.h"
 #include "PlayerStateReceiveDamage.h"
 #include "PlayerStateJustDodgeAttack.h"
+#include "PlayerStateDie.h"
 
 class Player;
 
@@ -59,6 +60,7 @@ private:
 	PlayerStateDodge m_stateDodge;
 	PlayerStateReceiveDamage m_stateReceiveDamage;
 	PlayerStateJustDodgeAttack m_stateJustDodgeAttack;
+	PlayerStateDie m_stateDie;
 
 	EnPlayerState m_nowState;
 
