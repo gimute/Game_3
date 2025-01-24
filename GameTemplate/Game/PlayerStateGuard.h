@@ -15,8 +15,8 @@ public:
 	void End(Player* player) override;
 
 	void Move(Vector3& position, CharacterController& charaCon) override;
-	void Rotation(Quaternion& rotation) override;
-	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
+	void Rotation(Quaternion& rotation, const Vector3& position) override;
+	void Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
 	EnPlayerState StateTransition() override;
 	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 
@@ -30,5 +30,7 @@ private:
 	bool AttackGuardFlag = false;
 
 	bool hitFlag = false;
+
+	Enemy* m_enemy;
 };
 

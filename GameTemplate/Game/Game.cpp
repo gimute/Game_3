@@ -20,6 +20,8 @@ bool Game::Start()
 {	
 	CreateGameObject();
 
+	SoundRegistration();
+
 	return true;
 }
 
@@ -46,4 +48,9 @@ void Game::CreateGameObject()
 
 	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
+}
+
+void Game::SoundRegistration()
+{
+	g_soundEngine->ResistWaveFileBank(0, "Assets/sound/slash.wav");
 }

@@ -9,7 +9,7 @@ void PlayerStateIdle::Start(Player* player)
 	hitFlag = false;
 }
 
-void PlayerStateIdle::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateIdle::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	//ë“ã@ÉÇÅ[ÉVÉáÉìçƒê∂
 	model.SetAnimationSpeed(1.0f);

@@ -5,12 +5,13 @@
 #include "Player.h"
 
 #include "EnemyParameter.h"
+#include "PlayerParameter.h"
 
 //様子見
 
-void EnemyStateWaitAndSee::Start(Enemy* enemy)
+void EnemyStateWaitAndSee::Start(Enemy* enemy, Player* player)
 {
-	testTimer = 3.0f;
+	testTimer = 1.0f;
 	m_hitFlag = false;
 }
 
@@ -61,7 +62,7 @@ void EnemyStateWaitAndSee::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(enemyToPlayer.x, enemyToPlayer.z));
 }
 
-void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
+void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 {
 	model.PlayAnimation(Enemy::enAnimationClip_LateralMovement_Right, 0.1f);
 }
@@ -69,7 +70,7 @@ void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent a
 void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
 	//プレイヤーの攻撃コリジョン取得
-	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(PLAYER_ATTACK_COLLISION_NAME);
 
 	//被ダメージ判定
 	for (CollisionObject* collision : AttackCollisions)

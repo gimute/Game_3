@@ -60,6 +60,17 @@ namespace nsK2EngineLow {
 		screenPos.x = (_screenPos.x / _screenPos.w) * half_w;
 		screenPos.y = (_screenPos.y / _screenPos.w) * half_h;
 	}
+	void Camera::CalcScreenPositionFromWorldPosition(Vector3& screenPos, const Vector3& worldPos) const
+	{
+		float half_w = (float)g_graphicsEngine->GetFrameBufferWidth() * 0.5f;
+		float half_h = (float)g_graphicsEngine->GetFrameBufferHeight() * 0.5f;
+		Vector4 _screenPos;
+		_screenPos.Set(worldPos.x, worldPos.y, worldPos.z, 1.0f);
+		m_viewProjectionMatrix.Apply(_screenPos);
+		screenPos.x = (_screenPos.x / _screenPos.w) * half_w;
+		screenPos.y = (_screenPos.y / _screenPos.w) * half_h;
+		screenPos.z = _screenPos.z;
+	}
 	void Camera::RotateOriginTarget(const Quaternion& qRot)
 	{
 		Vector3 cameraPos = m_position;

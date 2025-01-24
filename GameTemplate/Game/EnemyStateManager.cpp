@@ -37,37 +37,37 @@ void EnemyStateManager::StateTransition()
 		{
 		case enEnemyIdle:
 			m_state = &m_stateIdle;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemyWiteAndSee:
 			m_state = &m_stateWaitAndSee;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemyAttackPrepare:
 			m_state = &m_stateAttackPrepare;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemyJumpSlash:
 			m_state = &m_stateJumpSlash;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemySideSlash:
 			m_state = &m_stateSideSlash;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemyReceiveDamage:
 			m_state = &m_stateReceiveDamage;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		case enEnemyDie:
 			m_state = &m_stateDie;
-			m_state->Start(m_enemy);
+			m_state->Start(m_enemy, m_player);
 			break;
 
 		default:

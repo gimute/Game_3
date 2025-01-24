@@ -17,7 +17,7 @@ namespace nsK2EngineLow {
 		//ブラーを適用するためのスプライトを初期化
 		SpriteInitData spriteInitDate;
 		//シェーダーファイルパスを指定
-		spriteInitDate.m_fxFilePath = "Assets/shader/postEffect/blur_test.fx";
+		spriteInitDate.m_fxFilePath = "Assets/shader/postEffect/centerBlur.fx";
 		//幅と高さはmainRenderTargetと同じ
 		spriteInitDate.m_width = mainRenderTarget.GetWidth();
 		spriteInitDate.m_height = mainRenderTarget.GetHeight();
@@ -25,6 +25,9 @@ namespace nsK2EngineLow {
 		spriteInitDate.m_textures[0] = &mainRenderTarget.GetRenderTargetTexture();
 		//書き込むレンダリングターゲットのフォーマットを取得
 		spriteInitDate.m_colorBufferFormat[0] = mainRenderTarget.GetColorBufferFormat();
+		//ブラーの強さを設定するための値を入れる定数バッファー
+		spriteInitDate.m_expandConstantBuffer = &m_blurPower;
+		spriteInitDate.m_expandConstantBufferSize = sizeof(m_blurPower);
 
 		//用意したデータでスプライトを初期化
 		m_centerBlur.Init(spriteInitDate);
@@ -47,6 +50,33 @@ namespace nsK2EngineLow {
 
 	void CenterBlur::OnRender(RenderContext& rc, RenderTarget& mainRenderTarget)
 	{
+		switch (m_fadeState)
+		{
+		case nsK2EngineLow::enIn:
+			m_blurPower += g_gameTime->GetTrueFrameDeltaTime() * 2.0f;
+			if (m_blurPower >= 1.0f)
+			{
+				m_blurPower = 1.0f;
+				m_fadeState = enIdel;
+			}
+			break;
+
+		case nsK2EngineLow::enOut:
+			m_blurPower -= g_gameTime->GetTrueFrameDeltaTime() * 2.0f;
+			if (m_blurPower <= 0.0f)
+			{
+				m_blurPower = 0.0f;
+				m_fadeState = enIdel;
+				Disable();
+			}
+			break;
+
+		case nsK2EngineLow::enIdel:
+			break;
+		default:
+			break;
+		}
+
 		// レンダリングターゲットとして利用できるまで待つ
 		rc.WaitUntilToPossibleSetRenderTarget(m_tsts);
 		// レンダリングターゲットを設定

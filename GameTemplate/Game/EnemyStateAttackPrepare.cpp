@@ -4,8 +4,9 @@
 #include "Player.h"
 
 #include "EnemyParameter.h"
+#include "PlayerParameter.h"
 
-void EnemyStateAttackPrepare::Start(Enemy* enemy)
+void EnemyStateAttackPrepare::Start(Enemy* enemy, Player* player)
 {
 	//攻撃フラグを初期化
 	m_attackFlag = false;
@@ -55,7 +56,7 @@ void EnemyStateAttackPrepare::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(m_moveVec.x, m_moveVec.z));
 }
 
-void EnemyStateAttackPrepare::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
+void EnemyStateAttackPrepare::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 {
 	model.PlayAnimation(Enemy::enAnimationClip_Walk, 0.1f);
 }
@@ -63,7 +64,7 @@ void EnemyStateAttackPrepare::Animation(ModelRender& model, EnEnemyAnimationEven
 void EnemyStateAttackPrepare::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
 	//プレイヤーの攻撃コリジョン取得
-	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(PLAYER_ATTACK_COLLISION_NAME);
 
 	//被ダメージ判定
 	for (CollisionObject* collision : AttackCollisions)

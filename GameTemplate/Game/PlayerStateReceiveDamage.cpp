@@ -8,7 +8,7 @@
 void PlayerStateReceiveDamage::Start(Player* player)
 {
 	m_animationPlay = true;
-	player->Damage(5.0f);
+	player->Damage(1.0f);
 
 	m_isDeth = false;
 	if (player->GetNowHp() <= 0.0f)
@@ -21,7 +21,7 @@ void PlayerStateReceiveDamage::End(Player* player)
 {
 }
 
-void PlayerStateReceiveDamage::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateReceiveDamage::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{

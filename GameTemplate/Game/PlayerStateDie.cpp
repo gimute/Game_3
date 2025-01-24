@@ -16,11 +16,11 @@ void PlayerStateDie::End(Player* player)
 	player->Init();
 }
 
-void PlayerStateDie::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateDie::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{
-		model.PlayAnimation(Player::enAnimationClip_Backflip, 0.1f);
+		model.PlayAnimation(Player::enAnimationClip_Die, 0.1f);
 	}
 	else
 	{

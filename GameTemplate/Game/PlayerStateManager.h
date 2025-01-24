@@ -27,15 +27,15 @@ public:
 	}
 
 	//回転処理
-	void Rotation(Quaternion& rotation)
+	void Rotation(Quaternion& rotation, const Vector3& position)
 	{
-		m_state->Rotation(rotation);
+		m_state->Rotation(rotation, position);
 	}
 
-	//アニメーションの再生
-	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+	//アニメーション
+	void Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 	{
-		m_state->PlayAnimation(model, animeEvent);
+		m_state->Animation(model, animeEvent);
 	}
 
 	void Collision(Vector3 pos, ModelRender& model, CharacterController& characon)

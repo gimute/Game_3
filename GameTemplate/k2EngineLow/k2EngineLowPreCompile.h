@@ -95,7 +95,7 @@ static const int MAX_BONE = 512;	// ƒ{[ƒ“‚ÌÅ‘å”B
 #include "SpotLight.h"
 #include "VolumePointLight.h"
 #include "VolumeSpotLight.h"
-
+#include "level3D/Level.h"
 //
 
 

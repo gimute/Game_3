@@ -43,12 +43,12 @@ void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& ch
 {
 	if (m_enemy->IsDead() || m_enemy == nullptr)
 	{
-		playerToEnemyVec = m_enemy->GetPosition() - position;
+		m_enemy = nullptr;
+		m_attackFlowState = enEnd;
 	}
 	else
 	{
-		m_enemy = nullptr;
-		m_attackFlowState = enEnd;
+		playerToEnemyVec = m_enemy->GetPosition() - position;
 	}
 
 	if (!m_attackFlowState == enEnemyApproach)
@@ -57,7 +57,7 @@ void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& ch
 	}
 
 	
-	if (playerToEnemyVec.Length() < 100.0f)
+	if (playerToEnemyVec.Length() < 110.0f)
 	{
 		m_attackFlowState = enAttack1;
 	}
@@ -70,14 +70,14 @@ void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& ch
 	
 }
 
-void PlayerStateJustDodgeAttack::Rotation(Quaternion& rotation)
+void PlayerStateJustDodgeAttack::Rotation(Quaternion& rotation, const Vector3& position)
 {
 	//スティックの入力から回転を求める
 	playerToEnemyVec.Normalize();
 	rotation.SetRotationY(atan2(playerToEnemyVec.x, playerToEnemyVec.z));
 }
 
-void PlayerStateJustDodgeAttack::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateJustDodgeAttack::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (!model.IsPlayingAnimation())
 	{
@@ -91,17 +91,17 @@ void PlayerStateJustDodgeAttack::PlayAnimation(ModelRender& model, EnPlayerAnima
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack1:
-		model.SetAnimationSpeed(3.0f);
+		model.SetAnimationSpeed(1.5f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack2:
-		model.SetAnimationSpeed(4.0f);
+		model.SetAnimationSpeed(2.0f);
 		model.PlayAnimation(Player::enAnimationClip_JumpSlash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack3:
-		model.SetAnimationSpeed(3.0f);
+		model.SetAnimationSpeed(1.5f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 
@@ -161,9 +161,13 @@ void PlayerStateJustDodgeAttack::StateOenStep()
 		break;
 	case PlayerStateJustDodgeAttack::enAttack1:
 		m_attackFlowState = enAttack2;
+		//攻撃コリジョンを復活
+		m_attackCollision->SetIsEnable(true);
 		break;
 	case PlayerStateJustDodgeAttack::enAttack2:
 		m_attackFlowState = enAttack3;
+		//攻撃コリジョンを復活
+		m_attackCollision->SetIsEnable(true);
 		break;
 	case PlayerStateJustDodgeAttack::enAttack3:
 		m_attackFlowState = enEnd;

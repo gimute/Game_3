@@ -37,7 +37,7 @@ void PlayerStateWalk::Move(Vector3& position, CharacterController& charaCon)
 	position = charaCon.Execute(m_moveVec, g_gameTime->GetFrameDeltaTime());
 }
 
-void PlayerStateWalk::Rotation(Quaternion& rotation)
+void PlayerStateWalk::Rotation(Quaternion& rotation, const Vector3& position)
 {
 	//進行方向にプレイヤーを向かせる
 
@@ -50,7 +50,7 @@ void PlayerStateWalk::Rotation(Quaternion& rotation)
 	rotation.SetRotationY(atan2(m_moveVec.x, m_moveVec.z));
 }
 
-void PlayerStateWalk::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateWalk::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	model.SetAnimationSpeed(1.0f);
 

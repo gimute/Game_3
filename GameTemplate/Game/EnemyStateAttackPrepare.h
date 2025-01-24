@@ -19,7 +19,7 @@ public:
 	};
 
 	//このステートに遷移する時の処理
-	void Start(Enemy* enemy) override;
+	void Start(Enemy* enemy, Player* player) override;
 
 	//移動処理
 	void Move(Vector3& position, CharacterController& charaCon, Player* player) override;
@@ -28,7 +28,7 @@ public:
 	void Rotation(Quaternion& rotation) override;
 
 	//アニメーションの再生
-	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent) override;
 
 	//コリジョン
 	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;

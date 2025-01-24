@@ -10,7 +10,7 @@ class IEnemyState
 {
 public:
 	//このステートに遷移する時の処理
-	virtual void Start(Enemy* enemy) {};
+	virtual void Start(Enemy* enemy, Player* player) {};
 
 	//他のステートに遷移するときに行う後処理
 	virtual void End(Enemy* enemy) {};
@@ -22,7 +22,7 @@ public:
 	virtual void Rotation(Quaternion& rotation) {};
 
 	//アニメーションの管理
-	virtual void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) {};
+	virtual void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent) {};
 
 	//コリジョン
 	virtual void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) {};

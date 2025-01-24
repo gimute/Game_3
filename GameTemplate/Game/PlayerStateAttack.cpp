@@ -21,17 +21,16 @@ void PlayerStateAttack::Start(Player* player)
 void PlayerStateAttack::End(Player* player)
 {
 	
-	bool IsCollisionNull = m_attackCollision == nullptr;
-	IsCollisionNull = m_attackCollision->IsDead();
-
-	//攻撃コリジョンが死んでなかったら、破棄する
-	if (!IsCollisionNull)
+	if (m_isAttackCollisionExistence)
 	{
+		//コリジョンを破棄
 		DeleteGO(m_attackCollision);
+
+		m_isAttackCollisionExistence = false;
 	}
 }
 
-void PlayerStateAttack::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateAttack::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{
@@ -50,6 +49,8 @@ void PlayerStateAttack::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent
 		animeEvent = enPlayerAnimationEvent_None;
 		//攻撃コリジョンを破棄
 		DeleteGO(m_attackCollision);
+
+		m_isAttackCollisionExistence = false;
 		break;
 
 	case enPlayerAnimationEvent_AttackStart:
@@ -57,11 +58,14 @@ void PlayerStateAttack::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent
 		//攻撃コリジョンを用意
 		m_attackCollision = NewGO<CollisionObject>(0, "playerattack");
 		m_attackCollision->CreateBox(Vector3::Zero, Quaternion::Identity, PLAYER_SOWLD_SIZE);
-		m_attackCollision->SetName("player_attack");
+		m_attackCollision->SetName(PLAYER_ATTACK_COLLISION_NAME);
 		m_attackCollision->SetIsEnableAutoDelete(false);
+
+		m_isAttackCollisionExistence = true;
 		break;
 
 	default:
+		animeEvent = enPlayerAnimationEvent_None;
 		break;
 	}
 }

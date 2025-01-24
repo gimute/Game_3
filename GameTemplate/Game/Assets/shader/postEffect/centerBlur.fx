@@ -18,6 +18,11 @@ struct PSInput
     float2 uv : TEXCOORD0;
 };
 
+cbuffer blurPramater
+{
+    float blurPower;
+};
+
 Texture2D<float4> sceneTexture : register(t0); // シーンテクスチャ
 sampler Sampler : register(s0);
 
@@ -47,7 +52,8 @@ float4 PSMain(PSInput In) : SV_Target0
     //ここでちょっと変数の意味が変わってるから変数名変えたほうが良いかも?
     normalize(centerToInUVVec);
     //適当に小さくする
-    centerToInUVVec /= 20.0f;
+    centerToInUVVec /= 40.0f;
+    centerToInUVVec *= blurPower;
     
     //作ったベクトル方向のピクセルをサンプリング
     float4 blurColor;

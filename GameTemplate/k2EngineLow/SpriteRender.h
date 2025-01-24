@@ -28,6 +28,10 @@ namespace nsK2EngineLow {
 		/// ç¿ïWÇê›íË
 		/// </summary>
 		/// <param name="pos"></param>
+		void SetPosition(const Vector2& pos)
+		{
+			m_position = { pos.x,pos.y,0.0f };
+		}
 		void SetPosition(const Vector3& pos)
 		{
 			m_position = pos;

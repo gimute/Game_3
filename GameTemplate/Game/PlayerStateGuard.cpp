@@ -9,9 +9,18 @@
 
 void PlayerStateGuard::Start(Player* player)
 {
-	m_playerForward = Vector3::Front;
+	//ターゲットのエネミーを受け取る
+	m_enemy = player->GetTargetEnemy();
 
-	player->GetModel()->GetRotation().Apply(m_playerForward);
+	//プレイヤーを敵の方に向かせる
+	Vector3 playerToEnemy = m_enemy->GetPosition() - player->GetPosition();
+	Quaternion rotation;
+	rotation.SetRotationY(atan2(playerToEnemy.x, playerToEnemy.z));
+	player->SetRotation(rotation);
+
+	//プレイヤーの正面ベクトルを求める
+	m_playerForward = Vector3::Front;
+	rotation.Apply(m_playerForward);
 
 	m_guardCollision = NewGO<CollisionObject>(0);
 
@@ -60,15 +69,15 @@ void PlayerStateGuard::Move(Vector3& position, CharacterController& charaCon)
 
 	moveVec.Normalize();
 
-	m_guardCollision->SetPosition(position + (Vector3::Up * 50.0f) + (m_playerForward * 30.0f));
+	m_guardCollision->SetPosition(position + (Vector3::Up * 70.0f) + (m_playerForward * 30.0f));
 }
 
-void PlayerStateGuard::Rotation(Quaternion& rotation)
+void PlayerStateGuard::Rotation(Quaternion& rotation, const Vector3& position)
 {
 	m_guardCollision->SetRotation(rotation);
 }
 
-void PlayerStateGuard::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateGuard::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (AttackGuardFlag)
 	{

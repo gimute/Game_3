@@ -74,11 +74,10 @@ void PlayerStateDodge::InitDodge(const Vector3& playerFront)
 
 		Quaternion rot;
 		
+		m_dodgeVec = playerFront * 200.0f;
 
 		if (cross < 0.0f)
 		{
-			m_dodgeVec = playerFront * 100.0f;
-
 			rot.SetRotationDegY(90.0f);
 			rot.Apply(m_dodgeVec);
 
@@ -86,8 +85,6 @@ void PlayerStateDodge::InitDodge(const Vector3& playerFront)
 		}
 		else
 		{
-			m_dodgeVec = playerFront * 100.0f;
-
 			rot.SetRotationDegY(-90.0f);
 			rot.Apply(m_dodgeVec);
 
@@ -119,7 +116,7 @@ void PlayerStateDodge::Move(Vector3& position, CharacterController& charaCon)
 	}
 }
 
-void PlayerStateDodge::PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
+void PlayerStateDodge::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
 	if (m_justDodge == true)
 	{

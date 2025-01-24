@@ -5,55 +5,51 @@
 #include "Player.h"
 
 #include "EnemyParameter.h"
+#include "PlayerParameter.h"
 
 //ステート
 
-void EnemyStateJumpSlash::Start(Enemy* enemy)
+void EnemyStateJumpSlash::Start(Enemy* enemy, Player* player)
 {
 	//アニメーション再生中フラグの初期化
 	m_isPlayAnimation = true;
 
 	enemy->GetModel()->PlayAnimation(Enemy::enAnimationClip_JumpSlash, 0.1f);
 
-	//コリジョンの準備
-	m_attackCollision = NewGO<CollisionObject>(0);
-	m_attackCollision->CreateBox(enemy->GetPosition(), Quaternion::Identity, Vector3(50.0f, 50.0f, 50.0f));
-	m_attackCollision->SetName(ENEMY_ATTACK_COLLISION_NAME);
-	//縦攻撃なので追加情報に縦攻撃を設定
-	m_attackCollision->SetAdditionalInformation(ENEMY_VERTICAL_ATTACK_NAME);
-	m_attackCollision->SetIsEnableAutoDelete(false);
-
-	//コリジョンを生成するボーンのIDを取得
+	//攻撃コリジョンを生成するボーンのIDを取得
 	m_attackBoneID = enemy->GetModel()->FindBoneID(ENEMY_ATTACK_COLLISION_BONE_NAME);
-	//コリジョンのワールド行列を、取得したボーンのワールド行列に設定
-	m_attackCollision->SetWorldMatrix(enemy->GetModel()->GetBone(m_attackBoneID)->GetWorldMatrix());
 
+	//このステートに入った瞬間のプレイヤーの座標を目標地点にする
+	m_targetPosition = player->GetPosition();
+
+	m_MoveSpeed = ENEMY_DASH_SPEED;
 	m_hitFlag = false;
 
 }
 
 void EnemyStateJumpSlash::End(Enemy* enemy)
 {
-	//コリジョンを破棄
-	DeleteGO(m_attackCollision);
+	if (m_isAttackCollisionExistence)
+	{
+		//コリジョンを破棄
+		DeleteGO(m_attackCollision);
+
+		m_isAttackCollisionExistence = false;
+	}
+	
 
 }
 
 void EnemyStateJumpSlash::Move(Vector3& position, CharacterController& charaCon, Player* player)
 {
-	//プレイヤーに近づく処理
-	//移動ベクトルを求める
-	//プレイヤーに向かうベクトルを求める
-	Vector3 m_moveVec = player->GetPosition() - position;
-	//ついでにここでプレイヤーとの距離が攻撃範囲内か調べる
-
+	//目標地点に近づく処理
+	Vector3 m_moveVec = m_targetPosition - position;
 	m_moveVec.Normalize();
-	//速さは歩きと同じ
-	m_moveVec *= ENEMY_WALK_SPEED;
+	m_moveVec *= m_MoveSpeed;
 	position = charaCon.Execute(m_moveVec, g_gameTime->GetFrameDeltaTime());
 }
 
-void EnemyStateJumpSlash::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
+void EnemyStateJumpSlash::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 {
 	if (model.IsPlayingAnimation())
 	{
@@ -64,16 +60,42 @@ void EnemyStateJumpSlash::Animation(ModelRender& model, EnEnemyAnimationEvent an
 		m_isPlayAnimation = false;
 	}
 	
+	switch (animeEvent)
+	{
+	case enEnemyAnimationEvent_AttackEnd:
+		animeEvent = enEnemyAnimationEvent_None;
+		//攻撃コリジョンを破棄
+		DeleteGO(m_attackCollision);
+
+		//移動を止める
+		m_MoveSpeed = 0.0f;
+
+		m_isAttackCollisionExistence = false;
+		break;
+
+	case enEnemyAnimationEvent_AttackStart:
+		animeEvent = enEnemyAnimationEvent_None;
+		//攻撃コリジョンを用意
+		m_attackCollision = NewGO<CollisionObject>(0, "enemyattack");
+		m_attackCollision->CreateBox(Vector3::Zero, Quaternion::Identity, ENEMY_ATTACK_COLLISION_SIZE);
+		m_attackCollision->SetName(ENEMY_ATTACK_COLLISION_NAME);
+		//縦攻撃なので追加情報に縦攻撃を設定
+		m_attackCollision->SetAdditionalInformation(ENEMY_VERTICAL_ATTACK_NAME);
+		m_attackCollision->SetIsEnableAutoDelete(false);
+
+		m_isAttackCollisionExistence = true;
+		break;
+
+	default:
+		animeEvent = enEnemyAnimationEvent_None;
+		break;
+	}
 }
 
 void EnemyStateJumpSlash::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
-	//コリジョンのワールド行列を更新
-	m_attackCollision->SetWorldMatrix(model.GetBone(m_attackBoneID)->GetWorldMatrix());
-
-
 	//プレイヤーの攻撃コリジョン取得
-	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects("player_attack");
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(PLAYER_ATTACK_COLLISION_NAME);
 
 	//被ダメージ判定
 	for (CollisionObject* collision : AttackCollisions)
@@ -84,6 +106,12 @@ void EnemyStateJumpSlash::Collision(const Vector3& pos, ModelRender& model, Char
 
 			m_hitFlag = true;
 		}
+	}
+
+	if (m_isAttackCollisionExistence)
+	{
+		//コリジョンのワールド行列を更新
+		m_attackCollision->SetWorldMatrix(model.GetBone(m_attackBoneID)->GetWorldMatrix());
 	}
 }
 

@@ -8,7 +8,7 @@ public:
 
 	void Start(Player* player)override;
 	void End(Player* player)override;
-	void PlayAnimation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
+	void Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent) override;
 	EnPlayerState StateTransition() override;
 	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 
@@ -20,5 +20,7 @@ private:
 	CollisionObject* m_attackCollision;	//攻撃コリジョン
 
 	bool hitFlag = false;		//被ダメージフラグ
+	bool m_isAttackCollisionExistence = false;	//攻撃コリジョンが存在しているか
+
 };
 

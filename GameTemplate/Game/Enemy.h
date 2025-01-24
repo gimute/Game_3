@@ -3,6 +3,8 @@
 #include "EnEnemyState.h"
 #include "EnemyStateManager.h"
 
+class EnemyHpUI;
+
 //エネミー
 class Enemy : public IGameObject
 {
@@ -27,6 +29,7 @@ public:
 		enAnimationClip_LateralMovement_Left,	//左移動アニメーション
 		enAnimationClip_LateralMovement_Right,	//右移動アニメーション
 		enAnimationClip_ReceiveDamage,	//被ダメージモーション
+		enAnimationClip_Die,			//しぼうアニメーション
 		enAnimationClip_Num	//アニメーションの数
 	};
 
@@ -55,22 +58,21 @@ public:
 	/// <param name="eventName"></param>
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
 
+	//消去処理
+	void Delete();
+
 	/// <summary>
 	/// ダメージ処理
 	/// </summary>
-	void DamageProcess()
-	{
-		--m_hp;
-	}
+	void Damage(float damageAmount);
 
-	//現在のHPを取得
-	const int& GetNowHP()
-	{
-		return m_hp;
-	}
+	/// <summary>
+	/// 現在のHPを取得
+	/// </summary>
+	/// <returns></returns>
+	float GetNowHP();
 
-	//消去処理
-	void Delete();
+	void HPUIInit();
 
 private:
 	/// <summary>
@@ -95,8 +97,8 @@ private:
 
 	EnemyStateManager m_enemyStateManager;		
 
-	EnEnemyAnimationEvent m_enAnimationEvent;
+	EnEnemyAnimationEvent m_enAnimationEvent = enEnemyAnimationEvent_None;
 
-	int m_hp = 10;
+	EnemyHpUI* m_enemyHpUI = nullptr;
 };
 

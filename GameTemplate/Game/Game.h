@@ -20,6 +20,8 @@ private:
 	/// </summary>
 	void CreateGameObject();
 
+	//サウンドの登録
+	void SoundRegistration();
 
 private:
 	Player* m_player;			//プレイヤー
@@ -28,5 +30,6 @@ private:
 	Enemy* m_enemy;				//エネミー
 
 	SpriteRender m_spRender;
+	Level test;
 };
 

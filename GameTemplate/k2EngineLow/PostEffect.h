@@ -26,12 +26,13 @@ namespace nsK2EngineLow {
 
 		void DisableCenterBlur()
 		{
-			m_centeBlur.Disable();
+			m_centeBlur.FadeOut();
 		}
 
 		void EnableCenterBlur()
 		{
 			m_centeBlur.Enable();
+			m_centeBlur.FadeIn();
 		}
 
 	private:

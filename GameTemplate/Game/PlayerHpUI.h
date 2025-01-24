@@ -3,8 +3,8 @@
 //プレイヤーのHPUI
 
 namespace {
-	const float HP_UI_SPRITE_WIGHT = 400;
-	const float HP_UI_SPRITE_HEIGHT = 50;
+	const float PLAYER_HP_UI_SPRITE_WIGHT = 400;
+	const float PLAYER_HP_UI_SPRITE_HEIGHT = 50;
 }
 
 class Player;
@@ -63,7 +63,8 @@ public:
 private:
 	Player* m_player = nullptr;	//プレイヤー
 	SpriteRender m_hpSprite;	//HPのスプライト
-	
+	SpriteRender m_backHpBarSp;
+
 	float m_maxHp = 0.0f;	//最大HP
 	float m_nowHp = 0.0f;	//現在HP
 

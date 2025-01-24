@@ -225,6 +225,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyHpUI.cpp" />
     <ClCompile Include="EnemyStateAttackPrepare.cpp" />
     <ClCompile Include="EnemyStateDie.cpp" />
     <ClCompile Include="EnemyStateIdle.cpp" />
@@ -259,6 +260,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyHpUI.h" />
     <ClInclude Include="EnemyParameter.h" />
     <ClInclude Include="EnemyStateAttackPrepare.h" />
     <ClInclude Include="EnemyStateDie.h" />

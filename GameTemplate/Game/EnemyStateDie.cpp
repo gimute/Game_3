@@ -3,7 +3,7 @@
 
 #include "Enemy.h"
 
-void EnemyStateDie::Start(Enemy* enemy)
+void EnemyStateDie::Start(Enemy* enemy, Player* player)
 {
 	m_isPlayAnimation = true;
 }
@@ -13,11 +13,11 @@ void EnemyStateDie::End(Enemy* enemy)
 	enemy->Delete();
 }
 
-void EnemyStateDie::Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
+void EnemyStateDie::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 {
 	if(model.IsPlayingAnimation())
 	{
-		model.PlayAnimation(Enemy::enAnimationClip_Backflip, 0.1f);
+		model.PlayAnimation(Enemy::enAnimationClip_Die, 0.1f);
 
 
 	}

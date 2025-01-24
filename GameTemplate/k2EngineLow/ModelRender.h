@@ -12,7 +12,10 @@ namespace nsK2EngineLow {
 		/// <summary>
 		/// 初期化
 		/// </summary>
-		/// <param name="tkmfilePath">tkmファイルパス</param>
+		/// <param name="tkmfilePath">モデルのファイルパス</param>
+		/// <param name="animationClips">アニメーションクリップ</param>
+		/// <param name="numAnimarionClips">アニメーションクリップの数</param>
+		/// <param name="enModelUpAxis">モデルの上方向</param>
 		void Init(
 			const char* tkmfilePath,
 			AnimationClip* animationClips = nullptr,

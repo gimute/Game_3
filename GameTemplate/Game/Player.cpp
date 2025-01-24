@@ -60,13 +60,13 @@ void Player::InitAnimation()
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
 	m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
 	//バク転アニメーション
-	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/player/backflip.tka");
+	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/Player/backflip.tka");
 	m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);
 	//左回避アニメーション
-	m_animationClips[enAnimationClip_LeftDodge].Load("Assets/animData/paladin/leftDodge.tka");
+	m_animationClips[enAnimationClip_LeftDodge].Load("Assets/animData/paladin/Player/leftDodge.tka");
 	m_animationClips[enAnimationClip_LeftDodge].SetLoopFlag(false);
 	//右回避アニメーション
-	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/paladin/rightDodge.tka");
+	m_animationClips[enAnimationClip_RightDodge].Load("Assets/animData/paladin/Player/rightDodge.tka");
 	m_animationClips[enAnimationClip_RightDodge].SetLoopFlag(false);
 	//被ダメージアニメーション
 	m_animationClips[enAnimationClip_ReceiveDamage].Load("Assets/animData/paladin/receiveDamage.tka");
@@ -83,15 +83,18 @@ void Player::InitAnimation()
 	//ジャンプ切り
 	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
 	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
+	//しぼうアニメーション
+	m_animationClips[enAnimationClip_Die].Load("Assets/animData/paladin/die.tka");
+	m_animationClips[enAnimationClip_Die].SetLoopFlag(false);
 }
 
 void Player::Update()
 {
 	m_playerStateManager.Move(m_position, m_charaCon);
 
-	m_playerStateManager.Rotation(m_rotation);
+	m_playerStateManager.Rotation(m_rotation, m_position);
 
-	m_playerStateManager.PlayAnimation(m_playerModel, m_enAnimationEvent);
+	m_playerStateManager.Animation(m_playerModel, m_enAnimationEvent);
 
 	m_playerModel.SetPosition(m_position);
 	m_playerModel.SetRotation(m_rotation);

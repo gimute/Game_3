@@ -6,13 +6,13 @@
 class EnemyStateWaitAndSee : public IEnemyState
 {
 public:
-	void Start(Enemy* enemy) override;
+	void Start(Enemy* enemy, Player* player) override;
 
 	void Move(Vector3& position, CharacterController& charaCon, Player* player) override;
 
 	void Rotation(Quaternion& rotation) override;
 
-	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent) override;
 
 	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
 

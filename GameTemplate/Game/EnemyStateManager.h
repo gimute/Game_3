@@ -29,7 +29,7 @@ public:
 		m_state->Rotation(rotation);
 	}
 
-	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent)
+	void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 	{
 		m_state->Animation(model, animeEvent);
 	}

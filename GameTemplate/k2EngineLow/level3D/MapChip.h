@@ -25,12 +25,12 @@ namespace nsK2EngineLow {
 		/// モデルを取得。
 		/// </summary>
 		/// <returns></returns>
-		Model& GetSkinModel()
+		ModelRender& GetSkinModel()
 		{
-			return m_model;
+			return m_modelRender;
 		}
 	private:
-		Model				m_model;						//モデルレンダー。
+		ModelRender			m_modelRender;						//モデルレンダー。
 		PhysicsStaticObject m_physicsStaticObject;			//静的物理オブジェクト。
 	};
 }

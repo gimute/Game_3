@@ -92,6 +92,9 @@
     <ClCompile Include="PlayerStateDie.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyHpUI.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -179,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="PlayerStateDie.h">
       <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyHpUI.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

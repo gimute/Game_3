@@ -24,7 +24,8 @@ public:
 		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
 		enAnimationClip_LeftGuardStrafe,	//ガード左移動
 		enAnimationClip_RightGuardStrafe,	//ガード右移動
-		enAnimationClip_JumpSlash,	
+		enAnimationClip_JumpSlash,		//ジャンプ切り
+		enAnimationClip_Die,			//しぼうアニメーション
 		enAnimationClip_Num	//アニメーションの数
 	};
 
@@ -72,6 +73,14 @@ public:
 		return m_enemy;
 	}
 
+	/// <summary>
+	/// 回転を設定
+	/// </summary>
+	/// <param name="rotation"></param>
+	void SetRotation(Quaternion rotation)
+	{
+		m_rotation = rotation;
+	}
 
 	/// <summary>
 	/// ダメージ処理

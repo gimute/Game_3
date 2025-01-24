@@ -7,7 +7,7 @@ class EnemyStateSideSlash : public IEnemyState
 {
 public:
 	//このステートに遷移する時の処理
-	void Start(Enemy* enemy) override;
+	void Start(Enemy* enemy, Player* player) override;
 
 	//他のステートに遷移するときに行う後処理
 	void End(Enemy* enemy) override;
@@ -19,7 +19,7 @@ public:
 	//void Rotation(Quaternion& rotation, Player* player) override;
 
 	//アニメーションの再生
-	void Animation(ModelRender& model, EnEnemyAnimationEvent animeEvent) override;
+	void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent) override;
 
 	//コリジョン
 	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
@@ -34,6 +34,7 @@ private:
 	CollisionObject* m_attackCollision;	//攻撃用コリジョン
 
 	bool m_hitFlag = false;		//被ダメージフラグ
+	bool m_isAttackCollisionExistence = false;	//攻撃コリジョンが存在しているか
 
 };
 

@@ -359,6 +359,16 @@ namespace nsK2EngineLow {
 		/// <param name="screenPos">スクリーン座標の格納先</param>
 		/// <param name="worldPos">ワールド座標</param>
 		void CalcScreenPositionFromWorldPosition(Vector2& screenPos, const Vector3& worldPos) const;
+		/// <summary>
+		/// ワールド座標からスクリーン座標を計算する。
+		/// </summary>
+		/// <remarks>
+		/// z値付き
+		/// </remarks>
+		/// <param name="screenPos">スクリーン座標の格納先</param>
+		/// <param name="worldPos">ワールド座標</param>
+		void CalcScreenPositionFromWorldPosition(Vector3& screenPos, const Vector3& worldPos) const;
+
 
 	protected:
 		float		m_targetToPositionLen = 1.0f;			// 注視点と視点まで距離。

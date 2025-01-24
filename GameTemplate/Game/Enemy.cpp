@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Enemy.h"
 
+#include "EnemyHpUI.h"
+
 //エネミー
 
 Enemy::Enemy()
@@ -10,13 +12,15 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-
+	DeleteGO(m_enemyHpUI);
 }
 
 void Enemy::Delete()
 {
 	DeleteGO(this);
 }
+
+
 
 bool Enemy::Start()
 {
@@ -31,6 +35,9 @@ bool Enemy::Start()
 	//ステートマネージャー初期化
 	m_enemyStateManager.Init(this);
 
+	m_enemyHpUI = NewGO<EnemyHpUI>(0, "enemyHpUI");
+	HPUIInit();
+
 	return true;
 }
 
@@ -42,7 +49,7 @@ void Enemy::Update()
 
 	m_enemyStateManager.Rotation(m_rotation);
 
-	m_enemyStateManager.Animation(m_enemyModel, enEnemyAnimationEvent_None);
+	m_enemyStateManager.Animation(m_enemyModel, m_enAnimationEvent);
 
 	m_enemyModel.SetPosition(m_position);
 	m_enemyModel.SetRotation(m_rotation);
@@ -56,11 +63,6 @@ void Enemy::Update()
 	m_enemyStateManager.StateTransition();
 }
 
-void Enemy::Render(RenderContext& rc)
-{
-	m_enemyModel.Draw(rc);
-}
-
 void Enemy::InitAnimation()
 {
 	//待機アニメーション
@@ -70,10 +72,10 @@ void Enemy::InitAnimation()
 	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/paladin/walk.tka");
 	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
 	//斬撃アニメーション
-	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/sideSlash.tka");
+	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/Enemy/sideSlash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);
 	//ジャンプ切りアニメーション
-	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
+	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/Enemy/jumpSlash.tka");
 	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
 	//ガードアニメーション
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
@@ -96,6 +98,9 @@ void Enemy::InitAnimation()
 	//被ダメージアニメーション
 	m_animationClips[enAnimationClip_ReceiveDamage].Load("Assets/animData/paladin/receiveDamage.tka");
 	m_animationClips[enAnimationClip_ReceiveDamage].SetLoopFlag(false);
+	//しぼうアニメーション
+	m_animationClips[enAnimationClip_Die].Load("Assets/animData/paladin/die.tka");
+	m_animationClips[enAnimationClip_Die].SetLoopFlag(false);
 }
 
 void Enemy::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
@@ -116,5 +121,29 @@ void Enemy::InitModel()
 	m_enemyModel.Init("Assets/modelData/paladin/paladin.tkm", m_animationClips, enAnimationClip_Num);
 	m_enemyModel.SetScale(Vector3::One * 2.0f);
 	m_enemyModel.Update();
+
+	//アニメーションイベント
+	m_enemyModel.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
+		OnAnimationEvent(clipName, eventName);
+		});
 }
 
+void Enemy::Damage(float damageAmount)
+{
+	m_enemyHpUI->Damage(damageAmount);
+}
+
+float Enemy::GetNowHP()
+{
+	return m_enemyHpUI->GetNowHp();
+}
+
+void Enemy::HPUIInit()
+{
+	m_enemyHpUI->Init(this, 10.0f);
+}
+
+void Enemy::Render(RenderContext& rc)
+{
+	m_enemyModel.Draw(rc);
+}
