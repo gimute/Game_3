@@ -20,6 +20,7 @@ public:
 	enum EnAnimationClip {
 		enAnimationClip_Idle,	//待機アニメーション
 		enAnimationClip_Walk,	//歩行アニメーション
+		enAnimationClip_BackWalk,	//後ろ歩きモーション
 		enAnimationClip_Slash,	//斬撃モーション
 		enAnimationClip_JumpSlash,	//ジャンプ切り
 		enAnimationClip_Guard,	//ガードモーション

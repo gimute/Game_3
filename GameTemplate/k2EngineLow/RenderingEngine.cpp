@@ -51,9 +51,9 @@ namespace nsK2EngineLow {
         spData.m_width = g_graphicsEngine->GetFrameBufferWidth();;
         spData.m_height = g_graphicsEngine->GetFrameBufferHeight();
         spData.m_fxFilePath = "Assets/shader/sprite.fx";
-        //spData.m_textures[0] = &albedRT.GetRenderTargetTexture();
+        spData.m_textures[0] = &m_albedRT.GetRenderTargetTexture();
         //spData.m_textures[0] = &normalSpecRT.GetRenderTargetTexture();
-        spData.m_textures[0] = &m_depthRT.GetRenderTargetTexture();
+        //spData.m_textures[0] = &m_depthRT.GetRenderTargetTexture();
         m_GBufferTest.Init(spData);
         /////////////////////////////////////////////////////////////////////////
 

@@ -71,6 +71,9 @@ void Enemy::InitAnimation()
 	//歩行アニメーション
 	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/paladin/walk.tka");
 	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
+	//歩行アニメーション
+	m_animationClips[enAnimationClip_BackWalk].Load("Assets/animData/paladin/backWalk.tka");
+	m_animationClips[enAnimationClip_BackWalk].SetLoopFlag(true);
 	//斬撃アニメーション
 	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/Enemy/sideSlash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);

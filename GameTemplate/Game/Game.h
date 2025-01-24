@@ -30,6 +30,5 @@ private:
 	Enemy* m_enemy;				//エネミー
 
 	SpriteRender m_spRender;
-	Level test;
 };
 

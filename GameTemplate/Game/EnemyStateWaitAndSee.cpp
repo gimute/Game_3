@@ -11,46 +11,40 @@
 
 void EnemyStateWaitAndSee::Start(Enemy* enemy, Player* player)
 {
-	testTimer = 1.0f;
+	//m_attackTransitionTimer = 1.0f;
 	m_hitFlag = false;
 }
 
 void EnemyStateWaitAndSee::Move(Vector3& position, CharacterController& charaCon, Player* player)
 {
-	//プレイヤーの周りを回る動きをさせたい
-	//常にプレイヤーへ向かうベクトルを求めそれから見て右に向かって動けば勝手に円運動になりそう
-
-	//プレイヤーに向かうベクトルを求める
-	enemyToPlayer = player->GetPosition() - position;
-	//Y軸の値はいらないので0に
-	enemyToPlayer.y = 0.0f;
-
-	//距離を保持
-	float lenge = enemyToPlayer.Length();
-
-	//正規化
-	enemyToPlayer.Normalize();
-
-	//求めたベクトルを右に90度回したベクトルを移動ベクトルに足す
-	Vector3 moveVec = { enemyToPlayer.z ,0.0f ,-enemyToPlayer.x };
-
-	if (lenge < 300.0f)
+	//時計回り移動のフラグをturuとfalseで行き来させる
+	if (m_clockwiseFlag == false)
 	{
-		moveVec += enemyToPlayer * -0.5f;
-	}
-	else if (lenge == 300.0f)
-	{
+		m_clockwiseTimer -= g_gameTime->GetFrameDeltaTime();
 
+		if (m_clockwiseTimer <= 0.0f)
+		{
+			//タイマーをランダムな時間でリセットする
+			m_clockwiseTimer = float(std::rand() & 3) + 1.0f;
+
+			m_clockwiseFlag = true;
+		}
 	}
 	else
 	{
-		moveVec += enemyToPlayer * 0.5f;
+		m_clockwiseTimer -= g_gameTime->GetFrameDeltaTime();
+
+		if (m_clockwiseTimer <= 0.0f)
+		{
+			//タイマーをランダムな時間でリセットする
+			m_clockwiseTimer = float(std::rand() & 3) + 1.0f;
+
+			m_clockwiseFlag = false;
+		}
 	}
 
-	moveVec.Normalize();
-
-
-	moveVec *= ENEMY_GUARDWALK_SPEED;
+	//移動ベクトルを求める
+	Vector3 moveVec = CalcMoveVec(position, player->GetPosition());
 
 	//求めた移動ベクトルを使って移動
 	position = charaCon.Execute(moveVec, g_gameTime->GetFrameDeltaTime());
@@ -64,7 +58,28 @@ void EnemyStateWaitAndSee::Rotation(Quaternion& rotation)
 
 void EnemyStateWaitAndSee::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
 {
-	model.PlayAnimation(Enemy::enAnimationClip_LateralMovement_Right, 0.1f);
+	switch (m_walkState)
+	{
+	case enStop:
+		model.PlayAnimation(Enemy::enAnimationClip_Idle, 0.1f);
+		break;
+
+	case enForward:
+		model.PlayAnimation(Enemy::enAnimationClip_Walk, 0.1f);
+		break;
+
+	case enBack:
+		model.PlayAnimation(Enemy::enAnimationClip_BackWalk, 0.1f);
+		break;
+
+	case enm_Clockwise:
+		model.PlayAnimation(Enemy::enAnimationClip_LateralMovement_Right, 0.1f);
+		break;
+
+	default:
+		break;
+	}
+
 }
 
 void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
@@ -91,13 +106,69 @@ EnEnemyState EnemyStateWaitAndSee::StateTransition()
 		return enEnemyReceiveDamage;
 	}
 
-	testTimer -= 0.01f;
-	if (testTimer < 0.0f)
+	m_attackTransitionTimer -= 0.01f;
+	if (m_attackTransitionTimer < 0.0f)
 	{
-		testTimer = 3.0f;
+		m_attackTransitionTimer = 3.0f;
 		return enEnemyAttackPrepare;
 
 	}
 
 	return enEnemyWiteAndSee;
 }
+
+Vector3 EnemyStateWaitAndSee::CalcMoveVec(const Vector3 enemyPos, const Vector3 playerPos)
+{
+	Vector3 moveVec = Vector3::Zero;
+
+	//プレイヤーに向かうベクトルを求める
+	enemyToPlayer = playerPos - enemyPos;
+
+	//Y軸の値はいらないので0に
+	enemyToPlayer.y = 0.0f;
+
+	//距離を出してから正規化
+	float distance = enemyToPlayer.Length();
+	enemyToPlayer.Normalize();
+
+	//プレイヤーとの距離を一定に保つための移動ベクトル
+	Vector3 keppSistanceMoveVec;
+	if (distance > 310.0f)
+	{
+		keppSistanceMoveVec = enemyToPlayer;
+		m_walkState = enForward;
+	}
+	else if(distance < 290.0f)
+	{
+		keppSistanceMoveVec = enemyToPlayer * -1;
+		m_walkState = enBack;
+	}
+	else
+	{
+		keppSistanceMoveVec = Vector3::Zero;
+		m_walkState = enStop;
+	}
+
+	//移動ベクトルに加算
+	moveVec += keppSistanceMoveVec;
+
+
+	if (m_clockwiseFlag == true)
+	{
+		//時計回りにプレイヤーの周囲を回るためのベクトルを求める
+		//プレイヤーに向かうベクトルに垂直なベクトル方向に動かすことで円運動ぽくなる
+		Vector3 clockwiseVec = { enemyToPlayer.z ,0.0f ,-enemyToPlayer.x };
+
+		//移動ベクトルに加算
+		moveVec += clockwiseVec;
+
+		m_walkState = enm_Clockwise;
+	}
+
+	//求めたベクトルに移動スピードを乗算する
+	moveVec *= ENEMY_GUARDWALK_SPEED;
+
+	return moveVec;
+}
+
+
