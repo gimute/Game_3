@@ -8,4 +8,8 @@ namespace {
 	//剣のサイズ
 	//zが剣の長さにあたる
 	const Vector3 PLAYER_SOWLD_SIZE = { 10.0f,10.0f,50.0f };
+
+	//ガードコリジョンのプレイヤーからずらす量、zはプレイヤーの正面方向にどれくらいずらすかの量
+	const Vector3 PLAYER_GUARD_COLLISION_POS = { 0.0f, 70.0f, 30.0f };
+
 }

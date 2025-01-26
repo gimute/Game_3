@@ -20,7 +20,7 @@ namespace nsK2EngineLow {
 		Vector3 color = g_vec3One;			//ライトのカラー
 		float range;						//影響範囲
 		Vector3 positionInView;				//カメラ空間での座標
-		int pow;							//影響率の累乗数
+		int pow = 1;							//影響率の累乗数
 
 		//Vector3 position = g_vec3Zero;		//座標
 		//int isUse = false;					//使用中フラグ

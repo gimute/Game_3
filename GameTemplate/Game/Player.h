@@ -70,7 +70,7 @@ public:
 	/// </summary>
 	Enemy*& GetTargetEnemy()
 	{
-		return m_enemy;
+		return mlockOnEnemy;
 	}
 
 	/// <summary>
@@ -98,6 +98,16 @@ public:
 	//アニメーションイベント用関数
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
 
+	const bool IsEnemyLockOn() const
+	{
+		return m_isEnemyLockOn;
+	}
+
+	void SetEnemyLockOnFlag(bool flag)
+	{
+		m_isEnemyLockOn = flag;
+	}
+
 private:
 	ModelRender m_playerModel;		//プレイヤーのモデル
 	AnimationClip m_animationClips[enAnimationClip_Num];	//アニメーションクリップ
@@ -111,9 +121,11 @@ private:
 
 	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
 
-	Enemy* m_enemy = nullptr;	//捕捉エネミー
+	Enemy* mlockOnEnemy = nullptr;	//捕捉エネミー
 	PlayerHpUI* m_hpUI = nullptr;
 
 	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;
+
+	bool m_isEnemyLockOn = false;	//ロックオンフラグ
 };
 

@@ -238,6 +238,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="IEnemyState.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
+    <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerHpUI.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="IPlayerState.h" />
+    <ClInclude Include="LightManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHpUI.h" />
     <ClInclude Include="PlayerParameter.h" />

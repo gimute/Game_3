@@ -2,6 +2,7 @@
 #include "PlayerStateGuard.h"
 #include "Player.h"
 
+#include "PlayerParameter.h"
 #include "EnemyParameter.h"
 #include "Enemy.h"
 
@@ -10,13 +11,16 @@
 void PlayerStateGuard::Start(Player* player)
 {
 	//ターゲットのエネミーを受け取る
-	m_enemy = player->GetTargetEnemy();
+	m_lockOnEnemy = player->GetTargetEnemy();
 
+	//player->SetEnemyLockOnFlag(true);
 	//プレイヤーを敵の方に向かせる
-	Vector3 playerToEnemy = m_enemy->GetPosition() - player->GetPosition();
+	Vector3 playerToEnemy = m_lockOnEnemy->GetPosition() - player->GetPosition();
+	playerToEnemy.y = 0.0f;
 	Quaternion rotation;
 	rotation.SetRotationY(atan2(playerToEnemy.x, playerToEnemy.z));
 	player->SetRotation(rotation);
+	
 
 	//プレイヤーの正面ベクトルを求める
 	m_playerForward = Vector3::Front;
@@ -25,7 +29,7 @@ void PlayerStateGuard::Start(Player* player)
 	m_guardCollision = NewGO<CollisionObject>(0);
 
 	Vector3 collisionPos = player->GetPosition();
-	collisionPos += (m_playerForward * 30.0f) + (Vector3::Up * 50.0f);
+	collisionPos += (Vector3::Up * PLAYER_GUARD_COLLISION_POS.y) + (m_playerForward * PLAYER_GUARD_COLLISION_POS.z);
 
 	m_guardCollision->CreateBox(collisionPos, Quaternion::Identity, Vector3(70.0f, 150.0f, 30.0f));
 	m_guardCollision->SetIsEnableAutoDelete(false);
@@ -39,10 +43,17 @@ void PlayerStateGuard::End(Player* player)
 {
 	DeleteGO(m_guardCollision);
 	m_guardCollision = nullptr;
+	//player->SetEnemyLockOnFlag(false);
+
 }
 
 void PlayerStateGuard::Move(Vector3& position, CharacterController& charaCon)
 {
+	if (AttackGuardFlag)
+	{
+		return;
+	}
+
 	Vector3 moveVec = Vector3::Zero;	//移動ベクトル
 
 	//左スティックの入力を取得
@@ -69,11 +80,24 @@ void PlayerStateGuard::Move(Vector3& position, CharacterController& charaCon)
 
 	moveVec.Normalize();
 
-	m_guardCollision->SetPosition(position + (Vector3::Up * 70.0f) + (m_playerForward * 30.0f));
+	//ガードコリジョンの座標更新
+	Vector3 playerToEnemy = m_lockOnEnemy->GetPosition() - position;
+	playerToEnemy.y = 0.0f;
+	Quaternion rotation;
+	rotation.SetRotationY(atan2(playerToEnemy.x, playerToEnemy.z));
+
+	//プレイヤーの正面ベクトルを求める
+	m_playerForward = Vector3::Front;
+	rotation.Apply(m_playerForward);
+
+	m_guardCollision->SetPosition(position + (Vector3::Up * PLAYER_GUARD_COLLISION_POS.y) + (m_playerForward * PLAYER_GUARD_COLLISION_POS.z));
 }
 
 void PlayerStateGuard::Rotation(Quaternion& rotation, const Vector3& position)
 {
+	//プレイヤーを敵の方に向かせる
+	rotation.SetRotationY(atan2(m_playerForward.x, m_playerForward.z));
+
 	m_guardCollision->SetRotation(rotation);
 }
 
@@ -138,6 +162,11 @@ EnPlayerState PlayerStateGuard::StateTransition()
 	if (hitFlag)
 	{
 		return enReceiveDamage;
+	}
+
+	if (AttackGuardFlag)
+	{
+		return enGuard;
 	}
 
 	if (g_pad[0]->IsTrigger(enButtonB))

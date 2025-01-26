@@ -91,17 +91,17 @@ void PlayerStateJustDodgeAttack::Animation(ModelRender& model, EnPlayerAnimation
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack1:
-		model.SetAnimationSpeed(1.5f);
+		model.SetAnimationSpeed(4.0f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack2:
-		model.SetAnimationSpeed(2.0f);
+		model.SetAnimationSpeed(5.0f);
 		model.PlayAnimation(Player::enAnimationClip_JumpSlash, 0.1f);
 		break;
 
 	case PlayerStateJustDodgeAttack::enAttack3:
-		model.SetAnimationSpeed(1.5f);
+		model.SetAnimationSpeed(4.0f);
 		model.PlayAnimation(Player::enAnimationClip_Slash, 0.1f);
 		break;
 

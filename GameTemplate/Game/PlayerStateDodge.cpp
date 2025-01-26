@@ -120,7 +120,7 @@ void PlayerStateDodge::Animation(ModelRender& model, EnPlayerAnimationEvent& ani
 {
 	if (m_justDodge == true)
 	{
-		model.SetAnimationSpeed(2.5f);
+		model.SetAnimationSpeed(4.0f);
 	}
 
 	if (model.IsPlayingAnimation())
@@ -191,10 +191,16 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 		//回避方向があっていなかったら処理をスキップ
 		if (collision->GetAdditionalInformation() != avoidable)
 		{
+			//被ダメージ判定
+			if (collision->IsHit(characon))
+			{
+				collision->SetIsEnable(false);
+
+				hitFlag = true;
+			}
+
 			continue;
 		}
-
-		if(collision->GetAdditionalInformation())
 
 		//回避コリジョンに当たっているか判定
 		if (collision->IsHit(m_dodgeCollision))
@@ -203,13 +209,15 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 			g_renderingEngine->EnableCenterBlur();
 			m_justDodge = true;
 		}
-
-		//被ダメージ判定
-		if (collision->IsHit(characon))
+		else
 		{
-			collision->SetIsEnable(false);
+			//被ダメージ判定
+			if (collision->IsHit(characon))
+			{
+				collision->SetIsEnable(false);
 
-			hitFlag = true;
+				hitFlag = true;
+			}
 		}
 	}	
 }
@@ -226,11 +234,14 @@ EnPlayerState PlayerStateDodge::StateTransition()
 		{
 			return enJustDodgeAttack;
 		}
-		else if(hitFlag)
-		{
-			return enReceiveDamage;
-		}
 		return enIdle;
 	}
 
+	if (!m_justDodge)
+	{
+		if (hitFlag)
+		{
+			return enReceiveDamage;
+		}
+	}
 }

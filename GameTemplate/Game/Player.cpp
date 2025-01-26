@@ -31,7 +31,7 @@ bool Player::Start()
 	m_charaCon.Init(30.0f, 80.0f, m_position);
 
 	//本来なら特定の敵を捕捉する処理がいるがとりあえずはこれで
-	m_enemy = FindGO<Enemy>("enemy");
+	mlockOnEnemy = FindGO<Enemy>("enemy");
 	
 	//アニメーションイベント用の関数を設定する。
 	m_playerModel.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
@@ -90,6 +90,15 @@ void Player::InitAnimation()
 
 void Player::Update()
 {
+	if (g_pad[0]->IsPress(enButtonLB1))
+	{
+		m_isEnemyLockOn = true;
+	}
+	else
+	{
+		m_isEnemyLockOn = false;
+	}
+
 	m_playerStateManager.Move(m_position, m_charaCon);
 
 	m_playerStateManager.Rotation(m_rotation, m_position);

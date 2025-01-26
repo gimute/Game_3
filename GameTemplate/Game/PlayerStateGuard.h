@@ -31,6 +31,6 @@ private:
 
 	bool hitFlag = false;
 
-	Enemy* m_enemy;
+	Enemy* m_lockOnEnemy;
 };
 

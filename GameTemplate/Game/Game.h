@@ -1,5 +1,8 @@
 #pragma once
 
+#include "LightManager.h"
+
+
 class Player;
 class BackGround;
 class GameCamera;
@@ -30,5 +33,9 @@ private:
 	Enemy* m_enemy;				//エネミー
 
 	SpriteRender m_spRender;
+
+	Level m_level;
+
+	LightManager m_lightManager;
 };
 

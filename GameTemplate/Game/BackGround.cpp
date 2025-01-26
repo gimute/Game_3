@@ -18,10 +18,11 @@ bool BackGround::Start()
 	//m_bgModel.Init("Assets/modelData/backGround/dungone/dungone_3.tkm");
 	//m_bgModel.Init("Assets/modelData/TestModels/background/backgroundSimayuka.tkm");
 	//m_bgModel.Init("Assets/modelData/bg/bg.tkm");
-	m_bgModel.Init("Assets/modelData/backGround/stage_2.tkm");
-	m_bgModel.SetScale({ 2.0f,2.0f,2.0f });
-	m_bgModel.SetPosition({ 0.0f,0.0f,0.0f });
+	m_bgModel.Init("Assets/modelData/backGround/stage/stage_7.tkm");
+	m_bgModel.SetScale(m_scale);
+	m_bgModel.SetPosition(m_position);
 	m_bgModel.Update();
+
 
 	m_PhysicsStaticObject.CreateFromModel(m_bgModel.GetModel(), m_bgModel.GetModel().GetWorldMatrix());
 	return true;

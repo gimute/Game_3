@@ -12,10 +12,10 @@ public:
 
 private:
 	Player* m_player = nullptr;
-	Vector3 m_toTargetPos;
-	Vector3 m_target;
-	Vector3 m_oldPlayerPos = Vector3::Zero;
+	Vector3 m_targetToCameraPos;					//注視点からカメラへのベクトル
+	float m_defaultTargetToPositionLenge = 0.0f;	//デフォルトの注視点からカメラへの距離
+	Vector3 m_targetPos;
 	Quaternion qRot;
-	Vector3 m_pos = Vector3::Zero;
+	Vector3 m_cameraPos = Vector3::Zero;
 };
 

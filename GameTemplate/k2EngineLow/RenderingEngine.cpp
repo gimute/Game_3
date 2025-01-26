@@ -13,13 +13,14 @@ namespace nsK2EngineLow {
 
     void RenderingEngine::Init()
     {
+        //メインレンダリングターゲット
         InitMainRenderTarget();
-
+        //G-Buffer
         InitGBuffer();
-        
+        //シャドウマップ
         m_shadowMapRender.Init();
         
-        //ディファードライティングの初期化
+        //ディファードライティング
         InitDeferredLighting();
 
         //ポストエフェクト初期化
@@ -51,8 +52,8 @@ namespace nsK2EngineLow {
         spData.m_width = g_graphicsEngine->GetFrameBufferWidth();;
         spData.m_height = g_graphicsEngine->GetFrameBufferHeight();
         spData.m_fxFilePath = "Assets/shader/sprite.fx";
-        spData.m_textures[0] = &m_albedRT.GetRenderTargetTexture();
-        //spData.m_textures[0] = &normalSpecRT.GetRenderTargetTexture();
+        //spData.m_textures[0] = &m_albedRT.GetRenderTargetTexture();
+        spData.m_textures[0] = &m_normalSpecRT.GetRenderTargetTexture();
         //spData.m_textures[0] = &m_depthRT.GetRenderTargetTexture();
         m_GBufferTest.Init(spData);
         /////////////////////////////////////////////////////////////////////////
