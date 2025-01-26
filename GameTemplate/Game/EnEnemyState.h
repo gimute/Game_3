@@ -4,6 +4,7 @@
 
 enum EnEnemyState
 {
+	enContinue,		//ステートを継続
 	enEnemyIdle,	//待機
 	enEnemyWiteAndSee,	//様子見
 	enEnemyAttackPrepare, //攻撃準備

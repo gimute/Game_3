@@ -114,7 +114,7 @@ EnEnemyState EnemyStateWaitAndSee::StateTransition()
 
 	}
 
-	return enEnemyWiteAndSee;
+	return enContinue;
 }
 
 Vector3 EnemyStateWaitAndSee::CalcMoveVec(const Vector3 enemyPos, const Vector3 playerPos)

@@ -23,7 +23,8 @@ void PlayerStateJustDodgeAttack::Start(Player* player)
 	//UŒ‚ƒRƒŠƒWƒ‡ƒ“€”õ
 	m_attackCollision = NewGO<CollisionObject>(0, "playerattack");
 	m_attackCollision->CreateBox(player->GetPosition(), Quaternion::Identity, PLAYER_SOWLD_SIZE);
-	m_attackCollision->SetName("player_attack");
+	m_attackCollision->SetName(PLAYER_ATTACK_COLLISION_NAME);
+	m_attackCollision->SetAdditionalInformation(PLAYER_JUSTDODGE_ATTACK_COLLISION_INFORMATION);
 	m_attackCollision->SetIsEnableAutoDelete(false);
 
 	m_enemy = player->GetTargetEnemy();
@@ -109,18 +110,23 @@ void PlayerStateJustDodgeAttack::Animation(ModelRender& model, EnPlayerAnimation
 		break;
 	}
 
-	
-}
+	switch (animeEvent)
+	{
+	case enPlayerAnimationEvent_AttackEnd:
+		animeEvent = enPlayerAnimationEvent_None;
+		//UŒ‚ƒRƒŠƒWƒ‡ƒ“‚ğ’â~
+		m_attackCollision->SetIsEnable(false);
+		break;
 
-EnPlayerState PlayerStateJustDodgeAttack::StateTransition()
-{
-	if (m_attackFlowState == enEnd)
-	{
-		return enIdle;
-	}
-	else
-	{
-		return enJustDodgeAttack;
+	case enPlayerAnimationEvent_AttackStart:
+		animeEvent = enPlayerAnimationEvent_None;
+		//UŒ‚ƒRƒŠƒWƒ‡ƒ“‚ğ•œŠˆ
+		m_attackCollision->SetIsEnable(true);
+		break;
+
+	default:
+		animeEvent = enPlayerAnimationEvent_None;
+		break;
 	}
 }
 
@@ -161,8 +167,8 @@ void PlayerStateJustDodgeAttack::StateOenStep()
 		break;
 	case PlayerStateJustDodgeAttack::enAttack1:
 		m_attackFlowState = enAttack2;
-		//UŒ‚ƒRƒŠƒWƒ‡ƒ“‚ğ•œŠˆ
-		m_attackCollision->SetIsEnable(true);
+		//UŒ‚ƒRƒŠƒWƒ‡ƒ“‚ğˆê’U‹@”\’â~
+		m_attackCollision->SetIsEnable(false);
 		break;
 	case PlayerStateJustDodgeAttack::enAttack2:
 		m_attackFlowState = enAttack3;
@@ -178,4 +184,16 @@ void PlayerStateJustDodgeAttack::StateOenStep()
 		break;
 	}
 
+}
+
+EnPlayerState PlayerStateJustDodgeAttack::StateTransition()
+{
+	if (m_attackFlowState == enEnd)
+	{
+		return enIdle;
+	}
+	else
+	{
+		return enJustDodgeAttack;
+	}
 }

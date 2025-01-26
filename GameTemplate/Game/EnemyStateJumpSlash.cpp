@@ -124,7 +124,7 @@ EnEnemyState EnemyStateJumpSlash::StateTransition()
 
 	if (m_isPlayAnimation)
 	{
-		return enEnemyJumpSlash;
+		return enContinue;
 	}
 	else
 	{

@@ -7,7 +7,6 @@
 void EnemyStateManager::Init(Enemy* enemy)
 {
 	m_state = &m_stateIdle;
-	m_nowState = enEnemyIdle;
 
 	m_enemy = enemy;
 
@@ -20,7 +19,7 @@ void EnemyStateManager::StateTransition()
 	EnEnemyState transitionState = m_state->StateTransition();
 
 	//現在のステートと同じなら何もしない
-	if (m_nowState == transitionState)
+	if (transitionState == enContinue)
 	{
 		return;
 	}
@@ -28,9 +27,6 @@ void EnemyStateManager::StateTransition()
 	{
 		//ステートが切り替わる際の処理
 		m_state->End(m_enemy);
-
-		//現在のステート更新
-		m_nowState = transitionState;
 
 
 		switch (transitionState)

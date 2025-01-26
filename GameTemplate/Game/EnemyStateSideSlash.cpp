@@ -103,7 +103,7 @@ EnEnemyState EnemyStateSideSlash::StateTransition()
 
 	if (m_isPlayAnimation)
 	{
-		return enEnemySideSlash;
+		return enContinue;
 	}
 	else
 	{

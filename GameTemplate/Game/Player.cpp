@@ -81,7 +81,7 @@ void Player::InitAnimation()
 	m_animationClips[enAnimationClip_RightGuardStrafe].Load("Assets/animData/paladin/rightGuardStrafe.tka");
 	m_animationClips[enAnimationClip_RightGuardStrafe].SetLoopFlag(false);
 	//ジャンプ切り
-	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/jumpSlash.tka");
+	m_animationClips[enAnimationClip_JumpSlash].Load("Assets/animData/paladin/player/jumpSlash.tka");
 	m_animationClips[enAnimationClip_JumpSlash].SetLoopFlag(false);
 	//しぼうアニメーション
 	m_animationClips[enAnimationClip_Die].Load("Assets/animData/paladin/die.tka");

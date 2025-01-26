@@ -104,7 +104,7 @@ EnEnemyState EnemyStateAttackPrepare::StateTransition()
 	}
 	else
 	{
-		return enEnemyAttackPrepare;
+		return enContinue;
 	}
 
 }

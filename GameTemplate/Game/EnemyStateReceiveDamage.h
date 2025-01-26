@@ -10,6 +10,8 @@ public:
 
 	void Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent) override;
 
+	void Collision(const Vector3& pos, ModelRender& model, CharacterController& characon) override;
+
 	EnEnemyState StateTransition() override;
 
 private:
@@ -17,6 +19,6 @@ private:
 
 	bool m_isDeth = false;	//死亡フラグ
 
-	float hitstop = 3.0f;
+	bool m_rashAttackHit = false;	//ジャストアタックにヒットしたか
 };
 

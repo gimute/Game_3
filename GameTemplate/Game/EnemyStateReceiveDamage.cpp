@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 
+#include "PlayerParameter.h"
+
 //ステート
 
 void EnemyStateReceiveDamage::Start(Enemy* enemy, Player* player)
@@ -14,6 +16,7 @@ void EnemyStateReceiveDamage::Start(Enemy* enemy, Player* player)
 		m_isDeth = true;
 	}
 
+	enemy->GetModel()->PlayAnimation(Enemy::enAnimationClip_Idle, 1.0f);
 	//g_gameTime->SetTimeMulValue(0.0f);
 	//hitstop = 3.0f;
 
@@ -21,6 +24,9 @@ void EnemyStateReceiveDamage::Start(Enemy* enemy, Player* player)
 	slashSound->Init(0);
 	slashSound->SetVolume(0.1f);
 	slashSound->Play(false);
+
+	m_rashAttackHit = false;
+
 }
 
 void EnemyStateReceiveDamage::End(Enemy* enemy)
@@ -49,6 +55,26 @@ void EnemyStateReceiveDamage::Animation(ModelRender& model, EnEnemyAnimationEven
 	}*/
 }
 
+void EnemyStateReceiveDamage::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
+{
+	//プレイヤーの攻撃コリジョン取得
+	const auto& AttackCollisions = g_collisionObjectManager->FindCollisionObjects(PLAYER_ATTACK_COLLISION_NAME);
+
+	//被ダメージ判定
+	for (CollisionObject* collision : AttackCollisions)
+	{
+		if (collision->GetAdditionalInformation() == PLAYER_JUSTDODGE_ATTACK_COLLISION_INFORMATION)
+		{
+			if (collision->IsHit(characon))
+			{
+				collision->SetIsEnable(false);
+
+				m_rashAttackHit = true;
+			}
+		}	
+	}
+}
+
 
 
 EnEnemyState EnemyStateReceiveDamage::StateTransition()
@@ -58,9 +84,14 @@ EnEnemyState EnemyStateReceiveDamage::StateTransition()
 		return enEnemyDie;
 	}
 
-	if (m_animationPlay)
+	if (m_rashAttackHit)
 	{
 		return enEnemyReceiveDamage;
+	}
+
+	if (m_animationPlay)
+	{
+		return enContinue;
 	}
 	else
 	{

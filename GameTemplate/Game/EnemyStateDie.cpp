@@ -31,7 +31,7 @@ EnEnemyState EnemyStateDie::StateTransition()
 {
 	if (m_isPlayAnimation)
 	{
-		return enEnemyDie;
+		return enContinue;
 	}
 	else
 	{

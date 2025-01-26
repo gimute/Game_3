@@ -52,9 +52,6 @@ private:
 	EnemyStateSideSlash m_stateSideSlash;
 	EnemyStateReceiveDamage m_stateReceiveDamage;
 	EnemyStateDie m_stateDie;
-
-	EnEnemyState m_nowState;
-
 	
 
 	Enemy* m_enemy;
