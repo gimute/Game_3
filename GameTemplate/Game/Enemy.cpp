@@ -45,7 +45,7 @@ bool Enemy::Start()
 
 void Enemy::Update()
 {
-	m_enemyStateManager.Move(m_position, m_charaCon);
+	//m_enemyStateManager.Move(m_position, m_charaCon);
 
 	m_enemyStateManager.Rotation(m_rotation);
 
