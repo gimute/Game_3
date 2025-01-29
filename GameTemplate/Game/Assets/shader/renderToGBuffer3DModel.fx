@@ -94,7 +94,7 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.pos = mul(m, vsIn.pos); // 1. モデルの頂点をワールド座標系に変換
     psIn.pos = mul(mView, psIn.pos); // 2. ワールド座標系からカメラ座標系に変換
     psIn.pos = mul(mProj, psIn.pos); // 3. カメラ座標系からスクリーン座標系に変換
-    psIn.normal = normalize(mul(m, vsIn.normal));
+    psIn.normal = float3(0.0f, 1.0f, 0.0f); //normalize(mul(m, vsIn.normal));
     psIn.uv = vsIn.uv;
     
     psIn.tangent = normalize(mul(m, vsIn.tangent));

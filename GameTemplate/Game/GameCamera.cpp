@@ -36,38 +36,35 @@ void GameCamera::Update()
 	{
 		Enemy* targetEnemy = m_player->GetTargetEnemy();
 
-		//プレイヤーからエネミーに伸びるベクトル
-		Vector3 playerToEnemyVec = (targetEnemy->GetPosition() - m_player->GetPosition());
+		const Vector3 playerToEnemyVec = (targetEnemy->GetPosition() - m_player->GetPosition());
+
+		//注視点からカメラへのベクトル
+		//線形補間したいのでコピーしたベクトルに処理をしていく
+		Vector3 newTargetToCameraPos = m_targetToCameraVec;
+
+		//プレイヤーとエネミーが直線状に並んで写るように注視点からカメラへのベクトルを回転させる
+		Quaternion cameraPosRotation;
+		cameraPosRotation.SetRotation(newTargetToCameraPos, (playerToEnemyVec * -1 + Vector3::Up * 100.0f));
+		cameraPosRotation.Apply(newTargetToCameraPos);
 
 		//注視点とカメラの距離の調整
 		float playerToEnemyVecLenge = playerToEnemyVec.Length();
-
-		Vector3 newTargetToCameraPos = m_targetToCameraVec;
-
-		//カメラをプレイヤーとエネミーが一直線になるようにする
-		Quaternion test;
-		test.SetRotation(newTargetToCameraPos, (playerToEnemyVec * -1 + Vector3::Up * 100.0f));
-		
-
-
 		if (m_defaultTargetToPositionLenge < playerToEnemyVecLenge)
 		{
 			//画角に敵とプレイヤーが収まるように注視点とカメラの距離を調整
-			newTargetToCameraPos *= playerToEnemyVecLenge / m_targetToCameraVec.Length();
+			newTargetToCameraPos *= playerToEnemyVecLenge / newTargetToCameraPos.Length();
 		}
 		else
 		{
-			newTargetToCameraPos *= m_defaultTargetToPositionLenge / m_targetToCameraVec.Length();
+			newTargetToCameraPos *= m_defaultTargetToPositionLenge / newTargetToCameraPos.Length();
 		}
 
-		test.Apply(newTargetToCameraPos);
 
 		m_targetToCameraVec.Lerp(0.15, m_targetToCameraVec, newTargetToCameraPos);
 
 		//注視点の設定
 		Vector3 newTargetPos = playerToEnemyVec / 2.0f + m_player->GetPosition();
 		newTargetPos.y += 50.0f;
-
 		m_targetPos.Lerp(0.15, m_targetPos, newTargetPos);
 
 	}
@@ -81,9 +78,7 @@ void GameCamera::Update()
 
 		//注視点の設定
 		Vector3 newTargetPos = m_player->GetPosition();
-
 		newTargetPos.y += 50.0f;
-
 		m_targetPos.Lerp(0.15, m_targetPos, newTargetPos);
 	}
 		
@@ -105,13 +100,16 @@ void GameCamera::Update()
 
 	Vector3 toPosDir = m_targetToCameraVec;
 	toPosDir.Normalize();
-	if (toPosDir.y < 0.1f) {
+	if (toPosDir.y < 0.01f) {
 		//カメラが上向きすぎ。
 		m_targetToCameraVec = toCameraPosOld;
+		//int te = 1;
 	}
 	else if (toPosDir.y > 0.999f) {
 		//カメラが下向きすぎ。
 		m_targetToCameraVec = toCameraPosOld;
+		//int te = 1;
+
 	}
 
 	m_cameraPos = m_targetPos + m_targetToCameraVec;

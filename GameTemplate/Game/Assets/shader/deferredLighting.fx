@@ -192,7 +192,7 @@ float4 PSMain(PSInput In) : SV_Target0
         float2 shadowValue = g_shadowMap.Sample(Sampler, shadowMapUV).xy;
         
         //ピクセルからライトの距離を計算する
-        float zInLVP = length(worldPos.xyz - ligCameraPos) / 1000.0f;
+        float zInLVP = length(worldPos.xyz - ligCameraPos) / 2000.0f;
         
         //このピクセルが遮蔽されているか調べる
         if(zInLVP > shadowValue.r && zInLVP <= 1.0f)

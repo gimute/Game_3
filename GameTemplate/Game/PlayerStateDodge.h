@@ -32,5 +32,7 @@ private:
 
 	bool m_justDodge = false;	//ジャスト回避フラグ
 	bool hitFlag = false;		//被ダメージフラグ
+
+
 };
 

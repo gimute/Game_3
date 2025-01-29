@@ -78,8 +78,6 @@ void PlayerStateGuard::Move(Vector3& position, CharacterController& charaCon)
 	//キャラコンを使って座標を更新
 	position = charaCon.Execute(moveVec, g_gameTime->GetFrameDeltaTime());
 
-	moveVec.Normalize();
-
 	//ガードコリジョンの座標更新
 	Vector3 playerToEnemy = m_lockOnEnemy->GetPosition() - position;
 	playerToEnemy.y = 0.0f;

@@ -17,5 +17,6 @@ enum EnPlayerState {
 enum EnPlayerAnimationEvent {
 	enPlayerAnimationEvent_AttackStart,
 	enPlayerAnimationEvent_AttackEnd,
+	enPlayerAnimationEvent_MoveEnd,
 	enPlayerAnimationEvent_None
 };

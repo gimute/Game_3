@@ -30,6 +30,8 @@ bool Enemy::Start()
 	//モデルの初期化
 	InitModel();
 
+	m_position = { 10.0f,0.0f,10.0f };
+
 	m_charaCon.Init(30.0f, 80.0f, m_position);
 
 	//ステートマネージャー初期化
@@ -45,7 +47,7 @@ bool Enemy::Start()
 
 void Enemy::Update()
 {
-	//m_enemyStateManager.Move(m_position, m_charaCon);
+	m_enemyStateManager.Move(m_position, m_charaCon);
 
 	m_enemyStateManager.Rotation(m_rotation);
 

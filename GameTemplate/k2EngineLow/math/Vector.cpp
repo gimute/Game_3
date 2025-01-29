@@ -42,12 +42,12 @@ namespace nsK2EngineLow {
 		to.Normalize();
 		auto t = nsK2EngineLow::Dot(from, to);
 		Vector3 rotAxis;
-		if (t > 0.998f) {
+		if (t > 0.9999f) {
 			//ほぼ同じ向きなので単位クォータニオンにする。
 			*this = Quaternion::Identity;
 			return ;
 		}
-		else if (t < -0.998f) {
+		else if (t < -0.9999f) {
 			//ほぼ逆向きなので、
 			if (fabsf(to.x) < 1.0f) {
 				//

@@ -88,7 +88,7 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.pos = mul(mProj, psIn.pos);
     
     //ライトから見た頂点の深度値と、ライトから見た深度値の2乗を計算する
-    psIn.depth.x = length(worldPos - lightPos) / 1000.0f;
+    psIn.depth.x = length(worldPos - lightPos) / 2000.0f;
     psIn.depth.y = psIn.depth.x * psIn.depth.x;
     
     psIn.normal = mul(m, vsIn.normal);

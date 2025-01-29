@@ -64,7 +64,7 @@ void PlayerStateDodge::InitDodge(const Vector3& playerFront)
 
 	if (inCamera_StickVec.Dot(playerFront) < -0.5f)
 	{
-		m_dodgeVec = playerFront * -1 * 100.0f;
+		m_dodgeVec = playerFront * -1 * 200.0f;
 
 		m_dodgeState = enBack;
 	}
@@ -118,6 +118,18 @@ void PlayerStateDodge::Move(Vector3& position, CharacterController& charaCon)
 
 void PlayerStateDodge::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
 {
+	switch (animeEvent)
+	{
+	case enPlayerAnimationEvent_MoveEnd:
+		animeEvent = enPlayerAnimationEvent_None;
+		//ˆÚ“®‚ðŽ~‚ß‚é
+		m_dodgeVec = Vector3::Zero;
+
+	default:
+		animeEvent = enPlayerAnimationEvent_None;
+		break;
+	}
+
 	if (m_justDodge == true)
 	{
 		model.SetAnimationSpeed(4.0f);

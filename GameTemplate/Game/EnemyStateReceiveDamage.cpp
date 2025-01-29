@@ -17,8 +17,6 @@ void EnemyStateReceiveDamage::Start(Enemy* enemy, Player* player)
 	}
 
 	enemy->GetModel()->PlayAnimation(Enemy::enAnimationClip_Idle, 1.0f);
-	//g_gameTime->SetTimeMulValue(0.0f);
-	//hitstop = 3.0f;
 
 	SoundSource* slashSound = NewGO<SoundSource>(0,"slashSound");
 	slashSound->Init(0);
@@ -31,7 +29,7 @@ void EnemyStateReceiveDamage::Start(Enemy* enemy, Player* player)
 
 void EnemyStateReceiveDamage::End(Enemy* enemy)
 {
-	//g_gameTime->SetTimeMulValue(1.0f);
+
 }
 
 void EnemyStateReceiveDamage::Animation(ModelRender& model, EnEnemyAnimationEvent& animeEvent)
@@ -44,15 +42,6 @@ void EnemyStateReceiveDamage::Animation(ModelRender& model, EnEnemyAnimationEven
 	{
 		m_animationPlay = false;
 	}
-
-	/*if (hitstop <= 0.0f)
-	{
-		g_gameTime->SetTimeMulValue(1.0f);
-	}
-	else
-	{
-		hitstop -= 1.0f;
-	}*/
 }
 
 void EnemyStateReceiveDamage::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)

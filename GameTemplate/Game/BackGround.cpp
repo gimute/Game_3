@@ -23,7 +23,6 @@ bool BackGround::Start()
 	m_bgModel.SetPosition(m_position);
 	m_bgModel.Update();
 
-
 	m_PhysicsStaticObject.CreateFromModel(m_bgModel.GetModel(), m_bgModel.GetModel().GetWorldMatrix());
 	return true;
 }

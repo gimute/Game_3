@@ -131,6 +131,11 @@ void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 	{
 		m_enAnimationEvent = enPlayerAnimationEvent_AttackStart;
 	}
+
+	if (wcscmp(eventName, L"moveEnd") == 0)
+	{
+		m_enAnimationEvent = enPlayerAnimationEvent_MoveEnd;
+	}
 }
 
 void Player::Damage(float damageAmount)

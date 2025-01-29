@@ -42,8 +42,7 @@ bool Game::Start()
 			return true;
 		});
 
-
-	g_sceneLight->SetDirectionLight(0, { 0.0f,-1.0f,1.0f }, { 0.4f,0.4f,0.4f });
+	g_sceneLight->SetDirectionLight(0, { 0.0f,-1.0f,0.0f }, { 0.4f,0.4f,0.4f });
 
 	return true;
 }

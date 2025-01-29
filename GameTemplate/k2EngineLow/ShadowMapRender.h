@@ -8,7 +8,7 @@ namespace nsK2EngineLow {
 
 		void Render(
 			RenderContext& rc,
-			Vector3 ligDirection,
+			const Vector3& ligDirection,
 			std::vector<IRenderer*>& renderObject
 			);
 

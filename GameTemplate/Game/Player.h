@@ -103,10 +103,10 @@ public:
 		return m_isEnemyLockOn;
 	}
 
-	void SetEnemyLockOnFlag(bool flag)
+	/*void SetEnemyLockOnFlag(bool flag)
 	{
 		m_isEnemyLockOn = flag;
-	}
+	}*/
 
 private:
 	ModelRender m_playerModel;		//プレイヤーのモデル
