@@ -32,8 +32,6 @@ private:
 	GameCamera* m_gameCamera;	//ゲームカメラ
 	Enemy* m_enemy;				//エネミー
 
-	SpriteRender m_spRender;
-
 	Level m_level;
 
 	LightManager m_lightManager;
