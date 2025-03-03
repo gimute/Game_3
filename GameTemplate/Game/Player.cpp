@@ -11,7 +11,7 @@ Player::Player()
 
 Player::~Player()
 {
-
+	DeleteGO(m_hpUI);
 }
 
 bool Player::Start()
@@ -39,7 +39,7 @@ bool Player::Start()
 		});
 
 	m_hpUI = NewGO<PlayerHpUI>(0,"playerHpUI");
-	m_hpUI->Init(10.0f);
+	InitStatus();
 
 	return true;
 }
@@ -148,9 +148,9 @@ float Player::GetNowHp()
 	return m_hpUI->GetNowHp();
 }
 
-void Player::Init()
+void Player::InitStatus()
 {
-	m_hpUI->Init(10.0f);
+	m_hpUI->Init(8.0f);
 }
 
 void Player::Render(RenderContext& rc)

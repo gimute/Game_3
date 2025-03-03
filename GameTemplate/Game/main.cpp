@@ -2,6 +2,7 @@
 #include "system/system.h"
 
 #include "Game.h"
+#include "GameTitle.h"
 
 // K2EngineLowのグローバルアクセスポイント。
 K2EngineLow* g_k2EngineLow = nullptr;
@@ -36,7 +37,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
-	Game* m_game = NewGO<Game>(0, "game");
+	//Game* m_game = NewGO<Game>(0, "game");
+	NewGO<GameTitle>(0, "gametitle");
+
 	//
 
 	// ここからゲームループ。
@@ -66,7 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_k2EngineLow->EndFrame();
 	}
 
-	DeleteGO(m_game);
+	//DeleteGO(m_game);
 
 	delete g_k2EngineLow;
 

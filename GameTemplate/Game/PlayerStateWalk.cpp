@@ -78,23 +78,23 @@ EnPlayerState PlayerStateWalk::StateTransition()
 {
 	if (hitFlag)
 	{
-		return enReceiveDamage;
+		return enPlayerReceiveDamage;
 	}
 
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
-		return enAttack;
+		return enPlayerAttack;
 	}
 
 	if (g_pad[0]->IsPress(enButtonLB1))
 	{
-		return enGuard;
+		return enPlayerGuard;
 	}
 
 	if (fabsf(g_pad[0]->GetLStickXF()) < 0.001f && fabsf(g_pad[0]->GetLStickYF()) < 0.001f)
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 
-	return enWalk;
+	return enPlayerWalk;
 }

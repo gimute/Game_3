@@ -3,14 +3,14 @@
 //プレイヤーステート
 
 enum EnPlayerState {
-	enIdle,		//待機
-	enWalk,		//歩き
-	enAttack,	//攻撃
-	enGuard,	//ガード
-	enDodge,		//回避
-	enReceiveDamage,	//被ダメージ
-	enJustDodgeAttack,	//ジャスト回避後のラッシュ攻撃
-	enDie,		//しぼう
+	enPlayerIdle,		//待機
+	enPlayerWalk,		//歩き
+	enPlayerAttack,	//攻撃
+	enPlayerGuard,	//ガード
+	enPlayerDodge,		//回避
+	enPlayerReceiveDamage,	//被ダメージ
+	enPlayerJustDodgeAttack,	//ジャスト回避後のラッシュ攻撃
+	enPlayerDie,		//しぼう
 };
 
 //アニメーションイベント

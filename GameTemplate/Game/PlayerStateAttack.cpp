@@ -26,6 +26,8 @@ void PlayerStateAttack::End(Player* player)
 		//コリジョンを破棄
 		DeleteGO(m_attackCollision);
 
+		m_attackCollision = nullptr;
+
 		m_isAttackCollisionExistence = false;
 	}
 }
@@ -76,11 +78,11 @@ EnPlayerState PlayerStateAttack::StateTransition()
 	
 	if (m_animationPlay)
 	{
-		return enAttack;	
+		return enPlayerAttack;	
 	}
 	else
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 	
 }
@@ -100,13 +102,20 @@ void PlayerStateAttack::Collision(const Vector3& pos, ModelRender& model, Charac
 			hitFlag = true;
 		}
 	}
+	/////////////
 
 	//攻撃コリジョンの座標設定
 	//攻撃コリジョンが生きてないなら処理を飛ばす
-	if (m_attackCollision == nullptr || m_attackCollision->IsDead())
+	if (m_attackCollision == nullptr)
 	{
 		return;
 	}
+	else if(m_attackCollision->IsDead())
+	{
+		m_attackCollision = nullptr;
+		return;
+	}
+
 	//攻撃コリジョンを出すボーンのワールド行列を受け取る
 	Matrix matrix = model.GetBone(m_attackBoneID)->GetWorldMatrix();
 	

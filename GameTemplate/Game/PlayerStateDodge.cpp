@@ -238,22 +238,22 @@ EnPlayerState PlayerStateDodge::StateTransition()
 {
 	if (m_animationPlay)
 	{
-		return enDodge;
+		return enPlayerDodge;
 	}
 	else
 	{
 		if (m_justDodge)
 		{
-			return enJustDodgeAttack;
+			return enPlayerJustDodgeAttack;
 		}
-		return enIdle;
+		return enPlayerIdle;
 	}
 
 	if (!m_justDodge)
 	{
 		if (hitFlag)
 		{
-			return enReceiveDamage;
+			return enPlayerReceiveDamage;
 		}
 	}
 }

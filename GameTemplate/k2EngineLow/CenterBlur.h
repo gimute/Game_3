@@ -6,9 +6,9 @@
 namespace nsK2EngineLow {
 	
 	enum CenterBlureStaet {
-		enIn,
-		enOut,
-		enIdel,
+		enCenterBlureIn,
+		enCenterBlureOut,
+		enCenterBlureIdle,
 	};
 
 	/// <summary>
@@ -32,12 +32,12 @@ namespace nsK2EngineLow {
 
 		void FadeIn()
 		{
-			m_fadeState = enIn;
+			m_fadeState = enCenterBlureIn;
 		}
 
 		void FadeOut()
 		{
-			m_fadeState = enOut;
+			m_fadeState = enCenterBlureOut;
 		}
 
 	private:
@@ -47,7 +47,7 @@ namespace nsK2EngineLow {
 		Sprite m_keka;
 
 		float m_blurPower = 0.0f;
-		CenterBlureStaet m_fadeState = enIdel;
+		CenterBlureStaet m_fadeState = enCenterBlureIdle;
 	};
 
 }

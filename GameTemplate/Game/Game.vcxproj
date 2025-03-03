@@ -236,6 +236,8 @@
     <ClCompile Include="EnemyStateWaitAndSee.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameTitle.cpp" />
     <ClCompile Include="IEnemyState.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
@@ -276,6 +278,8 @@
     <ClInclude Include="EnPlayerState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameClear.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameTitle.h" />
     <ClInclude Include="IEnemyState.h" />
     <ClInclude Include="IPlayerState.h" />

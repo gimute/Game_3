@@ -38,27 +38,27 @@ EnPlayerState PlayerStateIdle::StateTransition()
 	//攻撃に当たっていたら被ダメージステート
 	if (hitFlag)
 	{
-		return enReceiveDamage;
+		return enPlayerReceiveDamage;
 	}
 
 	//Aボタンで攻撃ステート
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
-		return enAttack;
+		return enPlayerAttack;
 	}
 
 	//LBボタンでガードステート
 	if (g_pad[0]->IsPress(enButtonLB1))
 	{
-		return enGuard;
+		return enPlayerGuard;
 	}
 
 	//左スティックの入力を
 	if (fabsf(g_pad[0]->GetLStickXF()) > 0.001f || fabsf(g_pad[0]->GetLStickYF()) > 0.001f)
 	{
-		return enWalk;
+		return enPlayerWalk;
 	}
 
 	//どれにも引っかからなかったら継続
-	return enIdle;
+	return enPlayerIdle;
 }

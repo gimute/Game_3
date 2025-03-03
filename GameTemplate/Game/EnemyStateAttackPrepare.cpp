@@ -14,7 +14,8 @@ void EnemyStateAttackPrepare::Start(Enemy* enemy, Player* player)
 	//乱数でどの攻撃をするか決定する
 	m_attackType = EnAttackType(std::rand() % enAttackTypeNum);
 
-
+	//ヒットフラグを初期化
+	hitFlag = false;
 
 	//ステートごとの処理
 	switch (m_attackType)

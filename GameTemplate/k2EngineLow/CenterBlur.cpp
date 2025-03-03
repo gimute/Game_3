@@ -52,26 +52,26 @@ namespace nsK2EngineLow {
 	{
 		switch (m_fadeState)
 		{
-		case nsK2EngineLow::enIn:
+		case nsK2EngineLow::enCenterBlureIn:
 			m_blurPower += g_gameTime->GetTrueFrameDeltaTime() * 2.0f;
 			if (m_blurPower >= 1.0f)
 			{
 				m_blurPower = 1.0f;
-				m_fadeState = enIdel;
+				m_fadeState = enCenterBlureIdle;
 			}
 			break;
 
-		case nsK2EngineLow::enOut:
+		case nsK2EngineLow::enCenterBlureOut:
 			m_blurPower -= g_gameTime->GetTrueFrameDeltaTime() * 2.0f;
 			if (m_blurPower <= 0.0f)
 			{
 				m_blurPower = 0.0f;
-				m_fadeState = enIdel;
+				m_fadeState = enCenterBlureIdle;
 				Disable();
 			}
 			break;
 
-		case nsK2EngineLow::enIdel:
+		case nsK2EngineLow::enCenterBlureIdle:
 			break;
 		default:
 			break;

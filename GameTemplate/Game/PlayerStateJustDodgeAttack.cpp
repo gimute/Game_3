@@ -190,10 +190,10 @@ EnPlayerState PlayerStateJustDodgeAttack::StateTransition()
 {
 	if (m_attackFlowState == enEnd)
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 	else
 	{
-		return enJustDodgeAttack;
+		return enPlayerJustDodgeAttack;
 	}
 }

@@ -38,15 +38,15 @@ EnPlayerState PlayerStateReceiveDamage::StateTransition()
 {
 	if (m_isDeth)
 	{
-		return enDie;
+		return enPlayerDie;
 	}
 
 	if (m_animationPlay)
 	{
-		return enReceiveDamage;
+		return enPlayerReceiveDamage;
 	}
 	else
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 }

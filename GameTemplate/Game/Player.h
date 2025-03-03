@@ -93,7 +93,8 @@ public:
 	/// <returns></returns>
 	float GetNowHp();
 
-	void Init();
+	//ステータスなどの初期化
+	void InitStatus();
 
 	//アニメーションイベント用関数
 	void OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName);
@@ -113,7 +114,7 @@ private:
 	AnimationClip m_animationClips[enAnimationClip_Num];	//アニメーションクリップ
 
 	CharacterController m_charaCon;	//キャラクターコントローラー
-	EnPlayerState m_playerState = enIdle;	//プレイヤーの状態
+	EnPlayerState m_playerState = enPlayerIdle;	//プレイヤーの状態
 
 	Vector3 m_position = Vector3::Zero;	//プレイヤーの座標
 	Vector3 m_moveVec = Vector3::Zero;	//プレイヤーの移動ベクトル

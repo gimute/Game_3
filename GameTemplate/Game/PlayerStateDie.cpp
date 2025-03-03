@@ -13,7 +13,7 @@ void PlayerStateDie::Start(Player* player)
 
 void PlayerStateDie::End(Player* player)
 {
-	player->Init();
+	player->InitStatus();
 }
 
 void PlayerStateDie::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
@@ -32,10 +32,10 @@ EnPlayerState PlayerStateDie::StateTransition()
 {
 	if (m_isPlayAnimation)
 	{
-		return enDie;
+		return enPlayerDie;
 	}
 	else
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 }

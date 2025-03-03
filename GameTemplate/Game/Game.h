@@ -11,6 +11,14 @@ class Enemy;
 class Game : public IGameObject
 {
 public:
+	//ゲームステート
+	enum GameState
+	{
+		enGameIdle,		//ゲーム進行中
+		enGameOver,		//ゲームオーバー
+		enGameClear,	//ゲームクリア
+	};
+
 	Game();
 	~Game();
 	bool Start() override;
@@ -26,7 +34,15 @@ private:
 	//サウンドの登録
 	void SoundRegistration();
 
+	//ゲームのステート更新
+	void GameStateTransition();
+
+	//ステートごとの専用処理
+	void GameStateDedicatedpProcessing();
+
 private:
+	GameState m_gameState = enGameIdle;
+
 	Player* m_player;			//プレイヤー
 	BackGround* m_background;	//バックグラウンド
 	GameCamera* m_gameCamera;	//ゲームカメラ

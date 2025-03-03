@@ -159,30 +159,30 @@ EnPlayerState PlayerStateGuard::StateTransition()
 {
 	if (hitFlag)
 	{
-		return enReceiveDamage;
+		return enPlayerReceiveDamage;
 	}
 
 	if (AttackGuardFlag)
 	{
-		return enGuard;
+		return enPlayerGuard;
 	}
 
 	if (g_pad[0]->IsTrigger(enButtonB))
 	{
-		return enDodge;
+		return enPlayerDodge;
 	}
 
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
-		return enAttack;
+		return enPlayerAttack;
 	}
 
 	if (g_pad[0]->IsPress(enButtonLB1))
 	{
-		return enGuard;
+		return enPlayerGuard;
 	}
 	else
 	{
-		return enIdle;
+		return enPlayerIdle;
 	}
 }

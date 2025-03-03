@@ -97,6 +97,8 @@
     </ClCompile>
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="GameTitle.cpp" />
+    <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -190,5 +192,7 @@
     </ClInclude>
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="GameTitle.h" />
+    <ClInclude Include="GameClear.h" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
 </Project>
