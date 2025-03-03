@@ -16,7 +16,6 @@ namespace nsK2EngineLow {
 		Texture& GetShadowMap()
 		{
 			return m_blur.GetBokeTexture();
-			//return m_shadowMapRT.GetRenderTargetTexture();
 		}
 
 		const Matrix& GetLVPMatrix() const

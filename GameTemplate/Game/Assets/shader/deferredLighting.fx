@@ -216,7 +216,7 @@ float4 PSMain(PSInput In) : SV_Target0
             lit_factor = min(1.0f, lit_factor + (1 - t));
             
             //シャドウカラーを求める
-            float3 shadowColor = albedo.xyz * 0.5f;
+            float3 shadowColor = albedo.xyz * 0.7f;
             
             //光が当たる確率を使って通常カラーとシャドウカラーを線形補間
             albedo.xyz = lerp(shadowColor, albedo.xyz, lit_factor);

@@ -10,6 +10,7 @@ void LightManager::NewPointLight(const Vector3 pos, const Vector3 color, const f
 	m_pointLights.back()->SetPosition(pos * 0.4f);
 	m_pointLights.back()->SetColor(color);
 	m_pointLights.back()->SetRange(range);
+	m_pointLights.back()->SetAffectPowParam(2.0f);
 	m_pointLights.back()->Update();
 	
 }

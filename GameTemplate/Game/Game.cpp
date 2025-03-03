@@ -35,14 +35,14 @@ bool Game::Start()
 			}
 			else if (objData.ForwardMatchName(L"light") == true)
 			{
-				m_lightManager.NewPointLight(objData.position, {1.0f,0.8f,0.5f}, 400.0f);
+				m_lightManager.NewPointLight(objData.position, {1.0f,0.8f,0.5f}, 500.0f);
 				return true;
 			}
 
 			return true;
 		});
 
-	g_sceneLight->SetDirectionLight(0, { 0.0f,-1.0f,0.0f }, { 0.4f,0.4f,0.4f });
+	g_sceneLight->SetDirectionLight(0, { 0.0f,-1.0f,0.0f }, { 0.3f,0.3f,0.3f });
 
 	return true;
 }

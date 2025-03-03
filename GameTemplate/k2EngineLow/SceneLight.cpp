@@ -57,9 +57,9 @@ namespace nsK2EngineLow {
         m_light.eyePos = g_camera3D->GetPosition();
 
         //ŠÂ‹«Œõ
-        m_light.ambientLight.x = 0.2f;
-        m_light.ambientLight.y = 0.2f;
-        m_light.ambientLight.z = 0.2f;
+        m_light.ambientLight.x = 0.3f;
+        m_light.ambientLight.y = 0.3f;
+        m_light.ambientLight.z = 0.3f;
 
         //Ž‹ü‚Ì•ûŒü
         m_light.eyeDir = g_camera3D->GetForward();

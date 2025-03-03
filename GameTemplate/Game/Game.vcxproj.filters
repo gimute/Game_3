@@ -96,6 +96,7 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="GameTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -188,5 +189,6 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="LightManager.h" />
+    <ClInclude Include="GameTitle.h" />
   </ItemGroup>
 </Project>
