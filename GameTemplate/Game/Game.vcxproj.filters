@@ -99,6 +99,12 @@
     <ClCompile Include="GameTitle.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="PlayerStateRun.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateGurad.cpp">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -194,5 +200,11 @@
     <ClInclude Include="GameTitle.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="PlayerStateRun.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateGurad.h">
+      <Filter>Enemy\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

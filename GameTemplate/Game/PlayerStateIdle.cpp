@@ -2,6 +2,7 @@
 #include "PlayerStateIdle.h"
 #include "Player.h"
 
+#include "PlayerParameter.h"
 #include "EnemyParameter.h"
 
 void PlayerStateIdle::Start(Player* player)
@@ -42,13 +43,13 @@ EnPlayerState PlayerStateIdle::StateTransition()
 	}
 
 	//Aボタンで攻撃ステート
-	if (g_pad[0]->IsTrigger(enButtonA))
+	if (g_pad[0]->IsTrigger(PLAYER_ATTACK_BUTTON))
 	{
 		return enPlayerAttack;
 	}
 
 	//LBボタンでガードステート
-	if (g_pad[0]->IsPress(enButtonLB1))
+	if (g_pad[0]->IsPress(PLAYER_GUARD_BUTTON))
 	{
 		return enPlayerGuard;
 	}

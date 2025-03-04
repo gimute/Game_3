@@ -37,6 +37,11 @@ void PlayerStateManager::SetState(EnPlayerState state)
 			m_state->Start(m_player);
 			break;
 
+		case enPlayerRun:
+			m_state = &m_stateRun;
+			m_state->Start(m_player);
+			break;
+
 		case enPlayerAttack:
 			m_state = &m_stateAttack;
 			m_state->Start(m_player);

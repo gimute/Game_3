@@ -33,6 +33,7 @@ private:
 	float m_attackTransitionTimer = 3.0f;
 
 	bool m_hitFlag = false;		//被ダメージフラグ
+	bool m_guradFlag = false;	//ガードフラグ
 
 	EnWalkState m_walkState = enStop;
 

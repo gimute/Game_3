@@ -41,6 +41,11 @@ void EnemyStateManager::StateTransition()
 			m_state->Start(m_enemy, m_player);
 			break;
 
+		case enEnemyDamageGuard:
+			m_state = &m_stateGurad;
+			m_state->Start(m_enemy, m_player);
+			break;
+
 		case enEnemyAttackPrepare:
 			m_state = &m_stateAttackPrepare;
 			m_state->Start(m_enemy, m_player);

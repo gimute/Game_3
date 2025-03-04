@@ -50,9 +50,12 @@ void Player::InitAnimation()
 	//待機アニメーション
 	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/paladin/idle.tka");
 	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	//歩行アニメーション
+	//歩きアニメーション
 	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/paladin/walk.tka");
 	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
+	//ダッシュアニメーション
+	m_animationClips[enAnimationClip_Run].Load("Assets/animData/paladin/Run.tka");
+	m_animationClips[enAnimationClip_Run].SetLoopFlag(true);
 	//斬撃アニメーション
 	m_animationClips[enAnimationClip_Slash].Load("Assets/animData/paladin/player/sideSlash.tka");
 	m_animationClips[enAnimationClip_Slash].SetLoopFlag(false);

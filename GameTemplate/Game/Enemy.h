@@ -24,6 +24,7 @@ public:
 		enAnimationClip_Slash,	//斬撃モーション
 		enAnimationClip_JumpSlash,	//ジャンプ切り
 		enAnimationClip_Guard,	//ガードモーション
+		enAnimatinoClip_DamageGuard,	//ダメージガードモーション
 		enAnimationClip_Backflip,	//バク転のモーション
 		enAnimationClip_DodgeLeft,	//左回避
 		enAnimationClip_RightDodge,	//右回避

@@ -13,6 +13,7 @@ void EnemyStateWaitAndSee::Start(Enemy* enemy, Player* player)
 {
 	//m_attackTransitionTimer = 1.0f;
 	m_hitFlag = false;
+	m_guradFlag = false;
 }
 
 void EnemyStateWaitAndSee::Move(Vector3& position, CharacterController& charaCon, Player* player)
@@ -92,6 +93,24 @@ void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, Cha
 	{
 		if (collision->IsHit(characon))
 		{
+			//確率でガードする
+
+			int test;
+			//立ち止まっているかでガード確率を変動
+			if (m_clockwiseFlag)
+			{
+				test = 2;
+			}
+			else
+			{
+				test = 3;
+			}
+
+			if (std::rand() % test < test -1)
+			{
+				m_guradFlag = true;
+			}
+
 			collision->SetIsEnable(false);
 
 			m_hitFlag = true;
@@ -101,6 +120,11 @@ void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, Cha
 
 EnEnemyState EnemyStateWaitAndSee::StateTransition()
 {
+	if (m_guradFlag)
+	{
+		return enEnemyDamageGuard;
+	}
+
 	if (m_hitFlag)
 	{
 		return enEnemyReceiveDamage;

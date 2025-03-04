@@ -228,6 +228,7 @@
     <ClCompile Include="EnemyHpUI.cpp" />
     <ClCompile Include="EnemyStateAttackPrepare.cpp" />
     <ClCompile Include="EnemyStateDie.cpp" />
+    <ClCompile Include="EnemyStateGurad.cpp" />
     <ClCompile Include="EnemyStateIdle.cpp" />
     <ClCompile Include="EnemyStateJumpSlash.cpp" />
     <ClCompile Include="EnemyStateManager.cpp" />
@@ -253,6 +254,7 @@
     <ClCompile Include="PlayerStateJustDodgeAttack.cpp" />
     <ClCompile Include="PlayerStateManager.cpp" />
     <ClCompile Include="PlayerStateReceiveDamage.cpp" />
+    <ClCompile Include="PlayerStateRun.cpp" />
     <ClCompile Include="PlayerStateWalk.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -268,6 +270,7 @@
     <ClInclude Include="EnemyParameter.h" />
     <ClInclude Include="EnemyStateAttackPrepare.h" />
     <ClInclude Include="EnemyStateDie.h" />
+    <ClInclude Include="EnemyStateGurad.h" />
     <ClInclude Include="EnemyStateIdle.h" />
     <ClInclude Include="EnemyStateJumpSlash.h" />
     <ClInclude Include="EnemyStateManager.h" />
@@ -295,6 +298,7 @@
     <ClInclude Include="PlayerStateJustDodgeAttack.h" />
     <ClInclude Include="PlayerStateManager.h" />
     <ClInclude Include="PlayerStateReceiveDamage.h" />
+    <ClInclude Include="PlayerStateRun.h" />
     <ClInclude Include="PlayerStateWalk.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

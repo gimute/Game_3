@@ -85,6 +85,9 @@ void Enemy::InitAnimation()
 	//ガードアニメーション
 	m_animationClips[enAnimationClip_Guard].Load("Assets/animData/paladin/guardIdle.tka");
 	m_animationClips[enAnimationClip_Guard].SetLoopFlag(true);
+	//ダメージガードアニメーション
+	m_animationClips[enAnimatinoClip_DamageGuard].Load("Assets/animData/paladin/damageGuard.tka");
+	m_animationClips[enAnimatinoClip_DamageGuard].SetLoopFlag(false);
 	//バク転アニメーション
 	m_animationClips[enAnimationClip_Backflip].Load("Assets/animData/paladin/backflip.tka");
 	m_animationClips[enAnimationClip_Backflip].SetLoopFlag(false);

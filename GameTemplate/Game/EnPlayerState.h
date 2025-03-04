@@ -5,6 +5,7 @@
 enum EnPlayerState {
 	enPlayerIdle,		//待機
 	enPlayerWalk,		//歩き
+	enPlayerRun,		//ダッシュ
 	enPlayerAttack,	//攻撃
 	enPlayerGuard,	//ガード
 	enPlayerDodge,		//回避

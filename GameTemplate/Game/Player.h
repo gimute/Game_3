@@ -14,7 +14,8 @@ public:
 	//アニメーションクリップのアニメーション指定用のenum
 	enum EnAnimationClip {
 		enAnimationClip_Idle,	//待機アニメーション
-		enAnimationClip_Walk,	//歩行アニメーション
+		enAnimationClip_Walk,	//歩きアニメーション
+		enAnimationClip_Run,	//ダッシュアニメーション
 		enAnimationClip_Slash,	//斬撃モーション
 		enAnimationClip_Guard,	//ガードモーション
 		enAnimationClip_Backflip,	//バク転のモーション

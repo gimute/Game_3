@@ -9,6 +9,7 @@
 #include "EnemyStateSideSlash.h"
 #include "EnemyStateReceiveDamage.h"
 #include "EnemyStateDie.h"
+#include "EnemyStateGurad.h"
 
 class Enemy;
 class Player;
@@ -52,7 +53,7 @@ private:
 	EnemyStateSideSlash m_stateSideSlash;
 	EnemyStateReceiveDamage m_stateReceiveDamage;
 	EnemyStateDie m_stateDie;
-	
+	EnemyStateGurad m_stateGurad;
 
 	Enemy* m_enemy;
 	Player* m_player;

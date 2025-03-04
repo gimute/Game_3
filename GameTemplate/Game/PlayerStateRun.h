@@ -1,9 +1,9 @@
 #pragma once
 #include "IPlayerState.h"
-#include "EnPlayerState.h"
 
-//歩き中のプレイヤーステート
-class PlayerStateWalk : public IPlayerState
+
+//走りステート
+class PlayerStateRun : public IPlayerState
 {
 public:
 	void Start(Player* player)override;
@@ -16,5 +16,6 @@ public:
 private:
 	Vector3 m_moveVec = Vector3::Zero;	//移動ベクトル
 	bool hitFlag = false;		//被ダメージフラグ
+
 };
 

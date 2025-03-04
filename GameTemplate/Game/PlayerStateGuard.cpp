@@ -167,17 +167,22 @@ EnPlayerState PlayerStateGuard::StateTransition()
 		return enPlayerGuard;
 	}
 
-	if (g_pad[0]->IsTrigger(enButtonB))
+	if (g_pad[0]->IsTrigger(PLAYER_JUMP_BUTTON))
 	{
 		return enPlayerDodge;
 	}
 
-	if (g_pad[0]->IsTrigger(enButtonA))
+	if (g_pad[0]->IsTrigger(PLAYER_ATTACK_BUTTON))
 	{
 		return enPlayerAttack;
 	}
 
-	if (g_pad[0]->IsPress(enButtonLB1))
+	if (g_pad[0]->IsPress(PLAYER_RUN_BUTTON))
+	{
+		return enPlayerRun;
+	}
+
+	if (g_pad[0]->IsPress(PLAYER_GUARD_BUTTON))
 	{
 		return enPlayerGuard;
 	}

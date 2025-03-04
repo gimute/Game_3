@@ -4,6 +4,7 @@
 #include "IPlayerState.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateWalk.h"
+#include "PlayerStateRun.h"
 #include "PlayerStateAttack.h"
 #include "PlayerStateGuard.h"
 #include "PlayerStateDodge.h"
@@ -55,6 +56,7 @@ private:
 
 	PlayerStateIdle m_stateIdle;
 	PlayerStateWalk m_stateWalk;
+	PlayerStateRun m_stateRun;
 	PlayerStateAttack m_stateAttack;
 	PlayerStateGuard m_stateGuard;
 	PlayerStateDodge m_stateDodge;

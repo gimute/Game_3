@@ -6,6 +6,7 @@ enum EnEnemyState
 {
 	enContinue,		//ステートを継続
 	enEnemyIdle,	//待機
+	enEnemyDamageGuard,	//ダメージガード
 	enEnemyWiteAndSee,	//様子見
 	enEnemyAttackPrepare, //攻撃準備
 	enEnemyJumpSlash,	//ジャンプ切り
