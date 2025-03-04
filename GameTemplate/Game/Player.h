@@ -104,6 +104,16 @@ public:
 		return m_isEnemyLockOn;
 	}
 
+	void PlayerLose()
+	{
+		m_loseFlag = true;
+	}
+
+	const bool GetLoseFlag() const
+	{
+		return m_loseFlag;
+	}
+
 	/*void SetEnemyLockOnFlag(bool flag)
 	{
 		m_isEnemyLockOn = flag;
@@ -128,5 +138,7 @@ private:
 	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;
 
 	bool m_isEnemyLockOn = false;	//ロックオンフラグ
+
+	bool m_loseFlag = false;	//敗北フラグ
 };
 

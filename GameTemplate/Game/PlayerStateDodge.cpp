@@ -20,7 +20,7 @@ void PlayerStateDodge::Start(Player* player)
 	CollisionPos += Vector3::Up * 70.0f;
 
 	m_dodgeCollision->CreateBox(CollisionPos, Quaternion::Identity, Vector3(100.0f, 150.0f, 100.0f));
-	m_dodgeCollision->SetTimeLimit(0.5f);
+	m_dodgeCollision->SetTimeLimit(0.2f);
 
 	//コリジョンの名前を設定する
 	switch (m_dodgeState)
@@ -198,44 +198,45 @@ void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, Charact
 		break;
 	}
 
+	//ジャスト回避コリジョンと被ダメージコリジョンの処理
 	for (CollisionObject* collision : AttackCollisions)
 	{
-		//回避方向があっていなかったら処理をスキップ
-		if (collision->GetAdditionalInformation() != avoidable)
+		//回避方向があってるか確認
+		if (collision->GetAdditionalInformation() == avoidable)
 		{
-			//被ダメージ判定
-			if (collision->IsHit(characon))
+			//回避コリジョンに当たっているか判定
+			if (collision->IsHit(m_dodgeCollision))
 			{
 				collision->SetIsEnable(false);
 
-				hitFlag = true;
+				g_gameTime->SetTimeMulValue(0.2f);
+				g_renderingEngine->EnableCenterBlur();
+				
+				m_justDodge = true;
 			}
-
-			continue;
 		}
 
-		//回避コリジョンに当たっているか判定
-		if (collision->IsHit(m_dodgeCollision))
+		//被ダメージ判定
+		if (collision->IsHit(characon))
 		{
-			g_gameTime->SetTimeMulValue(0.2f);
-			g_renderingEngine->EnableCenterBlur();
-			m_justDodge = true;
-		}
-		else
-		{
-			//被ダメージ判定
-			if (collision->IsHit(characon))
-			{
-				collision->SetIsEnable(false);
+			collision->SetIsEnable(false);
 
-				hitFlag = true;
-			}
+			hitFlag = true;
 		}
 	}	
 }
 
 EnPlayerState PlayerStateDodge::StateTransition()
 {
+	//ジャスト回避フラグが立っていたら被ダメージステートには飛ばさない
+	if (!m_justDodge)
+	{
+		if (hitFlag)
+		{
+			return enPlayerReceiveDamage;
+		}
+	}
+
 	if (m_animationPlay)
 	{
 		return enPlayerDodge;
@@ -249,11 +250,5 @@ EnPlayerState PlayerStateDodge::StateTransition()
 		return enPlayerIdle;
 	}
 
-	if (!m_justDodge)
-	{
-		if (hitFlag)
-		{
-			return enPlayerReceiveDamage;
-		}
-	}
+	
 }

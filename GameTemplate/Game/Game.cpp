@@ -106,7 +106,7 @@ void Game::SoundRegistration()
 
 void Game::GameStateTransition()
 {
-	if (m_player->GetNowHp() <= 0.0f)
+	if (m_player->GetLoseFlag())
 	{
 		m_gameState = enGameOver;
 	}

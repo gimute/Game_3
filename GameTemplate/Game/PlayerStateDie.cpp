@@ -13,7 +13,7 @@ void PlayerStateDie::Start(Player* player)
 
 void PlayerStateDie::End(Player* player)
 {
-	player->InitStatus();
+	player->PlayerLose();
 }
 
 void PlayerStateDie::Animation(ModelRender& model, EnPlayerAnimationEvent& animeEvent)
