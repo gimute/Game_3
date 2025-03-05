@@ -69,9 +69,9 @@ public:
 	/// <summary>
 	/// 捕捉しているエネミーを取得
 	/// </summary>
-	Enemy*& GetTargetEnemy()
+	const Enemy*& GetLockOnEnemy()
 	{
-		return mlockOnEnemy;
+		return m_lockOnEnemy;
 	}
 
 	/// <summary>
@@ -94,7 +94,9 @@ public:
 	/// <returns></returns>
 	float GetNowHp();
 
-	//ステータスなどの初期化
+	/// <summary>
+	/// ステータス等の初期化
+	/// </summary>
 	void InitStatus();
 
 	//アニメーションイベント用関数
@@ -105,41 +107,58 @@ public:
 		return m_isEnemyLockOn;
 	}
 
+	/// <summary>
+	/// 敗北フラグをオン
+	/// </summary>
 	void PlayerLose()
 	{
 		m_loseFlag = true;
 	}
 
+	/// <summary>
+	/// 敗北確認
+	/// </summary>
+	/// <returns></returns>
 	const bool GetLoseFlag() const
 	{
 		return m_loseFlag;
 	}
 
-	/*void SetEnemyLockOnFlag(bool flag)
+	/// <summary>
+	/// エネミーリストの初期化
+	/// </summary>
+	/// <param name="enemyList"></param>
+	void InitEnemyList(std::vector<Enemy*>& enemyList)
 	{
-		m_isEnemyLockOn = flag;
-	}*/
+		m_enemyList = &enemyList;
+	}
+
+	/// <summary>
+	/// ロックオンエネミーを更新
+	/// </summary>
+	void LockOnEnemyUpdate();
 
 private:
+
 	ModelRender m_playerModel;		//プレイヤーのモデル
+
 	AnimationClip m_animationClips[enAnimationClip_Num];	//アニメーションクリップ
+	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;	//アニメーションイベント
 
 	CharacterController m_charaCon;	//キャラクターコントローラー
 	EnPlayerState m_playerState = enPlayerIdle;	//プレイヤーの状態
+	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
 
 	Vector3 m_position = Vector3::Zero;	//プレイヤーの座標
 	Vector3 m_moveVec = Vector3::Zero;	//プレイヤーの移動ベクトル
 	Quaternion m_rotation;	//プレイヤーの回転
 
-	PlayerStateManager m_playerStateManager;	//プレイヤーステートマネージャー
+	const std::vector<Enemy*>* m_enemyList;	//エネミーリスト
+	const Enemy* m_lockOnEnemy = nullptr;	//捕捉エネミー
 
-	Enemy* mlockOnEnemy = nullptr;	//捕捉エネミー
-	PlayerHpUI* m_hpUI = nullptr;
-
-	EnPlayerAnimationEvent m_enAnimationEvent = enPlayerAnimationEvent_None;
+	PlayerHpUI* m_hpUI = nullptr;	//HPUI
 
 	bool m_isEnemyLockOn = false;	//ロックオンフラグ
-
 	bool m_loseFlag = false;	//敗北フラグ
 };
 

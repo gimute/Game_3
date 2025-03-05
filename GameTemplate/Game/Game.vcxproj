@@ -226,6 +226,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyHpUI.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyStateAttackPrepare.cpp" />
     <ClCompile Include="EnemyStateDie.cpp" />
     <ClCompile Include="EnemyStateGurad.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyHpUI.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyParameter.h" />
     <ClInclude Include="EnemyStateAttackPrepare.h" />
     <ClInclude Include="EnemyStateDie.h" />

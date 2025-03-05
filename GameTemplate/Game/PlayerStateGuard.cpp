@@ -10,8 +10,13 @@
 
 void PlayerStateGuard::Start(Player* player)
 {
+	if (player->GetLockOnEnemy() == nullptr)
+	{
+		player->LockOnEnemyUpdate();
+	}
+
 	//ターゲットのエネミーを受け取る
-	m_lockOnEnemy = player->GetTargetEnemy();
+	m_lockOnEnemy = player->GetLockOnEnemy();
 
 	//player->SetEnemyLockOnFlag(true);
 	//プレイヤーを敵の方に向かせる
@@ -79,14 +84,23 @@ void PlayerStateGuard::Move(Vector3& position, CharacterController& charaCon)
 	position = charaCon.Execute(moveVec, g_gameTime->GetFrameDeltaTime());
 
 	//ガードコリジョンの座標更新
-	Vector3 playerToEnemy = m_lockOnEnemy->GetPosition() - position;
-	playerToEnemy.y = 0.0f;
-	Quaternion rotation;
-	rotation.SetRotationY(atan2(playerToEnemy.x, playerToEnemy.z));
+	//敵が死んでいたらロックオン解除
+	if (m_lockOnEnemy == nullptr || m_lockOnEnemy->IsDead())
+	{
+		m_lockOnEnemy = nullptr;
+	}
+	else
+	{
+		Vector3 playerToEnemy = m_lockOnEnemy->GetPosition() - position;
+		playerToEnemy.y = 0.0f;
+		Quaternion rotation;
+		rotation.SetRotationY(atan2(playerToEnemy.x, playerToEnemy.z));
 
-	//プレイヤーの正面ベクトルを求める
-	m_playerForward = Vector3::Front;
-	rotation.Apply(m_playerForward);
+		//プレイヤーの正面ベクトルを求める
+		m_playerForward = Vector3::Front;
+		rotation.Apply(m_playerForward);
+	}
+	
 
 	m_guardCollision->SetPosition(position + (Vector3::Up * PLAYER_GUARD_COLLISION_POS.y) + (m_playerForward * PLAYER_GUARD_COLLISION_POS.z));
 }

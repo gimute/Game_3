@@ -34,7 +34,7 @@ void GameCamera::Update()
 	//’Ž‹“_
 	if (m_player->IsEnemyLockOn())
 	{
-		Enemy* targetEnemy = m_player->GetTargetEnemy();
+		const Enemy* targetEnemy = m_player->GetLockOnEnemy();
 
 		const Vector3 playerToEnemyVec = (targetEnemy->GetPosition() - m_player->GetPosition());
 

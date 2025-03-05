@@ -99,8 +99,6 @@ void PlayerStateDodge::InitDodge(const Vector3& playerFront)
 void PlayerStateDodge::End(Player* player)
 {
 	g_gameTime->SetTimeMulValue(1.0f);
-
-	//DeleteGO(m_dodgeCollision);
 }
 
 void PlayerStateDodge::Move(Vector3& position, CharacterController& charaCon)
@@ -161,8 +159,15 @@ void PlayerStateDodge::Animation(ModelRender& model, EnPlayerAnimationEvent& ani
 
 void PlayerStateDodge::Collision(const Vector3& pos, ModelRender& model, CharacterController& characon)
 {
+	if (m_dodgeCollision == nullptr)
+	{
+		return;
+	}
+
 	if (m_dodgeCollision->IsDead())
 	{
+		m_dodgeCollision = nullptr;
+
 		return;
 	}
 

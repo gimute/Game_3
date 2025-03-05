@@ -19,24 +19,19 @@ Game::~Game()
 {
 	//オブジェクトの削除
 	DeleteGO(m_player);
-	
-	if (m_enemy != nullptr)
-	{
-		DeleteGO(m_enemy);
-	}
-
 	DeleteGO(m_gameCamera);
 	DeleteGO(m_background);
-
-	//NewGO<GameTitle>(0, "gametitle");
+	DeleteGO(m_enemyManager);
 }
 
 bool Game::Start()
 {	
+	//ゲームオブジェクト生成
 	CreateGameObject();
-
+	//ゲームで使用する音声の準備
 	SoundRegistration();
 
+	//レベルレンダー
 	m_level.Init("Assets/level/Level_2.tkl",
 		[&](LevelObjectData& objData)
 		{
@@ -49,6 +44,7 @@ bool Game::Start()
 			}
 			else if (objData.ForwardMatchName(L"light") == true)
 			{
+				//ポイントライトを設置
 				m_lightManager.NewPointLight(objData.position, {1.0f,0.8f,0.5f}, 500.0f);
 				return true;
 			}
@@ -56,6 +52,7 @@ bool Game::Start()
 			return true;
 		});
 
+	//ディレクションライトを設定
 	g_sceneLight->SetDirectionLight(0, { 0.0f,-1.0f,0.0f }, { 0.3f,0.3f,0.3f });
 
 	return true;
@@ -63,18 +60,12 @@ bool Game::Start()
 
 void Game::Update()
 {
+	//ライトの更新処理
 	m_lightManager.Update();
 
-	if (m_enemy != nullptr)
-	{
-		if (m_enemy->IsDead())
-		{
-			m_enemy = nullptr;
-		}
-	}
-
+	//ゲームステート更新
 	GameStateTransition();
-	
+	//ステートごとの処理
 	GameStateDedicatedpProcessing();
 
 }
@@ -88,30 +79,37 @@ void Game::Render(RenderContext& rc)
 
 void Game::CreateGameObject()
 {
-	m_enemy = NewGO<Enemy>(0, "enemy");
+	//エネミーマネージャー
+	m_enemyManager = NewGO<EnemyManager>(0, "enemymanager");
+	//エネミーを2体生成
+	m_enemyManager->NewGOEnemy({ -20.0f,0.0f,0.0f }, Quaternion::Identity);
+	m_enemyManager->NewGOEnemy({ 20.0f,0.0f,0.0f }, Quaternion::Identity);
 
-
+	//プレイヤー
 	m_player = NewGO<Player>(0, "player");
+	//エネミーリストをプレイヤーに渡す
+	m_player->InitEnemyList(m_enemyManager->GetEnemyList());
 
-	//m_background = NewGO<BackGround>(0, "background");
-
+	//ゲームカメラ
 	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 }
 
 void Game::SoundRegistration()
 {
-	g_soundEngine->ResistWaveFileBank(0, "Assets/sound/slash.wav");
+	g_soundEngine->ResistWaveFileBank(0, "Assets/sound/slash.wav");	//攻撃ヒット時の効果音
 }
 
 void Game::GameStateTransition()
 {
+	//プレイヤーが死んだらゲームオーバー
 	if (m_player->GetLoseFlag())
 	{
 		m_gameState = enGameOver;
 	}
 
-	if (m_enemy == nullptr)
+	//敵が全て倒されたらゲームクリア
+	if (m_enemyManager->GetEnemyList().size() <= 0)
 	{
 		m_gameState = enGameClear;
 	}

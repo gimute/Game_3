@@ -105,6 +105,7 @@
     <ClCompile Include="EnemyStateGurad.cpp">
       <Filter>Enemy\EnemyState</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -206,5 +207,6 @@
     <ClInclude Include="EnemyStateGurad.h">
       <Filter>Enemy\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyManager.h" />
   </ItemGroup>
 </Project>

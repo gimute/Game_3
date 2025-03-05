@@ -1,12 +1,13 @@
 #pragma once
 
 #include "LightManager.h"
-
+#include "EnemyManager.h"
 
 class Player;
 class BackGround;
 class GameCamera;
 class Enemy;
+class EnemyManager;
 
 class Game : public IGameObject
 {
@@ -46,10 +47,11 @@ private:
 	Player* m_player;			//プレイヤー
 	BackGround* m_background;	//バックグラウンド
 	GameCamera* m_gameCamera;	//ゲームカメラ
-	Enemy* m_enemy;				//エネミー
+	//Enemy* m_enemy;				//エネミー
 
 	Level m_level;
 
 	LightManager m_lightManager;
+	EnemyManager* m_enemyManager;
 };
 

@@ -94,19 +94,7 @@ void EnemyStateWaitAndSee::Collision(const Vector3& pos, ModelRender& model, Cha
 		if (collision->IsHit(characon))
 		{
 			//確率でガードする
-
-			int test;
-			//立ち止まっているかでガード確率を変動
-			if (m_clockwiseFlag)
-			{
-				test = 2;
-			}
-			else
-			{
-				test = 3;
-			}
-
-			if (std::rand() % test < test -1)
+			if (std::rand() % 100 < 70)
 			{
 				m_guradFlag = true;
 			}
@@ -133,7 +121,7 @@ EnEnemyState EnemyStateWaitAndSee::StateTransition()
 	m_attackTransitionTimer -= 0.01f;
 	if (m_attackTransitionTimer < 0.0f)
 	{
-		m_attackTransitionTimer = 3.0f;
+		m_attackTransitionTimer = 5.0f - float(std::rand() % 30) / 10.0f;
 		return enEnemyAttackPrepare;
 
 	}

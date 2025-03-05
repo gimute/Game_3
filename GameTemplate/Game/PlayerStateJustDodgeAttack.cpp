@@ -27,7 +27,10 @@ void PlayerStateJustDodgeAttack::Start(Player* player)
 	m_attackCollision->SetAdditionalInformation(PLAYER_JUSTDODGE_ATTACK_COLLISION_INFORMATION);
 	m_attackCollision->SetIsEnableAutoDelete(false);
 
-	m_enemy = player->GetTargetEnemy();
+	//ロックオンエネミーを更新
+	player->LockOnEnemyUpdate();
+	//ロックオンエネミーを取得
+	m_lockOnEnemy = player->GetLockOnEnemy();
 }
 
 void PlayerStateJustDodgeAttack::End(Player* player)
@@ -42,14 +45,14 @@ void PlayerStateJustDodgeAttack::End(Player* player)
 
 void PlayerStateJustDodgeAttack::Move(Vector3& position, CharacterController& charaCon)
 {
-	if (m_enemy->IsDead() || m_enemy == nullptr)
+	if (m_lockOnEnemy->IsDead() || m_lockOnEnemy == nullptr)
 	{
-		m_enemy = nullptr;
+		m_lockOnEnemy = nullptr;
 		m_attackFlowState = enEnd;
 	}
 	else
 	{
-		playerToEnemyVec = m_enemy->GetPosition() - position;
+		playerToEnemyVec = m_lockOnEnemy->GetPosition() - position;
 	}
 
 	if (!m_attackFlowState == enEnemyApproach)

@@ -15,6 +15,7 @@ public:
 	void Update() override;
 	void Render(RenderContext& rc) override;
 
+	void Init(Vector3 pos, Quaternion rot);
 
 	//アニメーションクリップのアニメーション指定用のenum
 	enum EnAnimationClip {

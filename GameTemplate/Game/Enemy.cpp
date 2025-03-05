@@ -148,10 +148,16 @@ float Enemy::GetNowHP()
 
 void Enemy::HPUIInit()
 {
-	m_enemyHpUI->Init(this, 10.0f);
+	m_enemyHpUI->Init(this, 5.0f);
 }
 
 void Enemy::Render(RenderContext& rc)
 {
 	m_enemyModel.Draw(rc);
+}
+
+void Enemy::Init(Vector3 pos, Quaternion rot)
+{
+	m_position = pos;
+	m_rotation = rot;
 }

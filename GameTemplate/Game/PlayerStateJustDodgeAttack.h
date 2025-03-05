@@ -33,7 +33,7 @@ private:
 	AttackFlowState m_attackFlowState = enEnemyApproach;
 	int m_attackBoneID;		//攻撃判定コリジョンを生成するボーンのID
 
-	Enemy* m_enemy;
+	const Enemy* m_lockOnEnemy;
 
 	Vector3 playerToEnemyVec;
 };

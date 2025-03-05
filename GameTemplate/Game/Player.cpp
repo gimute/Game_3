@@ -2,6 +2,7 @@
 #include "Player.h"
 
 #include "PlayerHpUI.h"
+#include "PlayerParameter.h"
 #include "Enemy.h"
 
 Player::Player()
@@ -31,7 +32,7 @@ bool Player::Start()
 	m_charaCon.Init(30.0f, 80.0f, m_position);
 
 	//本来なら特定の敵を捕捉する処理がいるがとりあえずはこれで
-	mlockOnEnemy = FindGO<Enemy>("enemy");
+	m_lockOnEnemy = FindGO<Enemy>("enemy");
 	
 	//アニメーションイベント用の関数を設定する。
 	m_playerModel.AddAnimationEvent([&](const wchar_t* clipName, const wchar_t* eventName) {
@@ -93,24 +94,39 @@ void Player::InitAnimation()
 
 void Player::Update()
 {
-	if (g_pad[0]->IsPress(enButtonLB1))
+	if (g_pad[0]->IsTrigger(PLAYER_GUARD_BUTTON))
+	{
+		//ロックオンエネミーを更新
+		LockOnEnemyUpdate();
+	}
+
+	//ガードボタンが押されている間はロックオンフラグをオンにする
+	if (g_pad[0]->IsPress(PLAYER_GUARD_BUTTON) && m_lockOnEnemy != nullptr)
 	{
 		m_isEnemyLockOn = true;
+
+		//敵が死んだら
+		if (m_lockOnEnemy->IsDead())
+		{
+			m_lockOnEnemy = nullptr;
+			m_isEnemyLockOn = false;
+		}
 	}
 	else
 	{
 		m_isEnemyLockOn = false;
 	}
 
+
 	m_playerStateManager.Move(m_position, m_charaCon);
-
 	m_playerStateManager.Rotation(m_rotation, m_position);
-
 	m_playerStateManager.Animation(m_playerModel, m_enAnimationEvent);
 
+	//モデルの更新
 	m_playerModel.SetPosition(m_position);
 	m_playerModel.SetRotation(m_rotation);
 	m_playerModel.Update();
+
 	m_charaCon.SetPosition(m_position);;
 
 	m_playerStateManager.Collision(m_position, m_playerModel, m_charaCon);
@@ -138,6 +154,29 @@ void Player::OnAnimationEvent(const wchar_t* clipName, const wchar_t* eventName)
 	if (wcscmp(eventName, L"moveEnd") == 0)
 	{
 		m_enAnimationEvent = enPlayerAnimationEvent_MoveEnd;
+	}
+}
+
+void Player::LockOnEnemyUpdate()
+{
+	//一番近い敵を探す
+
+	float minLengeSq = 1000.0f * 1000.0f;	//一番近いエネミーとの距離の2乗
+	Vector3 EnemyToPlayer;	//エネミーからプレイヤーまでベクトル
+	float EnemyToPlayerLengeSq;	//エネミーからプレイヤーまでベクトルの長さの2乗
+
+	for (const Enemy* const &enemy : *m_enemyList)
+	{
+		//使う情報を計算で求める
+		EnemyToPlayer = m_position - enemy->GetPosition();
+		EnemyToPlayerLengeSq = EnemyToPlayer.LengthSq();
+
+		//より近いならロックオンエネミーを更新
+		if (EnemyToPlayerLengeSq < minLengeSq)
+		{
+			minLengeSq = EnemyToPlayerLengeSq;
+			m_lockOnEnemy = enemy;
+		}
 	}
 }
 
